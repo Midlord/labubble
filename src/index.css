@@ -1,0 +1,72 @@
+/* main.main {
+    background-color: #007bff;
+} */
+
+  body {
+    background: linear-gradient(to right, #fff, #f0f3f5);
+  }
+
+
+.app-header {
+    background: #007bff;
+    background: linear-gradient(to right, #0062E6, #33AEFF);
+}
+
+p {
+    font-size: 14px;
+}
+
+.center-loading{
+    height: 500px;
+}
+
+.bottom-nav {
+    font-size:27px !important;
+}
+
+.custom-image{
+    max-width: 30% !important;
+}
+
+/* nav.navbar.fixed-bottom.navbar-light.bg-light {
+    padding: 1px 47px 4px 50px;
+} */
+
+.dropdown-menu.dropdown-menu-right.show {
+    top: 9px !important;
+}
+
+.search-top {
+    position: relative !important;
+    left: 0px !important;
+    bottom: -2px !important; 
+}
+
+.search-w{
+    width: 245px !important;
+    border-radius: 16px !important; 
+}
+
+.search-relative {
+    position: relative;
+    left: -18px;
+    top: -1px;
+}
+
+.back-button{
+    color:black;
+    font-size: 25px !important;
+    padding-left: 4px;
+}
+
+.footer_label {
+    font-size:9px;
+}
+
+.react-datepicker__time-container {
+    width: 100px !important;
+}
+
+.navbar-toggler{
+    background-color: #fff !important;
+}

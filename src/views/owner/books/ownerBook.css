@@ -1,0 +1,11 @@
+.approved {
+    color:#1fb943;
+}
+
+.cancelled {
+    color:#db2828;
+}
+
+.react-confirm-alert-button-group {
+    justify-content: flex-end !important;
+}
