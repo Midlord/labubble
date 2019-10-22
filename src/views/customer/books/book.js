@@ -314,7 +314,7 @@ class Book extends Component {
         const Kilos = () => {
             return (
                 <div className="parent">
-                    <h4>Kilos</h4>
+                    <h4>Services</h4>
                     <div className="WD">
                         <div className="list-group">
                             <span className="list-group-item list-group-item-action">
@@ -420,7 +420,7 @@ class Book extends Component {
                                 </div>
                                 <hr />
                                 <div className="col-12 mt-5">
-                                    <h4>Services</h4>
+                                    <h4>Other Services</h4>
                                     <UserServices />
                                 </div>
                                 <hr />
