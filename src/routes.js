@@ -63,6 +63,7 @@ const OrderDetail =  React.lazy(() => import('./views/admin/orders/orderDetail')
 
 const Customers =  React.lazy(() => import('./views/admin/customers/customers'));
 const Owners =  React.lazy(() => import('./views/admin/owners/owners'));
+const Deliveries =  React.lazy(() => import('./views/admin/deliveries/deliveries'));
 const OwnerDetail = React.lazy(() => import('./views/admin/owners/ownerDetail'));
 
 const DeliveryOrders =  React.lazy(() => import('./views/deliveries/orders'));
@@ -103,6 +104,8 @@ const routes = [
   { path: '/admin/order/:id', exact: true, name: 'Order Detail', component: OrderDetail },
 
   { path: '/admin/customers', exact: true, name: 'Customers', component: Customers },
+
+  { path: '/admin/deliveries', exact: true, name: 'Deliveries', component: Deliveries },
 
   { path: '/admin/owners', exact: true, name: 'Owners', component: Owners },
 

@@ -23,5 +23,10 @@ export default {
       url: '/admin/owners',
       icon: 'icon-user',
     },
+    {
+      name: 'Deliveries',
+      url: '/admin/deliveries',
+      icon: 'icon-user',
+    },
   ],
 };

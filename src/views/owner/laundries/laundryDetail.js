@@ -316,7 +316,7 @@ class LaundryDetail extends Component {
                                     <span className="font-weight-bold">Schedule</span>
                                     <p>{laundry.openDay}</p>
                                     <span className="font-weight-bold">Opening - Closing</span>
-                                    <p>{moment(laundry.opening, 'h:mm A').format('h:mm A')} - {moment(laundry.closing, 'h:mm A').format('h:mm A')}</p>
+                                    <p>{moment(laundry.opening).format('h:mm A')} - {moment(laundry.closing).format('h:mm A')}</p>
                                 </div>
                             </div>
                             <div className="col">

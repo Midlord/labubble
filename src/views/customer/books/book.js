@@ -203,12 +203,19 @@ class Book extends Component {
     render() {
         const services = this.state.services;
         const addresses = this.state.addresses;
-        const now = new Date();
+        const now = moment().toDate();
+
+        let minimumTime = moment(this.state.laundry.opening).toDate(); 
+        let maximumTime = moment(this.state.laundry.closing).toDate();
+        console.log(minimumTime);
+        console.log(maximumTime);
         const StartDatePicker = () => {
             return (
                 <DatePicker
                     // value={}
                     minDate={now}
+                    minTime={minimumTime}
+                    maxTime={maximumTime}
                     showTimeSelect
                     onChange={this.handleStartChange}
                     selected={this.state.startDate}

@@ -232,7 +232,7 @@ class Owners extends Component {
         return (
             <div className="animated fadeIn">
                 <div className="row">
-                    <div className="col-lg-6">
+                    <div className="col-lg-12">
                         <div className="card">
                             <div className="card-header">
                                 <i className="fa fa-align-justify"></i> Owners</div>
@@ -282,7 +282,7 @@ class Owners extends Component {
                                                     Cell: row => (
                                                         <div className="row">
                                                             <div className="col-12 text-center">
-                                                                <button onClick={() => this.openModalBanned(row.original.id)} className="btn btn-success">Active</button>
+                                                                <button onClick={() => this.openModalBanned(row.original.id)} className="btn btn-danger">Ban</button>
                                                             </div>
                                                         </div>
                                                     )
@@ -336,7 +336,7 @@ class Owners extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-6">
+                    <div className="col-lg-12">
                         <div className="card">
                             <div className="card-header">
                                 <i className="fa fa-align-justify"></i>Banned Owners</div>
@@ -374,7 +374,7 @@ class Owners extends Component {
                                                     Cell: row => (
                                                         <div className="row">
                                                             <div className="col-12 text-center">
-                                                                <button onClick={() => this.openModalUnbanned(row.original.id)} className="btn btn-danger">Banned</button>
+                                                                <button onClick={() => this.openModalUnbanned(row.original.id)} className="btn btn-success">Unban</button>
                                                             </div>
                                                         </div>
                                                     )

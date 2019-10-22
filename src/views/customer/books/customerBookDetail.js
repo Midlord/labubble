@@ -41,7 +41,8 @@ class CustomerBookDetail extends Component {
             deliveryCharge: 0,
             subTotal: 0,
             modalIsOpen: false,
-            kilosAmount: 0
+            kilosWashAmount: 0,
+            kilosDryAmount: 0,
         };
         console.log(props.match.params.id)
         this.openModal = this.openModal.bind(this);
@@ -113,13 +114,31 @@ class CustomerBookDetail extends Component {
                         address: result.data.address,
                         services: result.data.services,
                         isloaded: false,
-                        kilosAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kilos),
+                        kilosWashAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloWash),
+                        kilosDryAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloDry),
                         deliveryCharge: result.data.deliveryCharge.amount,
                     })
 
-                    this.setState({
-                        subTotal: parseInt(this.state.kilosAmount) + parseInt(result.data.total),
-                    })
+                    if(result.data.book.laundry_shop.type === 'kilos'){
+                        if(result.data.book.kiloDry === null || result.data.book.kiloDry === ""){
+                            this.setState({
+                                kilosDryAmount: 0
+                            });
+                        }else if(result.data.book.kiloWash === null || result.data.book.kiloWash === ""){
+                            this.setState({
+                                kilosWashAmount: 0
+                            });
+                        }else{
+                            this.setState({
+                                subTotal: parseInt(this.state.kilosWashAmount) + parseInt(this.state.kilosDryAmount) + parseInt(result.data.total)
+                            });
+                        }
+                    }else{
+                        this.setState({
+                            subTotal: (parseInt(this.state.wash) + parseInt(this.state.dry)) + parseInt(result.data.total)
+                        });
+                    }
+            
                     this.setState({
                         total: parseInt(this.state.deliveryCharge) + parseInt(this.state.subTotal),
                     })
@@ -184,12 +203,19 @@ class CustomerBookDetail extends Component {
 
         const Kilos = () => (
             <div className="parent">
-                <li className="list-group-item d-flex justify-content-between lh-condensed">
+                 <li className="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                        <h6 className="my-0">Kilos</h6>
+                        <h6 className="my-0">Kilo Wash</h6>
                         {/* <small className="text-muted">Brief description</small> */}
                     </div>
-                    <span className="text-muted">{`P ${parseFloat(this.state.kilosAmount).toFixed(2)}`}</span>
+                    <span className="text-muted">{`P ${parseFloat(this.state.kilosWashAmount).toFixed(2)}`}</span>
+                </li>
+                <li className="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 className="my-0">Kilo Dry</h6>
+                        {/* <small className="text-muted">Brief description</small> */}
+                    </div>
+                    <span className="text-muted">{`P ${parseFloat(this.state.kilosDryAmount).toFixed(2)}`}</span>
                 </li>
             </div>
         )
@@ -320,7 +346,7 @@ class CustomerBookDetail extends Component {
                                         <strong>{`P ${parseFloat(this.state.total).toFixed(2)}`} </strong>
                                     </li>
                                 </ul>
-                                {this.state.book.status === 'cancelled' ? '' : (
+                                {this.state.book.status === 'cancelled' || this.state.book.status === 'approved' || this.state.book.status === 'processing' || this.state.book.status === 'delivered' ? '' : (
                                     <div>
                                         <div className="col-12 text-right pr-0">
                                             <button onClick={this.openModal} type="button" className="ui inverted primary button">Cancel Order</button>

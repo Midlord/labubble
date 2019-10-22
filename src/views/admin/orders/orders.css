@@ -1,3 +1,7 @@
 .hideButton{
     display: none;
 }
+
+.order_status{
+    padding:7px;
+}

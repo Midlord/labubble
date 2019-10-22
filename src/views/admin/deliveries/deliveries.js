@@ -9,7 +9,7 @@ import { _ } from 'core-js';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Modal from 'react-modal';
-import './css/customer.css';
+import './css/deliveries.css';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
@@ -26,7 +26,7 @@ const customStyles = {
     }
 };
 
-class Customers extends Component {
+class Deliveries extends Component {
     constructor(props) {
         super(props);
 
@@ -53,7 +53,7 @@ class Customers extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/admin/customers`, {
+        axios.get(`https://stockwatch.site/public/api/admin/deliveries`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -109,7 +109,7 @@ class Customers extends Component {
         e.stopPropagation();
 
         toast.configure();
-        axios.delete(`https://stockwatch.site/public/api/admin/customer/${this.state.user_id}/banned`, {
+        axios.delete(`https://stockwatch.site/public/api/admin/deliveries/${this.state.user_id}/banned`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -145,7 +145,7 @@ class Customers extends Component {
         e.stopPropagation();
 
         toast.configure();
-        axios.get(`https://stockwatch.site/public/api/admin/unbanned/customer/${this.state.user_id}`, {
+        axios.get(`https://stockwatch.site/public/api/admin/unbanned/delivery/${this.state.user_id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -182,7 +182,7 @@ class Customers extends Component {
         const UserTable = () => (
             users.map((user, i) => (
                 <tr key={i}>
-                    <td><Link to={`/admin/customer/${user.id}`}><img src={`https://stockwatch.site/public/storage/avatar/${user.image}`} /></Link></td>
+                    <td><Link to={`/admin/delivery/${user.id}`}><img src={`https://stockwatch.site/public/storage/avatar/${user.image}`} /></Link></td>
                     <td>{`${user.firstName} ${user.lastName}`}</td>
                     <td>{user.email}</td>
                     <td>{user.mobileNumber}</td>
@@ -201,7 +201,7 @@ class Customers extends Component {
         const UserTableBanned = () => (
             usersBanned.map((user, i) => (
                 <tr key={i}>
-                    <td><Link to={`/admin/customer/${user.id}`}><img src={`https://stockwatch.site/public/storage/avatar/${user.image}`} /></Link></td>
+                    <td><Link to={`/admin/delivery/${user.id}`}><img src={`https://stockwatch.site/public/storage/avatar/${user.image}`} /></Link></td>
                     <td>{`${user.firstName} ${user.lastName}`}</td>
                     <td>{user.email}</td>
                     <td>{user.mobileNumber}</td>
@@ -229,7 +229,7 @@ class Customers extends Component {
                     <div className="col-lg-12">
                         <div className="card">
                             <div className="card-header">
-                                <i className="fa fa-align-justify"></i> Customers</div>
+                                <i className="fa fa-align-justify"></i> Deliveries</div>
                             <div className="card-body">
                                 <ReactTable
                                     data={this.state.users}
@@ -260,11 +260,11 @@ class Customers extends Component {
                                                     headerClassName: 'text-left'
                                                 },
                                                 {
-                                                    Header: 'Action',
+                                                    Header: 'Status',
                                                     Cell: row => (
                                                         <div className="row">
                                                             <div className="col-12 text-center">
-                                                                <button onClick={() => this.openModalBanned(row.original.id)} className="btn btn-danger">Ban</button>
+                                                                <button onClick={() => this.openModalBanned(row.original.id)} className="btn btn-success">Active</button>
                                                             </div>
                                                         </div>
                                                     )
@@ -288,7 +288,7 @@ class Customers extends Component {
                                         </button>
                                     </div>
                                     <div className="modal-body">
-                                        <p>Are you sure you want to Banned this customer?</p>
+                                        <p>Are you sure you want to Banned this delivery?</p>
                                     </div>
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
@@ -301,7 +301,7 @@ class Customers extends Component {
                     <div className="col-lg-12">
                         <div className="card">
                             <div className="card-header">
-                                <i className="fa fa-align-justify"></i>Banned Customers</div>
+                                <i className="fa fa-align-justify"></i>Banned Deliveries</div>
                             <div className="card-body">
                                 <ReactTable
                                     data={this.state.usersBanned}
@@ -332,11 +332,11 @@ class Customers extends Component {
                                                     headerClassName: 'text-left'
                                                 },
                                                 {
-                                                    Header: 'Action',
+                                                    Header: 'Status',
                                                     Cell: row => (
                                                         <div className="row">
                                                             <div className="col-12 text-center">
-                                                                <button onClick={() => this.openModalUnbanned(row.original.id)} className="btn btn-success">Unban</button>
+                                                                <button onClick={() => this.openModalUnbanned(row.original.id)} className="btn btn-danger">Banned</button>
                                                             </div>
                                                         </div>
                                                     )
@@ -359,7 +359,7 @@ class Customers extends Component {
                                         </button>
                                     </div>
                                     <div className="modal-body">
-                                        <p>Are you sure you want to Unbanned this customer?</p>
+                                        <p>Are you sure you want to Unbanned this delivery?</p>
                                     </div>
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
@@ -375,4 +375,4 @@ class Customers extends Component {
     }
 }
 
-export default Customers;
+export default Deliveries;

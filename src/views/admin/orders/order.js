@@ -184,17 +184,19 @@ class Orders extends Component {
                           Header: 'Status',
                           accessor: 'status',
                           Cell: row => (
-                            <span className={`badge badge-${row.original.status === 'cancelled' ? 'danger' : row.original.status === 'pending' ? 'warning' : 'success'}`}>{row.original.status == 'approved' ? 'Approved' : row.original.status}</span>
+                            <div className="text-center">
+                                <span className={`badge order_status badge-${row.original.status === 'cancelled' ? 'danger' : row.original.status === 'pending' ? 'warning' : 'success'}`}>{row.original.status == 'approved' ? 'Approved' : row.original.status}</span>
+                            </div>
                           ),
                           headerClassName: 'text-left'
                         },
-                        {
-                          Header: 'Action',
-                          Cell: row => (
-                            <button onClick={() => this.openModal(row.original.id)} className={`btn btn-primary ${row.original.status !== 'pending' ? '' : 'hideButton'}`}>Assign</button>
-                          ),
-                          headerClassName: 'text-left'
-                        },
+                        // {
+                        //   Header: 'Action',
+                        //   Cell: row => (
+                        //     <button onClick={() => this.openModal(row.original.id)} className={`btn btn-primary ${row.original.status !== 'pending' ? '' : 'hideButton'}`}>Assign</button>
+                        //   ),
+                        //   headerClassName: 'text-left'
+                        // },
                       ]
                     }
                   ]}

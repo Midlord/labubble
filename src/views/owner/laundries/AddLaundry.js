@@ -220,6 +220,8 @@ class AddLaundry extends Component {
             return (
                 <DatePicker
                     className="form-control"
+                    minTime={this.state.opening}
+                    maxTime= {moment(this.state.opening).add(16, 'hours').toDate()}
                     onChange={this.handleEndTimeChange}
                     selected={this.state.closing}
                     showTimeSelect
