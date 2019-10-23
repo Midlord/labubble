@@ -178,7 +178,7 @@ class Profile extends Component {
                 <div className="col mt-5">
                     <div className="card profile-card-3">
                         <div className="background-block">
-                            <img src="https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=650&amp;w=940" alt="profile-sample1" className="background" />
+                            <img src={window.location.origin + '/assets/img/bubbles.png'} alt="profile-sample1" className="background" />
                         </div>
                         <div className="profile-thumb-block">
                             <img src={`https://stockwatch.site/public/storage/avatar/${sessionStorage.getItem('image')}`} alt="profile-image" className="profile" />

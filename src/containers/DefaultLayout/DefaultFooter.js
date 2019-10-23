@@ -49,7 +49,12 @@ class DefaultFooter extends Component {
                   
                 </div>
                 <div className="col-4 text-center">
-                  <Link to={`/owner/pendingBooks`}><i className="fas fa-book bottom-nav" aria-hidden="true"></i></Link>
+                {sessionStorage.getItem('isHasShop') == "true" ?(
+                    <Link to={`/owner/pendingBooks`}><i className="fas fa-book bottom-nav" aria-hidden="true"></i></Link>
+                  ) : (
+                    <Link to={`/owner/dashboard`}><i className="fas fa-book bottom-nav" aria-hidden="true"></i></Link>
+                  ) }
+                  
                 </div>
               </div>
             </div>

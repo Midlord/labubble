@@ -4,7 +4,8 @@
   }
   
   body {
-    background: linear-gradient(to right, #bdc7d4, #cbdde8);
+    background: url('/assets/img/bubbles.png') no-repeat center center fixed; 
+    background-size: cover;
   }
 
   h5.card-title.text-center {

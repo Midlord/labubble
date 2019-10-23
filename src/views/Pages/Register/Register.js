@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import {
   AppHeader,
 } from '@coreui/react';
-import './register.css';
+import '../Register/register.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link, BrowserHistory } from 'react-router-dom';
-import Loading from '../../customer/loading';
 import FileBase64 from 'react-file-base64';
+import moment from 'moment';
 import Modal from 'react-modal';
 
 
@@ -61,12 +60,13 @@ const barangays = [
   "Virgen Delos Remedios"
 ];
 
-class Register extends Component {
 
+class Register extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      firstName: '',
+      firstName:'',
       lastName: '',
       email: '',
       password: '',
@@ -76,40 +76,29 @@ class Register extends Component {
       street: '',
       barangay: '',
       role: '',
-      errors: {},
-      isLoggedIn: false,
-      isDeleted: '',
-      type: 'password',
       files: [],
       image: '',
+      points: '',
       imageName: '',
       imageType: '',
       isLoaded: false,
       modalIsOpen: false,
-    }
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+    };
+    this.handleOnChange = this.handleOnChange.bind(this);
+    this.getFiles = this.getFiles.bind(this);
   }
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  }
+  handleOnChange = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-  openModal = () => {
     this.setState({
-      modalIsOpen: true,
+      [e.target.name]: e.target.value
     });
+
+    console.log(e.target.value)
   }
 
-  closeModal = () => {
-    this.setState({
-      modalIsOpen: false
-    });
-  }
-
-
-  // Callback~
   getFiles(files) {
 
     toast.configure();
@@ -132,6 +121,18 @@ class Register extends Component {
       })
 
     }
+  }
+
+  openModal = () => {
+    this.setState({
+      modalIsOpen: true,
+    });
+  }
+
+  closeModal = () => {
+    this.setState({
+      modalIsOpen: false
+    });
   }
 
   onKeyPress(event) {
@@ -189,21 +190,23 @@ class Register extends Component {
         }
       })
       .catch(error => {
+        console.log(error.response.data)
         this.setState({
           isLoaded: false,
-          firstName: error.response.data.firstName,
-          lastName: error.response.data.lastName,
-          email: error.response.data.email,
-          password: error.response.data.password,
-          password_confirmation: error.response.data.password_confirmation,
-          mobileNumber: error.response.data.mobileNumber,
-          role: error.response.data.role,
-          image: error.response.data.image,
-          imageName: error.response.data.imageName,
-          imageType: error.response.data.imageType,
-          houseNumber: error.response.data.houseNumber,
-          street: error.response.data.street,
-          barangay: error.response.data.barangay,
+          modalIsOpen:false,
+          firstName: error.response.data.request.firstName,
+          lastName: error.response.data.request.lastName,
+          email: error.response.data.request.email,
+          password: error.response.data.request.password,
+          password_confirmation: error.response.data.request.password_confirmation,
+          mobileNumber: error.response.data.request.mobileNumber,
+          role: error.response.data.request.role,
+          image: error.response.data.request.image,
+          imageName: error.response.data.request.imageName,
+          imageType: error.response.data.request.imageType,
+          houseNumber: error.response.data.request.houseNumber,
+          street: error.response.data.request.street,
+          barangay: error.response.data.request.barangay,
         });
         error.response.data.errors.map((error) => {
           toast.error(error, {
@@ -214,155 +217,99 @@ class Register extends Component {
   }
 
   render() {
-
-    if (this.state.isLoaded) {
-      return (
-        <Loading />
-      )
-    }
-
     return (
-      <div className="app flex-row align-items-center">
-        <AppHeader fixed>
+      <div className="parent">
+        <AppHeader fixed className="fixed-top">
           <Link to={`/login`}><i className="fa fa-arrow-left back-button" aria-hidden="true"></i></Link>
         </AppHeader>
-        <Container className="register-container">
-          <Row className="justify-content-center">
-            <Col md="9" lg="7" xl="6" className="mb-4 mt-5">
-              <div className="card card-signin my-5">
-                <div className="card-body">
-                  <div className="mb-3">
-                    <h1>Register</h1>
-                  </div>
-                  <Form>
-                    {/* First Name */}
-                    <div className="form-row">
-                      <div className="col-6">
-                        <InputGroup className="mb-3">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="icon-user"></i>
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <Input type="text" name="firstName" onKeyPress={event => this.onKeyPress(event)} placeholder="First Name" autoComplete="off" onChange={this.onChange} required />
-                        </InputGroup>
-                      </div>
-                      <div className="col-6">
-                        {/* Last Name */}
-                        <InputGroup className="mb-3">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="icon-user"></i>
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <Input type="text" name="lastName" onKeyPress={event => this.onKeyPress(event)} placeholder="Last Name" autoComplete="off" onChange={this.onChange} required />
-                        </InputGroup>
-                      </div>
-                    </div>
-
-                    <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>@</InputGroupText>
-                      </InputGroupAddon>
-                      <Input type="text" name="email" placeholder="Email" autoComplete="email" onChange={this.onChange} required />
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="icon-lock"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input type="password" name="password" placeholder="Password" autoComplete="new-password" onChange={this.onChange} required />
-                    </InputGroup>
-                    <InputGroup className="mb-4">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="icon-lock"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input type="password" name="password_confirmation" placeholder="Repeat password" autoComplete="new-password" onChange={this.onChange} required />
-                    </InputGroup>
-
-                    <div className="row">
-                      <div className="col-6 pr-0">
-                        <InputGroup className="mb-3">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="fa fa-address-card"></i>
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <Input type="text" name="houseNumber" placeholder="House Number" autoComplete="off" onChange={this.onChange} />
-                        </InputGroup>
-                      </div>
-                      <div className="col-6">
-                        <InputGroup className="mb-3">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="fa fa-address-card"></i>
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <Input type="text" name="street" placeholder="Street" autoComplete="off" onChange={this.onChange} required />
-                        </InputGroup>
-                      </div>
-                    </div>
-
-
-
-
-                    <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-address-card"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <select name="barangay" className="form-control" onChange={this.onChange} required>
-                        <option value="">Select Barangay</option>
-                        {barangays.map((item) => (
-                          <option key={item}>{item}</option>
-                        ))}
-                      </select>
-                    </InputGroup>
-
-                    {/* Address */}
-                    <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fa fa-phone"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input type="number" 
-                      name="mobileNumber"
-                             placeholder="Mobile Number" 
-                             autoComplete="off" 
-                             onChange={this.onChange} 
-                             required />
-                    </InputGroup>
-
-                    <div className="mb-3 input-group">
-                      <div className="input-group-prepend">
-                        <span className="input-group-text">
-                          <i className="fa fa-user"></i>
-                        </span>
-                      </div>
-                      <select name="role" id="" className="form-control" onChange={this.onChange} required >
-                        <option value="">Select Role</option>
-                        <option value="customer">Customer</option>
-                        <option value="owner">Owner</option>
-                      </select>
-                    </div>
-                    <div className="mb-3 input-group">
-                      <FileBase64
+        <div className="animated fadeIn">
+          <div className="col mt-5">
+            <div className="card profile-card-3">
+              <div className="background-block">
+                <img src="https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=650&amp;w=940" alt="profile-sample1" className="background" />
+              </div>
+              <div className="profile-thumb-block">
+                <img src={this.state.image ? this.state.image : require('../../customer/laundries/dummy.png')} alt="profile-image" className="profile" />
+              </div>
+              <div className="card-content">
+                <h2 className="capitalize">{`${this.state.firstName} ${this.state.lastName}`}</h2>
+                <h2><small>{this.state.role}</small></h2>
+                <h2><small>{this.state.email}</small></h2>
+                <h2><small>{this.state.mobileNumber}</small></h2>
+                {/* <div className="icon-block"><a href="#"><i className="fa fa-facebook"></i></a><a href="#"> <i className="fa fa-twitter"></i></a><a href="#"> <i className="fa fa-google-plus"></i></a></div> */}
+              </div>
+            </div>
+            <h2 className="text-center">Registration</h2>
+            <h3><p className="mt-3 w-100 float-left mb-3"><strong>Personal Information</strong></p></h3>
+            <hr />
+            <div className="information">
+              <form>
+                <div className="form-group">
+                    <label htmlFor="exampleFormControlFile1">Upload Profile Photo</label>
+                    <FileBase64
                         multiple={false}
                         onDone={this.getFiles.bind(this)} />
-                    </div>
-                    <div className="mb-3 text-center">
-                      <img src={this.state.image ? this.state.image : require('../../customer/laundries/dummy.png')} width="200" height="200 " />
-                    </div>
+                </div>
+                <div className="form-group">
+                <label htmlFor="role">Role <span className="text-danger">(required)</span></label>
+                  <select name="role" id="role" className="form-control" onChange={this.handleOnChange} required>
+                    <option value="">Select Role</option>
+                    <option value="customer">Customer</option>
+                    <option value="owner">Owner</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="fname">First Name <span className="text-danger">(required)</span></label>
+                  <input type="text" name="firstName" onKeyPress={event => this.onKeyPress(event)} className="form-control" id="fname" placeholder="Enter First Name" onChange={this.handleOnChange} value={this.state.firstName} />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="lname">Last Name <span className="text-danger">(required)</span></label>
+                  <input type="text" name="lastName" onKeyPress={event => this.onKeyPress(event)} className="form-control" id="lname" placeholder="Enter Last Name" onChange={this.handleOnChange} value={this.state.lastName} />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="lEmail">Email address <span className="text-danger">(required)</span></label>
+                  <input type="email" className="form-control" name="email" id="lEmail" onChange={this.handleOnChange} placeholder="Enter email" value={this.state.email} />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="lpassword">Password <span className="text-danger">(required)</span></label>
+                  <input type="password" className="form-control" name="password" id="lpassword" onChange={this.handleOnChange} placeholder="Enter password" value={this.state.password} />
+                </div>
 
-                    <button className="btn btn-md btn-primary btn-block" type="button" onClick={this.openModal}>Create Account</button>
-
-                  </Form>
-                  <Modal
+                <div className="form-group">
+                  <label htmlFor="lpassword_confirmation">Confirm Password <span className="text-danger">(required)</span></label>
+                  <input type="password" className="form-control" name="password_confirmation" id="lpassword_confirmation" onChange={this.handleOnChange} placeholder="Enter confirmation password" value={this.state.password_confirmation} />
+                </div>
+                
+                
+                <div className="form-group">
+                  <label htmlFor="mnumber">Mobile Number <span className="text-danger">(required)</span></label>
+                  <input type="number" name="mobileNumber" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.mobileNumber} />
+                </div>
+                <h3><p className="mt-3 mb-3 w-100 float-left"><strong>Address</strong></p></h3>
+                <div className="form-group">
+                  <div className="row">
+                      <div className="col-6">
+                          <label htmlFor="houseNumber">House #</label>
+                          <input type="text" className="form-control" name="houseNumber" id="houseNumber" onChange={this.handleOnChange} placeholder="House #" value={this.state.houseNumber} />
+                      </div>
+                      <div className="col-6">
+                          <label htmlFor="street">Street <span className="text-danger">(required)</span></label>
+                          <input type="text" className="form-control" name="street" id="street" onChange={this.handleOnChange} placeholder="Street" value={this.state.street} />
+                      </div>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="barangay">Barangay <span className="text-danger">(required)</span></label>
+                      <select name="barangay" className="form-control" onChange={this.handleOnChange}>
+                            <option value="">Select Barangay</option>
+                            {barangays.map((item) => (
+                              <option key={item}>{item}</option>
+                            ))}
+                      </select>
+                </div>
+                <button type="button" onClick={this.openModal} className="ui inverted primary button float-right">Create Account</button>
+              </form>
+              <Modal
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
                     ariaHideApp={false}
@@ -370,7 +317,7 @@ class Register extends Component {
                     contentLabel="Example Modal"
                   >
                     <div className="modal-header">
-                      <span>Assign Order</span>
+                      <span>Terms and Conditions</span>
                       <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -396,13 +343,13 @@ class Register extends Component {
                       <button type="button" onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
                     </div>
                   </Modal>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Container>
+            </div>
+          </div>
+        </div>
       </div>
+
     );
+
   }
 }
 
