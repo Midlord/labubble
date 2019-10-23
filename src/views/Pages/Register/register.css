@@ -53,15 +53,15 @@ body {
 }
 .profile-card-3 .profile {
   position: absolute;
-  bottom: 50%;
+  bottom: 45%;
   left: 50%;
-  max-width: 80px;
+  max-width: 130px;
   opacity: 1;
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
   border: 2px solid rgba(255, 255, 255, 1);
   -webkit-transform: translate(-50%, 0%);
   transform: translate(-50%, 0%);
-  z-index:99999;
+  z-index: 99999;
 }
 .profile-card-3 h2 {
   margin: 0 0 5px;
