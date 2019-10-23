@@ -66,7 +66,7 @@ class Register extends Component {
     super(props);
 
     this.state = {
-      firstName:'',
+      firstName: '',
       lastName: '',
       email: '',
       password: '',
@@ -137,9 +137,9 @@ class Register extends Component {
 
   onKeyPress(event) {
     console.log(event.charCode)
-    if((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)){
+    if ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)) {
       // none
-    }else{
+    } else {
       event.preventDefault();
     }
   }
@@ -193,7 +193,7 @@ class Register extends Component {
         console.log(error.response.data)
         this.setState({
           isLoaded: false,
-          modalIsOpen:false,
+          modalIsOpen: false,
           firstName: error.response.data.request.firstName,
           lastName: error.response.data.request.lastName,
           email: error.response.data.request.email,
@@ -223,7 +223,7 @@ class Register extends Component {
           <Link to={`/login`}><i className="fa fa-arrow-left back-button" aria-hidden="true"></i></Link>
         </AppHeader>
         <div className="animated fadeIn">
-          <div className="col mt-5">
+          <div className="col mt-5 pr-0 pl-0">
             <div className="card profile-card-3">
               <div className="background-block">
                 <img src="https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=650&amp;w=940" alt="profile-sample1" className="background" />
@@ -239,77 +239,83 @@ class Register extends Component {
                 {/* <div className="icon-block"><a href="#"><i className="fa fa-facebook"></i></a><a href="#"> <i className="fa fa-twitter"></i></a><a href="#"> <i className="fa fa-google-plus"></i></a></div> */}
               </div>
             </div>
-            <h2 className="text-center">Registration</h2>
-            <h3><p className="mt-3 w-100 float-left mb-3"><strong>Personal Information</strong></p></h3>
-            <hr />
-            <div className="information">
-              <form>
-                <div className="form-group">
-                    <label htmlFor="exampleFormControlFile1">Upload Profile Photo</label>
-                    <FileBase64
+            <div className="card">
+              <div className="card-body">
+                <h2 className="text-center">Registration</h2>
+                <h3><p className="mt-3 w-100 float-left mb-3"><strong>Personal Information</strong></p></h3>
+                <hr />
+                <div className="information">
+                  <form>
+                    <div className="form-group">
+                      <label htmlFor="exampleFormControlFile1">Upload Profile Photo</label>
+                      <FileBase64
                         multiple={false}
                         onDone={this.getFiles.bind(this)} />
-                </div>
-                <div className="form-group">
-                <label htmlFor="role">Role <span className="text-danger">(required)</span></label>
-                  <select name="role" id="role" className="form-control" onChange={this.handleOnChange} required>
-                    <option value="">Select Role</option>
-                    <option value="customer">Customer</option>
-                    <option value="owner">Owner</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="fname">First Name <span className="text-danger">(required)</span></label>
-                  <input type="text" name="firstName" onKeyPress={event => this.onKeyPress(event)} className="form-control" id="fname" placeholder="Enter First Name" onChange={this.handleOnChange} value={this.state.firstName} />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="lname">Last Name <span className="text-danger">(required)</span></label>
-                  <input type="text" name="lastName" onKeyPress={event => this.onKeyPress(event)} className="form-control" id="lname" placeholder="Enter Last Name" onChange={this.handleOnChange} value={this.state.lastName} />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="lEmail">Email address <span className="text-danger">(required)</span></label>
-                  <input type="email" className="form-control" name="email" id="lEmail" onChange={this.handleOnChange} placeholder="Enter email" value={this.state.email} />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="lpassword">Password <span className="text-danger">(required)</span></label>
-                  <input type="password" className="form-control" name="password" id="lpassword" onChange={this.handleOnChange} placeholder="Enter password" value={this.state.password} />
-                </div>
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="role">Role <span className="text-danger">(required)</span></label>
+                      <select name="role" id="role" className="form-control" onChange={this.handleOnChange} required>
+                        <option value="">Select Role</option>
+                        <option value="customer">Customer</option>
+                        <option value="owner">Owner</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="fname">First Name <span className="text-danger">(required)</span></label>
+                      <input type="text" name="firstName" onKeyPress={event => this.onKeyPress(event)} className="form-control" id="fname" placeholder="Enter First Name" onChange={this.handleOnChange} value={this.state.firstName} />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="lname">Last Name <span className="text-danger">(required)</span></label>
+                      <input type="text" name="lastName" onKeyPress={event => this.onKeyPress(event)} className="form-control" id="lname" placeholder="Enter Last Name" onChange={this.handleOnChange} value={this.state.lastName} />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="lEmail">Email address <span className="text-danger">(required)</span></label>
+                      <input type="email" className="form-control" name="email" id="lEmail" onChange={this.handleOnChange} placeholder="Enter email" value={this.state.email} />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="lpassword">Password <span className="text-danger">(required)</span></label>
+                      <input type="password" className="form-control" name="password" id="lpassword" onChange={this.handleOnChange} placeholder="Enter password" value={this.state.password} />
+                    </div>
 
-                <div className="form-group">
-                  <label htmlFor="lpassword_confirmation">Confirm Password <span className="text-danger">(required)</span></label>
-                  <input type="password" className="form-control" name="password_confirmation" id="lpassword_confirmation" onChange={this.handleOnChange} placeholder="Enter confirmation password" value={this.state.password_confirmation} />
-                </div>
-                
-                
-                <div className="form-group">
-                  <label htmlFor="mnumber">Mobile Number <span className="text-danger">(required)</span></label>
-                  <input type="number" name="mobileNumber" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.mobileNumber} />
-                </div>
-                <h3><p className="mt-3 mb-3 w-100 float-left"><strong>Address</strong></p></h3>
-                <div className="form-group">
-                  <div className="row">
-                      <div className="col-6">
+                    <div className="form-group">
+                      <label htmlFor="lpassword_confirmation">Confirm Password <span className="text-danger">(required)</span></label>
+                      <input type="password" className="form-control" name="password_confirmation" id="lpassword_confirmation" onChange={this.handleOnChange} placeholder="Enter confirmation password" value={this.state.password_confirmation} />
+                    </div>
+
+
+                    <div className="form-group">
+                      <label htmlFor="mnumber">Mobile Number <span className="text-danger">(required)</span></label>
+                      <input type="number" name="mobileNumber" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.mobileNumber} />
+                    </div>
+                    <h3><p className="mt-3 mb-3 w-100 float-left"><strong>Address</strong></p></h3>
+                    <div className="form-group">
+                      <div className="row">
+                        <div className="col-6">
                           <label htmlFor="houseNumber">House #</label>
                           <input type="text" className="form-control" name="houseNumber" id="houseNumber" onChange={this.handleOnChange} placeholder="House #" value={this.state.houseNumber} />
-                      </div>
-                      <div className="col-6">
+                        </div>
+                        <div className="col-6">
                           <label htmlFor="street">Street <span className="text-danger">(required)</span></label>
                           <input type="text" className="form-control" name="street" id="street" onChange={this.handleOnChange} placeholder="Street" value={this.state.street} />
+                        </div>
                       </div>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="barangay">Barangay <span className="text-danger">(required)</span></label>
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="barangay">Barangay <span className="text-danger">(required)</span></label>
                       <select name="barangay" className="form-control" onChange={this.handleOnChange}>
-                            <option value="">Select Barangay</option>
-                            {barangays.map((item) => (
-                              <option key={item}>{item}</option>
-                            ))}
+                        <option value="">Select Barangay</option>
+                        {barangays.map((item) => (
+                          <option key={item}>{item}</option>
+                        ))}
                       </select>
-                </div>
-                <button type="button" onClick={this.openModal} className="ui inverted primary button float-right">Create Account</button>
-              </form>
-              <Modal
+                    </div>
+                    <div className="form-group">
+                      <div className="col-12">
+                          <button type="button" onClick={this.openModal} className="ui inverted primary button w-100">Create Account</button>
+                      </div>
+                    </div>
+                  </form>
+                  <Modal
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
                     ariaHideApp={false}
@@ -343,6 +349,8 @@ class Register extends Component {
                       <button type="button" onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
                     </div>
                   </Modal>
+                </div>
+              </div>
             </div>
           </div>
         </div>

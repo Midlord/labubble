@@ -114,22 +114,22 @@ class OwnerBookDetail extends Component {
                         kilosWashAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloWash),
                         kilosDryAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloDry),
                     })
-                    
-                    if(result.data.book.laundry_shop.type === 'kilos'){
-                        if(result.data.book.kiloDry === null || result.data.book.kiloDry === ""){
+
+                    if (result.data.book.laundry_shop.type === 'kilos') {
+                        if (result.data.book.kiloDry === null || result.data.book.kiloDry === "") {
                             this.setState({
                                 kilosDryAmount: 0
                             });
-                        }else if(result.data.book.kiloWash === null || result.data.book.kiloWash === ""){
+                        } else if (result.data.book.kiloWash === null || result.data.book.kiloWash === "") {
                             this.setState({
                                 kilosWashAmount: 0
                             });
-                        }else{
+                        } else {
                             this.setState({
                                 subTotal: parseInt(this.state.kilosWashAmount) + parseInt(this.state.kilosDryAmount) + parseInt(result.data.total)
                             });
                         }
-                    }else{
+                    } else {
                         this.setState({
                             subTotal: (parseInt(this.state.wash) + parseInt(this.state.dry)) + parseInt(result.data.total)
                         });
@@ -272,7 +272,7 @@ class OwnerBookDetail extends Component {
 
         const Kilos = () => (
             <div className="parent">
-                 <li className="list-group-item d-flex justify-content-between lh-condensed">
+                <li className="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 className="my-0">Kilo Wash</h6>
                         {/* <small className="text-muted">Brief description</small> */}
@@ -296,109 +296,113 @@ class OwnerBookDetail extends Component {
 
         return (
             <div className="animated fadeIn">
-                <div className="row">
-                    <div className="content col mb-2">
-                        <div className="col-12">
-                            <h4 className="d-flex justify-content-between align-items-center mb-3">
-                                <span className="text-bold">{`Order # ${this.state.book.id}`}</span>
-                            </h4>
-                            <h4 className="d-flex">
-                                <span className="text-bold">{`${this.state.book.user.firstName} ${this.state.book.user.lastName}`}</span>
-                            </h4>
-                            <hr></hr>
-                        </div>
-                        <div className="col-12 mb-3">
-                            <div className="">
-                                <h4>Special Instructions: </h4>
-                                <p>{this.state.book.remarks === "" ? 'No special instructions.' : this.state.book.remarks}</p>
-                            </div>
-                        </div>
-                        <div className="col-12 mb-3">
-                            <div className="">
-                                <h4>Expected Delivery: </h4>
-                                <p>{moment(this.state.book.pickUpDate).format('MMMM DD, YYYY hh:mm A')}</p>
-                            </div>
-                        </div>
-                        <div className="col order-md-2 mb-4">
-                            <h4 className="d-flex justify-content-between align-items-center mb-3">
-                                <span className="text-bold">Booked Services</span>
-                                <span className="badge badge-secondary badge-pill">{this.state.services.length}</span>
-                            </h4>
-                            <ul className="list-group mb-3">
-                                <BookedServices />
-                                {this.state.book.laundry_shop.type === 'loads' ? (
-                                    <WashAndDry />
-                                    ):(<Kilos />
-                                )}
+                <div className="card">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="content col mb-2">
+                                <div className="col-12">
+                                    <h4 className="d-flex justify-content-between align-items-center mb-3">
+                                        <span className="text-bold">{`Order # ${this.state.book.id}`}</span>
+                                    </h4>
+                                    <h4 className="d-flex">
+                                        <span className="text-bold">{`${this.state.book.user.firstName} ${this.state.book.user.lastName}`}</span>
+                                    </h4>
+                                    <hr></hr>
+                                </div>
+                                <div className="col-12 mb-3">
+                                    <div className="">
+                                        <h4>Special Instructions: </h4>
+                                        <p>{this.state.book.remarks === "" ? 'No special instructions.' : this.state.book.remarks}</p>
+                                    </div>
+                                </div>
+                                <div className="col-12 mb-3">
+                                    <div className="">
+                                        <h4>Expected Delivery: </h4>
+                                        <p>{moment(this.state.book.pickUpDate).format('MMMM DD, YYYY hh:mm A')}</p>
+                                    </div>
+                                </div>
+                                <div className="col order-md-2 mb-4">
+                                    <h4 className="d-flex justify-content-between align-items-center mb-3">
+                                        <span className="text-bold">Booked Services</span>
+                                        <span className="badge badge-secondary badge-pill">{this.state.services.length}</span>
+                                    </h4>
+                                    <ul className="list-group mb-3">
+                                        <BookedServices />
+                                        {this.state.book.laundry_shop.type === 'loads' ? (
+                                            <WashAndDry />
+                                        ) : (<Kilos />
+                                            )}
 
-                                
 
-                                <li className="list-group-item d-flex justify-content-between">
-                                    <span>Total</span>
-                                    <strong>{`P ${parseFloat(this.state.total).toFixed(2)}`} </strong>
-                                </li>
-                                {/* <li className="list-group-item d-flex justify-content-between bg-light">
+
+                                        <li className="list-group-item d-flex justify-content-between">
+                                            <span>Total</span>
+                                            <strong>{`P ${parseFloat(this.state.total).toFixed(2)}`} </strong>
+                                        </li>
+                                        {/* <li className="list-group-item d-flex justify-content-between bg-light">
                                     <div className="text-danger">
                                         <h6 className="my-0">Delivery Charges</h6>
                                     </div>
                                     <span className="text-success">P {this.state.deliveryCharge}</span>
                                 </li> */}
-                                {/* <li className="list-group-item d-flex justify-content-between">
+                                        {/* <li className="list-group-item d-flex justify-content-between">
                                     <span>Total</span>
                                     <strong>{`P ${parseFloat(this.state.subTotal).toFixed(2)}`} </strong>
                                 </li> */}
-                            </ul>
-                            <div className="text-right">
-                                {this.state.book.status == 'cancelled' ||  this.state.book.status == 'approved' ? '' : (
-                                    <div>
-                                        <button type="button" onClick={this.openModalCancelled} className="ui inverted default button">Cancel</button>
-                                        <button onClick={this.openModal} className="ui inverted primary button">Approved</button>
-                                    </div>
-                                )}
-                                <Modal
-                                    isOpen={this.state.modalIsOpenApproved}
-                                    onRequestClose={this.closeModal}
-                                    style={customStyles}
-                                    contentLabel="Example Modal"
-                                >
+                                    </ul>
+                                    <div className="text-right">
+                                        {this.state.book.status == 'cancelled' || this.state.book.status == 'approved' ? '' : (
+                                            <div>
+                                                <button type="button" onClick={this.openModalCancelled} className="ui inverted default button">Cancel</button>
+                                                <button onClick={this.openModal} className="ui inverted primary button">Approved</button>
+                                            </div>
+                                        )}
+                                        <Modal
+                                            isOpen={this.state.modalIsOpenApproved}
+                                            onRequestClose={this.closeModal}
+                                            style={customStyles}
+                                            contentLabel="Example Modal"
+                                        >
 
-                                    <div className="modal-header">
-                                        <h5 className="modal-title" id="exampleModalLabel">Order # {this.state.book.id}</h5>
-                                        {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
-                                        <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div className="modal-body">
-                                        <p>Are you sure you want to Approve this order?</p>
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
-                                        <button type="button" onClick={this.handleApproved} className="btn btn-primary">Yes</button>
-                                    </div>
-                                </Modal>
-                                <Modal
-                                    isOpen={this.state.modalIsOpenCancelled}
-                                    onRequestClose={this.closeModal}
-                                    style={customStyles}
-                                    contentLabel="Example Modal"
-                                >
+                                            <div className="modal-header">
+                                                <h5 className="modal-title" id="exampleModalLabel">Order # {this.state.book.id}</h5>
+                                                {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
+                                                <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="modal-body">
+                                                <p>Are you sure you want to Approve this order?</p>
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                                <button type="button" onClick={this.handleApproved} className="btn btn-primary">Yes</button>
+                                            </div>
+                                        </Modal>
+                                        <Modal
+                                            isOpen={this.state.modalIsOpenCancelled}
+                                            onRequestClose={this.closeModal}
+                                            style={customStyles}
+                                            contentLabel="Example Modal"
+                                        >
 
-                                    <div className="modal-header">
-                                        <h5 className="modal-title" id="exampleModalLabel">Order # {this.state.book.id}</h5>
-                                        {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
-                                        <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                            <div className="modal-header">
+                                                <h5 className="modal-title" id="exampleModalLabel">Order # {this.state.book.id}</h5>
+                                                {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
+                                                <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="modal-body">
+                                                <p>Are you sure you want to cancel this order?</p>
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                                <button type="button" onClick={this.handleCancelled} className="btn btn-primary">Yes</button>
+                                            </div>
+                                        </Modal>
                                     </div>
-                                    <div className="modal-body">
-                                        <p>Are you sure you want to cancel this order?</p>
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
-                                        <button type="button" onClick={this.handleCancelled} className="btn btn-primary">Yes</button>
-                                    </div>
-                                </Modal>
+                                </div>
                             </div>
                         </div>
                     </div>

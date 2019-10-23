@@ -175,7 +175,7 @@ class Profile extends Component {
 
         return (
             <div className="animated fadeIn">
-                <div className="col mt-5">
+                <div className="col mt-5 pr-0 pl-0">
                     <div className="card profile-card-3">
                         <div className="background-block">
                             <img src={window.location.origin + '/assets/img/bubbles.png'} alt="profile-sample1" className="background" />
@@ -188,37 +188,41 @@ class Profile extends Component {
                             {/* <div className="icon-block"><a href="#"><i className="fa fa-facebook"></i></a><a href="#"> <i className="fa fa-twitter"></i></a><a href="#"> <i className="fa fa-google-plus"></i></a></div> */}
                         </div>
                     </div>
-                    <h3><p className="mt-3 w-100 float-left"><strong>Information</strong></p></h3>
-                    <hr />
-                    <div className="information">
-                        <form onSubmit={this.handleProfileUpdate}>
-                            <div className="form-group">
-                                <label htmlFor="fname">First Name</label>
-                                <input type="text" name="firstName" className="form-control" id="fname" placeholder="Enter First Name" onChange={this.handleOnChange} value={this.state.firstName} />
-                            </div>
+                    <div className="card">
+                        <div className="card-body">
+                            <h3><p className="mt-3 w-100 float-left"><strong>Information</strong></p></h3>
+                            <hr />
+                            <div className="information">
+                                <form onSubmit={this.handleProfileUpdate}>
+                                    <div className="form-group">
+                                        <label htmlFor="fname">First Name</label>
+                                        <input type="text" name="firstName" className="form-control" id="fname" placeholder="Enter First Name" onChange={this.handleOnChange} value={this.state.firstName} />
+                                    </div>
 
-                            <div className="form-group">
-                                <label htmlFor="lname">Last Name</label>
-                                <input type="text" name="lastName" className="form-control" id="lname" placeholder="Enter Last Name" onChange={this.handleOnChange} value={this.state.lastName} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="lEmail">Email address</label>
-                                <input type="email" className="form-control" name="email" id="lEmail" onChange={this.handleOnChange} placeholder="Enter email" value={this.state.email} />
-                            </div>
+                                    <div className="form-group">
+                                        <label htmlFor="lname">Last Name</label>
+                                        <input type="text" name="lastName" className="form-control" id="lname" placeholder="Enter Last Name" onChange={this.handleOnChange} value={this.state.lastName} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="lEmail">Email address</label>
+                                        <input type="email" className="form-control" name="email" id="lEmail" onChange={this.handleOnChange} placeholder="Enter email" value={this.state.email} />
+                                    </div>
 
-                            <div className="form-group">
-                                <label htmlFor="mnumber">Mobile Number</label>
-                                <input type="number" name="mobileNumber" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.mobileNumber} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleFormControlFile1">Upload Profile Photo</label>
-                                <FileBase64
-                                    multiple={false}
-                                    onDone={this.getFiles.bind(this)} />
-                            </div>
-                            <button type="submit" onClick={this.submit} className="ui inverted primary button float-right">Update</button>
+                                    <div className="form-group">
+                                        <label htmlFor="mnumber">Mobile Number</label>
+                                        <input type="number" name="mobileNumber" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.mobileNumber} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="exampleFormControlFile1">Upload Profile Photo</label>
+                                        <FileBase64
+                                            multiple={false}
+                                            onDone={this.getFiles.bind(this)} />
+                                    </div>
+                                    <button type="submit" onClick={this.submit} className="ui inverted primary button float-right">Update</button>
 
-                        </form>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <h3><p className="mt-3 w-100 float-left"><strong>Rewards</strong></p></h3>
                     <div className="ratings">

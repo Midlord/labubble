@@ -39,7 +39,6 @@ class Dashboard extends Component {
     }
 
     componentWillMount() {
-
         this.setState({
             isloaded: true
         });
@@ -141,30 +140,34 @@ class Dashboard extends Component {
                     </div>
                 </div>
                 {this.state.books.length > 0 ? (
-                    <div className="latest-books">
-                    <h3>Pending Orders</h3>
-                    <table className="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>LaundryShop</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.books.map((book, i) => (
-                                <tr key={i}>
-                                    <td><Link to={`/owner/pending/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
-                                    <td>{book.laundry_shop.shopName}</td>
-                                    <td>{book.amount}</td>
-                                    <td>{book.status}</td>
-                                </tr>
-                            ))}
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="latest-books">
+                                <h3>Pending Orders</h3>
+                                <table className="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>LaundryShop</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.state.books.map((book, i) => (
+                                            <tr key={i}>
+                                                <td><Link to={`/owner/pending/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
+                                                <td>{book.laundry_shop.shopName}</td>
+                                                <td>{book.amount}</td>
+                                                <td>{book.status}</td>
+                                            </tr>
+                                        ))}
 
-                        </tbody>
-                    </table>
-                </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 ) : ''}
             </div>
         );

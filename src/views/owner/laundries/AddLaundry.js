@@ -56,7 +56,7 @@ class AddLaundry extends Component {
 
         let name = target.name
         //here
-        if(target.value === "Weekends"){
+        if (target.value === "Weekends") {
             console.log(target);
         }
         let value = Array.from(target.selectedOptions, option => option.value);
@@ -112,7 +112,7 @@ class AddLaundry extends Component {
         e.preventDefault();
         this.setState({
             isLoads: true,
-            isKilos:false,
+            isKilos: false,
             type: 'loads'
         })
     }
@@ -221,7 +221,7 @@ class AddLaundry extends Component {
                 <DatePicker
                     className="form-control"
                     minTime={this.state.opening}
-                    maxTime= {moment(this.state.opening).add(16, 'hours').toDate()}
+                    maxTime={moment(this.state.opening).add(16, 'hours').toDate()}
                     onChange={this.handleEndTimeChange}
                     selected={this.state.closing}
                     showTimeSelect
@@ -234,120 +234,123 @@ class AddLaundry extends Component {
         }
         return (
             <div className="animated fadeIn">
-                <div className="row">
-                    <div className="col-12">
-                        <div className="card card-add">
-                            <div className="card-header">
-                                <h3 className="text-center">Add LaundryShop</h3>
-                            </div>
-                            <div className="card-body">
-                                <form onSubmit={this.handleSubmit}>
-                                    <div className="form-group">
-                                        <label htmlFor="inputShopName">Shop Name</label>
-                                        <input type="text" name="shopName" onChange={this.handleOnChange} className="form-control" id="inputShopName" placeholder="Enter Shop Name" />
+                <div className="card">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="card card-add">
+                                    <div className="card-header">
+                                        <h3 className="text-center">Add LaundryShop</h3>
                                     </div>
-                                    <div className="form-group">
-                                        <div className="row">
-                                            <div className="col-6">
-                                                <label htmlFor="inputShopName">Opening</label>
-                                                <StartTimePicker />
+                                    <div className="card-body">
+                                        <form onSubmit={this.handleSubmit}>
+                                            <div className="form-group">
+                                                <label htmlFor="inputShopName">Shop Name</label>
+                                                <input type="text" name="shopName" onChange={this.handleOnChange} className="form-control" id="inputShopName" placeholder="Enter Shop Name" />
                                             </div>
-                                            <div className="col-6">
-                                                <label htmlFor="inputShopName">Closing</label>
-                                                <EndTimePicker />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <div className="row">
-                                            <div className="col-6">
-                                                <label htmlFor="inputShopName">Slot Wash Machine</label>
-                                                <input type="number" name="slotDry" onChange={this.handleOnChange} className="form-control" id="inputShopName" />
-                                            </div>
-                                            <div className="col-6">
-                                                <label htmlFor="inputShopName">Slot Dry Machine</label>
-                                                <input type="number" name="slotWash" onChange={this.handleOnChange} className="form-control" id="inputShopName" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <div className="row">
-                                            <div className="col-6 pr-0">
-                                                <button className="btn btn-primary w-100" onClick={this.handleKilos}>Kilos</button>
-                                            </div>
-                                            <div className="col-6 pl-0">
-                                                <button className="btn btn-primary w-100" onClick={this.handleLoads}>Loads</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {this.state.isKilos ? (
-                                        <div className="form-group">
-                                            <div className="row">
-                                                <div className="col-6">
-                                                    <label htmlFor="inputShopName">Kilo Wash</label>
-                                                    <input type="number" name="kiloWash" defaultValue={this.state.kiloWash} className="form-control" readOnly />
-                                                </div>
-                                                <div className="col-6">
-                                                    <label htmlFor="inputShopName">Kilo Dry</label>
-                                                    <input type="number" name="kiloDry" defaultValue={this.state.kiloDry} className="form-control" readOnly />
-                                                </div>
-                                                <div className="col-12">
-                                                    <label htmlFor="inputShopName">Price of Wash and Dry</label>
-                                                    <input type="number" name="price" onChange={this.handleOnChange} className="form-control" id="inputShopName" />
+                                            <div className="form-group">
+                                                <div className="row">
+                                                    <div className="col-6">
+                                                        <label htmlFor="inputShopName">Opening</label>
+                                                        <StartTimePicker />
+                                                    </div>
+                                                    <div className="col-6">
+                                                        <label htmlFor="inputShopName">Closing</label>
+                                                        <EndTimePicker />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ) : ''}
-                                    {this.state.isLoads ? (
-                                        <div className="form-group">
-                                            <div className="row">
-                                                <div className="col-6">
-                                                    <label htmlFor="inputShopName">Price</label>
-                                                    <input type="number" name="washPrice" onChange={this.handleOnChange} className="form-control" id="inputShopName" />
-                                                </div>
-                                                <div className="col-6">
-                                                    <label htmlFor="inputShopName">Price</label>
-                                                    <input type="number" name="dryPrice" onChange={this.handleOnChange} className="form-control" id="inputShopName" />
+                                            <div className="form-group">
+                                                <div className="row">
+                                                    <div className="col-6">
+                                                        <label htmlFor="inputShopName">Slot Wash Machine</label>
+                                                        <input type="number" name="slotDry" onChange={this.handleOnChange} className="form-control" id="inputShopName" />
+                                                    </div>
+                                                    <div className="col-6">
+                                                        <label htmlFor="inputShopName">Slot Dry Machine</label>
+                                                        <input type="number" name="slotWash" onChange={this.handleOnChange} className="form-control" id="inputShopName" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ) : ''}
-                                    <div className="form-group">
-                                        <label htmlFor="openDayInput">Open Days</label>
-                                        <select name="selectedOptions" onChange={this.handleOpeningDays} value={this.state.selectedOptions} className="form-control" id="openDayInput" multiple>
-                                            <option value="None" disabled>Select Date</option>
-                                            <option value="Weekends">Weekends</option>
-                                            <option value="Weekdays">Weekdays</option>
-                                            <option value="Monday">Monday</option>
-                                            <option value="Tuesday">Tuesday</option>
-                                            <option value="Wednesday">Wednesday</option>
-                                            <option value="Thursday">Thursday</option>
-                                            <option value="Friday">Friday</option>
-                                            <option value="Saturday">Saturday</option>
-                                            <option value="Sunday">Sunday</option>
-                                        </select>
+                                            <div className="form-group">
+                                                <div className="row">
+                                                    <div className="col-6 pr-0">
+                                                        <button className="btn btn-primary w-100" onClick={this.handleKilos}>Kilos</button>
+                                                    </div>
+                                                    <div className="col-6 pl-0">
+                                                        <button className="btn btn-primary w-100" onClick={this.handleLoads}>Loads</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {this.state.isKilos ? (
+                                                <div className="form-group">
+                                                    <div className="row">
+                                                        <div className="col-6">
+                                                            <label htmlFor="inputShopName">Kilo Wash</label>
+                                                            <input type="number" name="kiloWash" defaultValue={this.state.kiloWash} className="form-control" readOnly />
+                                                        </div>
+                                                        <div className="col-6">
+                                                            <label htmlFor="inputShopName">Kilo Dry</label>
+                                                            <input type="number" name="kiloDry" defaultValue={this.state.kiloDry} className="form-control" readOnly />
+                                                        </div>
+                                                        <div className="col-12">
+                                                            <label htmlFor="inputShopName">Price of Wash and Dry</label>
+                                                            <input type="number" name="price" onChange={this.handleOnChange} className="form-control" id="inputShopName" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ) : ''}
+                                            {this.state.isLoads ? (
+                                                <div className="form-group">
+                                                    <div className="row">
+                                                        <div className="col-6">
+                                                            <label htmlFor="inputShopName">Price</label>
+                                                            <input type="number" name="washPrice" onChange={this.handleOnChange} className="form-control" id="inputShopName" />
+                                                        </div>
+                                                        <div className="col-6">
+                                                            <label htmlFor="inputShopName">Price</label>
+                                                            <input type="number" name="dryPrice" onChange={this.handleOnChange} className="form-control" id="inputShopName" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ) : ''}
+                                            <div className="form-group">
+                                                <label htmlFor="openDayInput">Open Days</label>
+                                                <select name="selectedOptions" onChange={this.handleOpeningDays} value={this.state.selectedOptions} className="form-control" id="openDayInput" multiple>
+                                                    <option value="None" disabled>Select Date</option>
+                                                    <option value="Weekends">Weekends</option>
+                                                    <option value="Weekdays">Weekdays</option>
+                                                    <option value="Monday">Monday</option>
+                                                    <option value="Tuesday">Tuesday</option>
+                                                    <option value="Wednesday">Wednesday</option>
+                                                    <option value="Thursday">Thursday</option>
+                                                    <option value="Friday">Friday</option>
+                                                    <option value="Saturday">Saturday</option>
+                                                    <option value="Sunday">Sunday</option>
+                                                </select>
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="laundryImage">Photo</label>
+                                                <FileBase64
+                                                    multiple={false}
+                                                    onDone={this.getFiles.bind(this)} />
+                                            </div>
+                                            <div className="form-group">
+                                                <div className="mb-3 text-center">
+                                                    <img src={this.state.image ? this.state.image : require('../../customer/laundries/dummy.png')} width="200" height="200 " />
+                                                </div>
+                                            </div>
+                                            <div className="form-group text-right">
+                                                <button type="button" onClick={this.goBack} className="btn btn-danger mr-2">Cancel</button>
+                                                <button type="submit" className="btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div className="form-group">
-                                        <label htmlFor="laundryImage">Photo</label>
-                                        <FileBase64
-                                            multiple={false}
-                                            onDone={this.getFiles.bind(this)} />
-                                    </div>
-                                    <div className="form-group">
-                                        <div className="mb-3 text-center">
-                                            <img src={this.state.image ? this.state.image : require('../../customer/laundries/dummy.png')} width="200" height="200 " />
-                                        </div>
-                                    </div>
-                                    <div className="form-group text-right">
-                                        <button type="button" onClick={this.goBack} className="btn btn-danger mr-2">Cancel</button>
-                                        <button type="submit" className="btn btn-primary">Submit</button>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         );
     }

@@ -72,30 +72,34 @@ class Dashboard extends Component {
     render() {
         return (
             <div className="animated fadeIn">
-                <div className="latest-books mt-5">
-                    <h3>Recent Orders</h3>
-                    <table className="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>LaundryShop</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.books.map((book, i) => (
-                                <tr key={i}>
-                                    <td><Link to={`/user/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
+                <div className="card mt-5">
+                    <div className="card-body">
+                        <div className="latest-books">
+                            <h3>Recent Orders</h3>
+                            <table className="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>LaundryShop</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.books.map((book, i) => (
+                                        <tr key={i}>
+                                            <td><Link to={`/user/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
 
-                                    <td>{book.laundry_shop.shopName}</td>
-                                    <td>{book.amount}</td>
-                                    <td>{book.status}</td>
-                                </tr>
-                            ))}
+                                            <td>{book.laundry_shop.shopName}</td>
+                                            <td>{book.amount}</td>
+                                            <td>{book.status}</td>
+                                        </tr>
+                                    ))}
 
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

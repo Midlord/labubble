@@ -97,52 +97,53 @@ class AddServices extends Component {
 
         return (
             <div className="animated fadeIn">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="card card-add mt-3">
-                                <div className="card-header">
-                                    <h3 className="text-center">Add Services</h3>
-                                </div>
-                                <div className="card-body">
-                                    <form onSubmit={this.handleSubmit}>
-                                        <div className="form-group">
-                                            <label htmlFor="inputTitle">Service Name</label>
-                                            <input type="text" name="title" onChange={this.handleOnChange} className="form-control" id="inputTitle" placeholder="Enter Service Name" />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="inputPrice">Price</label>
-                                            <input type="number" name="price" onChange={this.handleOnChange} className="form-control" id="inputPrice" />
-                                        </div>
+                <div className="card">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="card card-add mt-3">
+                                    <div className="card-header">
+                                        <h3 className="text-center">Add Services</h3>
+                                    </div>
+                                    <div className="card-body">
+                                        <form onSubmit={this.handleSubmit}>
+                                            <div className="form-group">
+                                                <label htmlFor="inputTitle">Service Name</label>
+                                                <input type="text" name="title" onChange={this.handleOnChange} className="form-control" id="inputTitle" placeholder="Enter Service Name" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="inputPrice">Price</label>
+                                                <input type="number" name="price" onChange={this.handleOnChange} className="form-control" id="inputPrice" />
+                                            </div>
 
-                                        <div className="form-group text-right">
-                                            <button type="cancel" className="btn btn-danger mr-2">Cancel</button>
-                                            <button type="submit" className="btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
+                                            <div className="form-group text-right">
+                                                <button type="cancel" className="btn btn-danger mr-2">Cancel</button>
+                                                <button type="submit" className="btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="services mb-5">
-                                <div className="list-group">
-                                    <h3 className="mb-3">Services</h3>
-                                    {services.length > 0 ?
-                                        services.map((service, i) => (
-                                            <span className="list-group-item list-group-item-action" key={i}>{service.title} <span className="badge badge-pill badge-primary pull-right">{`P ${service.price}`}</span></span>
-                                        )) : (
-                                            <div className="text-center mt-2">
-                                                <h1>No Services</h1>
-                                            </div>
-                                        )}
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="services mb-5">
+                                    <div className="list-group">
+                                        <h3 className="mb-3">Services</h3>
+                                        {services.length > 0 ?
+                                            services.map((service, i) => (
+                                                <span className="list-group-item list-group-item-action" key={i}>{service.title} <span className="badge badge-pill badge-primary pull-right">{`P ${service.price}`}</span></span>
+                                            )) : (
+                                                <div className="text-center mt-2">
+                                                    <h1>No Services</h1>
+                                                </div>
+                                            )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         );
     }
