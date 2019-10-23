@@ -255,7 +255,7 @@ class Register extends Component {
                     <div className="form-group">
                       <label htmlFor="role">Role <span className="text-danger">(required)</span></label>
                       <select name="role" id="role" className="form-control" onChange={this.handleOnChange} required>
-                        <option value="" disabled>--Select Role--</option>
+                        <option value="">--Select Role--</option>
                         <option value="customer">Customer</option>
                         <option value="owner">Owner</option>
                       </select>
@@ -303,7 +303,7 @@ class Register extends Component {
                     <div className="form-group">
                       <label htmlFor="barangay">Barangay <span className="text-danger">(required)</span></label>
                       <select name="barangay" className="form-control" onChange={this.handleOnChange}>
-                        <option value="" disabled>--Select Barangay--</option>
+                        <option value="">--Select Barangay--</option>
                         {barangays.map((item) => (
                           <option key={item}>{item}</option>
                         ))}
