@@ -40,7 +40,7 @@ class Book extends Component {
             total: 0,
             deliveryCharge: 0,
             subTotal: 0,
-            modalIsOpen:false
+            modalIsOpen: false
         };
         console.log(props.match.params.id)
         this.openModal = this.openModal.bind(this);
@@ -91,26 +91,26 @@ class Book extends Component {
                         kilosDryAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloDry),
                         deliveryCharge: result.data.deliveryCharge.amount,
                     })
-                    if(result.data.book.laundry_shop.type === 'kilos'){
-                        if(result.data.book.kiloDry === null || result.data.book.kiloDry === ""){
+                    if (result.data.book.laundry_shop.type === 'kilos') {
+                        if (result.data.book.kiloDry === null || result.data.book.kiloDry === "") {
                             this.setState({
                                 kilosDryAmount: 0
                             });
-                        }else if(result.data.book.kiloWash === null || result.data.book.kiloWash === ""){
+                        } else if (result.data.book.kiloWash === null || result.data.book.kiloWash === "") {
                             this.setState({
                                 kilosWashAmount: 0
                             });
-                        }else{
+                        } else {
                             this.setState({
                                 subTotal: parseInt(this.state.kilosWashAmount) + parseInt(this.state.kilosDryAmount) + parseInt(result.data.total)
                             });
                         }
-                    }else{
+                    } else {
                         this.setState({
                             subTotal: (parseInt(this.state.wash) + parseInt(this.state.dry)) + parseInt(result.data.total)
                         });
                     }
-            
+
                     this.setState({
                         total: parseInt(this.state.deliveryCharge) + parseInt(this.state.subTotal),
                     })
@@ -136,7 +136,7 @@ class Book extends Component {
         this.setState({
             isloaded: true
         });
-        
+
         axios.post(`https://stockwatch.site/public/api/book/checkout/${this.props.match.params.id}`, {
             amount: this.state.total
         }, {
@@ -205,7 +205,7 @@ class Book extends Component {
 
         const Kilos = () => (
             <div className="parent">
-                 <li className="list-group-item d-flex justify-content-between lh-condensed">
+                <li className="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 className="my-0">Kilo Wash</h6>
                         {/* <small className="text-muted">Brief description</small> */}
@@ -229,70 +229,76 @@ class Book extends Component {
 
         return (
             <div className="animated fadeIn">
-                <div className="row">
-                    <div className="content col mt-5 mb-5">
-                        <div className="col order-md-2 mb-4">
-                            <h4 className="d-flex justify-content-between align-items-center mb-3">
-                                <span className="text-bold">Booked Services</span>
-                                <span className="badge badge-secondary badge-pill">{this.state.services.length}</span>
-                            </h4>
-                            <ul className="list-group mb-3">
-                                <BookedServices />
+                <div className="card">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="row">
+                                <div className="content col mt-5 mb-5">
+                                    <div className="col order-md-2 mb-4">
+                                        <h4 className="d-flex justify-content-between align-items-center mb-3">
+                                            <span className="text-bold">Booked Services</span>
+                                            
+                                        </h4>
+                                        <ul className="list-group mb-3">
+                                            <BookedServices />
 
-                                {this.state.book.laundry_shop.type === 'loads' ? (
-                                    <DryWash />
-                                    ):(<Kilos />
-                                )}
+                                            {this.state.book.laundry_shop.type === 'loads' ? (
+                                                <DryWash />
+                                            ) : (<Kilos />
+                                                )}
 
-                                <li className="list-group-item d-flex justify-content-between">
-                                    <span>SubTotal</span>
-                                    <strong>{`P ${parseFloat(this.state.subTotal).toFixed(2)}`} </strong>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between bg-light">
-                                    <div className="text-danger">
-                                        <h6 className="my-0">Delivery Charges</h6>
-                                    </div>
-                                    <span className="text-success">P {this.state.deliveryCharge}</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between">
-                                    <span>Total</span>
-                                    <strong>{`P ${parseFloat(this.state.total).toFixed(2)}`} </strong>
-                                </li>
-                            </ul>
-                            <form>
-                                <div className="input-group mb-5">
-                                    <input type="text" className="form-control" placeholder="Promo code" />
-                                    <div className="input-group-append">
-                                        <button className="btn btn-secondary">Redeem</button>
+                                            <li className="list-group-item d-flex justify-content-between">
+                                                <span>SubTotal</span>
+                                                <strong>{`P ${parseFloat(this.state.subTotal).toFixed(2)}`} </strong>
+                                            </li>
+                                            <li className="list-group-item d-flex justify-content-between bg-light">
+                                                <div className="text-danger">
+                                                    <h6 className="my-0">Delivery Charges</h6>
+                                                </div>
+                                                <span className="text-success">P {this.state.deliveryCharge}</span>
+                                            </li>
+                                            <li className="list-group-item d-flex justify-content-between">
+                                                <span>Total</span>
+                                                <strong>{`P ${parseFloat(this.state.total).toFixed(2)}`} </strong>
+                                            </li>
+                                        </ul>
+                                        <form>
+                                            <div className="input-group mb-5">
+                                                <input type="text" className="form-control" placeholder="Promo code" />
+                                                <div className="input-group-append">
+                                                    <button className="btn btn-secondary">Redeem</button>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <button type="cancel" className="ui inverted default button">Cancel</button>
+                                                <button onClick={this.openModal} type="button" className="ui inverted primary button">Check Out</button>
+                                            </div>
+                                            <Modal
+                                                isOpen={this.state.modalIsOpen}
+                                                onRequestClose={this.closeModal}
+                                                style={customStyles}
+                                                contentLabel="CheckOut"
+                                            >
+
+                                                <div className="modal-header">
+                                                    <h5 className="modal-title" id="exampleModalLabel"></h5>
+                                                    {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
+                                                    <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div className="modal-body">
+                                                    <p>Are you sure you want to CheckOut this order?</p>
+                                                </div>
+                                                <div className="modal-footer">
+                                                    <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                                    <button type="button" onClick={this.handleCheckout} className="btn btn-primary">Yes</button>
+                                                </div>
+                                            </Modal>
+                                        </form>
                                     </div>
                                 </div>
-                                <div className="text-right">
-                                    <button type="cancel" className="ui inverted default button">Cancel</button>
-                                    <button  onClick={this.openModal} type="button" className="ui inverted primary button">Check Out</button>
-                                </div>
-                                <Modal
-                                    isOpen={this.state.modalIsOpen}
-                                    onRequestClose={this.closeModal}
-                                    style={customStyles}
-                                    contentLabel="CheckOut"
-                                >
-
-                                    <div className="modal-header">
-                                        <h5 className="modal-title" id="exampleModalLabel"></h5>
-                                        {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
-                                        <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div className="modal-body">
-                                        <p>Are you sure you want to CheckOut this order?</p>
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
-                                        <button type="button" onClick={this.handleCheckout} className="btn btn-primary">Yes</button>
-                                    </div>
-                                </Modal>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>

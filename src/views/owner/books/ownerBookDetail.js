@@ -324,7 +324,7 @@ class OwnerBookDetail extends Component {
                                 <div className="col order-md-2 mb-4">
                                     <h4 className="d-flex justify-content-between align-items-center mb-3">
                                         <span className="text-bold">Booked Services</span>
-                                        <span className="badge badge-secondary badge-pill">{this.state.services.length}</span>
+                                        
                                     </h4>
                                     <ul className="list-group mb-3">
                                         <BookedServices />

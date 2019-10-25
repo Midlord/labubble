@@ -13,6 +13,7 @@ const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout'));
 
 // Pages
 const Login = React.lazy(() => import('./views/Pages/Login'));
+const ForgotPassword = React.lazy(() => import('./views/customer/password/ForgotPassword'));
 const AdminLogin = React.lazy(() => import('./views/Pages/Login/AdminLogin'));
 const Register = React.lazy(() => import('./views/Pages/Register'));
 const Page404 = React.lazy(() => import('./views/Pages/Page404'));
@@ -26,6 +27,7 @@ class App extends Component {
           <React.Suspense fallback={loading()}>
             <Switch>
               <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
+              <Route exact path="/forgot-password" name="Forgot Password" render={props => <ForgotPassword {...props}/>} />
               <Route exact path="/admin/login" name="Login Page" render={props => <AdminLogin {...props}/>} />
               <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />
               <Route exact path="/404" name="Page 404" render={props => <Page404 {...props}/>} />

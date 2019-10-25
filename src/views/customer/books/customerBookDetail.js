@@ -173,7 +173,7 @@ class CustomerBookDetail extends Component {
 
             this.state.bookRemarks.map((bookRemark, i) => (
                 <tr key={i}>
-                    <td>{moment(bookRemark.created_at).format('YYYY-MM-DD')}</td>
+                    <td>{moment(bookRemark.created_at).format('YYYY-MM-DD hh:mm A')}</td>
                     <td>{bookRemark.remarks}</td>
                 </tr>
             )
@@ -301,8 +301,8 @@ class CustomerBookDetail extends Component {
                                         <table className="table">
                                             <thead>
                                                 <tr>
-                                                    <th className="w-40">Date</th>
-                                                    <th className="w-60">Remarks</th>
+                                                    <th className="w-50">Date and Time</th>
+                                                    <th className="w-50">Remarks</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

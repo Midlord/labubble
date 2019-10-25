@@ -7,7 +7,10 @@
     background-size: cover;
   }
 
-
+nav > ol.breadcrumb {
+    font-size: 20px;
+    color: #007bff;
+}
 .app-header {
     background: #007bff;
     background: linear-gradient(to right, #0062E6, #33AEFF);

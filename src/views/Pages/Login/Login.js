@@ -59,7 +59,7 @@ class Login extends Component {
           sessionStorage.setItem('loginTime', new Date())
           sessionStorage.setItem('isActive', result.data.user.isActive)
           sessionStorage.setItem('isHasShop', result.data.isHasShop)
-          
+
           this.setState({
             isLoggedIn: true,
             role: result.data.user.role,
@@ -85,7 +85,7 @@ class Login extends Component {
                 position: toast.POSITION.BOTTOM_RIGHT
               });
               this.props.history.push(`/owner/dashboard`);
-            } else if (this.state.role === 'delivery'){
+            } else if (this.state.role === 'delivery') {
               toast.success(result.data.message, {
                 position: toast.POSITION.BOTTOM_RIGHT
               });
@@ -183,9 +183,14 @@ class Login extends Component {
                       <label htmlFor="inputPassword">Password</label>
                     </div>
 
-                    <div className="custom-control custom-checkbox mb-3">
-                      <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                      <label className="custom-control-label" htmlFor="customCheck1">Remember password</label>
+                    <div className="row">
+                      <div className="custom-control custom-checkbox mb-3 col-6">
+                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
+                        <label className="custom-control-label" htmlFor="customCheck1">Remember password</label>
+                      </div>
+                      <div className="mb-3 col-6">
+                      <Link to={`forgot-password`}><span> Forgot Password? </span></Link>
+                      </div>
                     </div>
                     <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
                     <hr className="my-4" />

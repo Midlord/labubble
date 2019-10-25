@@ -73,7 +73,7 @@ class CustomerBooks extends Component {
 
         <div className="card mt-5">
           <div className="card-header">
-            <strong>Books</strong>
+            <strong>Orders</strong>
           </div>
           <div className="table-responsive">
             <table className="table">

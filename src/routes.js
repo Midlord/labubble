@@ -73,8 +73,8 @@ const AddLaundry = React.lazy(() => import('./views/owner/laundries/AddLaundry')
 const EditLaundry = React.lazy(() => import('./views/owner/laundries/EditLaundry'));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
-  { path: '/customer/dashboard', exact: true, name: 'CustomerDashboard', component: CustomerDashboard  },
-  { path: '/home', exact: true, name: 'Home', component: Home  },
+  { path: '/customer/dashboard', exact: true, name: 'My Dashboard', component: CustomerDashboard  },
+  { path: '/home', exact: true, name: 'Search', component: Home  },
   { path: '/profile', exact: true, name: 'Profile', component: Profile  },
   { path: '/rewards', exact: true, name: 'Rewards', component: Rewards  },
   { path: '/laundry/:id', exact: true, name: 'LaundryDetails', component: LaundryDetail },
@@ -82,8 +82,8 @@ const routes = [
   { path: '/user/laundry/:id/book/:id', exact: true, name: 'BookDetail', component: BookDetail },
 
   { path: '/user/transactions', exact: true, name: 'Transactions', component: Transactions },
-  { path: '/user/books', exact: true, name: 'CustomerBooks', component: CustomerBooks },
-  { path: '/user/book/:id', exact: true, name: 'CustomerBookDetail', component: CustomerBookDetail },
+  { path: '/user/books', exact: true, name: 'My Orders', component: CustomerBooks },
+  { path: '/user/book/:id', exact: true, name: 'Order Detail', component: CustomerBookDetail },
   
   { path: '/owner/dashboard', exact: true, name: 'Dashboard', component: OwnerDashboard },
   { path: '/owner/pendingBooks', exact: true, name: 'Recent Orders', component: PendingBooks },

@@ -190,8 +190,9 @@ class Profile extends Component {
                     </div>
                     <div className="card">
                         <div className="card-body">
-                            <h3><p className="mt-3 w-100 float-left"><strong>Information</strong></p></h3>
-                            <hr />
+                            <div className="card-header text-center mb-2">
+                                <h3>Information</h3>
+                            </div>
                             <div className="information">
                                 <form onSubmit={this.handleProfileUpdate}>
                                     <div className="form-group">
@@ -224,21 +225,24 @@ class Profile extends Component {
                             </div>
                         </div>
                     </div>
-                    <h3><p className="mt-3 w-100 float-left"><strong>Rewards</strong></p></h3>
                     <div className="ratings">
                         <div className="mt-5">
-                            <div className="card border-info shadow text-info p-3 my-card">
-                                <span className="fa fa-trophy trophy-size" aria-hidden="true"></span>
-                                <div className="text-info text-center mt-3"><h4>Points</h4></div>
-                                <div className="text-info text-center mt-2"><h1>{this.state.points}</h1></div>
+                            <div className="card border-info shadow p-3 my-card">
+                                <div className="card-header text-center mb-2">
+                                    <h3>Rewards</h3>
+                                </div>
+                                <div className="card-body text-center">
+                                    <span className="fa fa-trophy trophy-size" aria-hidden="true"></span>
+                                    <div className="text-info text-center mt-3"><h4>Points</h4></div>
+                                    <div className="text-info text-center mt-2"><h1>{this.state.points}</h1></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <h3><p className="mt-3 w-100 float-left"><strong>Books</strong></p></h3>
                     <div className="book-table">
                         <div className="card mt-5">
                             <div className="card-header">
-                                <strong>Books</strong>
+                                <h3>Books</h3>
                             </div>
                             <div className="table-responsive">
                                 <table className="table">

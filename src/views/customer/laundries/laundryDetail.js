@@ -17,7 +17,7 @@ class LaundryDetail extends Component {
             services: [],
             ratings: [],
             rater: [],
-            type:'',
+            type: '',
             average_ratings: 0,
             totalSlots: 0,
             isLaundryLoaded: false
@@ -181,99 +181,103 @@ class LaundryDetail extends Component {
         }
         return (
             <div className="animated fadeIn">
-                <div className="row">
-                    <div className="content col mt-5">
+                <div className="card">
+                    <div className="card-body">
                         <div className="row">
-                            <div className="col">
-                                <div className="mb-3">
-                                    <img className="btn-md img-size" src={require('../laundries/dummy.png')} alt="" />
-                                </div>
-                            </div>
-                            <div className="col">
-                                <p className="card-title">{laundry.shopName}</p>
-                                <div className="color-star mb-1">
-                                    <CreateRatings stars={this.state.average_ratings} />
-                                </div>
-                                <Link className="btn btn-primary btn-block" to={`/book/laundry/${laundry_id}`}>Book Now </Link>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <div className="mb-1">
-                                    <span className="font-weight-bold">Schedule</span>
-                                    <p>{laundry.openDay}</p>
-                                    <span className="font-weight-bold">Opening - Closing</span>
-                                    <p>{moment(laundry.opening).format('h:mm A')} - {moment(laundry.closing).format('h:mm A')}</p>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <p><span>{`Number of Wash: ${laundry.slotWash}`}</span></p>
-                                <p><span>{`Number of Dry: ${laundry.slotDry}`}</span></p>
-                            </div>
-                        </div>
-                        <div className="shop-info mb-5">
-                            <div className="row">
-                                <div className="col">
-                                    <h3 className="mb-3">Shop Info</h3>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-5">
-                                    <p><strong>Owners Name:</strong></p>
-                                    <p><strong>Email:</strong></p>
-                                    <p><strong>Contact No.</strong></p>
-                                    <p><strong>Address:</strong></p>
-                                </div>
-                                <div className="col-7">
-                                    <p>{`${this.state.owner.firstName} ${this.state.owner.lastName}`}</p>
-                                    <p>{`${this.state.owner.email}`}</p>
-                                    <p>{`${this.state.owner.mobileNumber}`}</p>
-                                    <p>{`${laundry.barangay}, ${laundry.city}`}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="mt-5 mb-5">
-
-                            {this.state.laundry.type == 'loads' ? (
-                                <WashAndDry />
-                            ) : (<Kilos />)}
-                        </div>
-                        <div className="services mb-5">
-                            <div className="list-group">
-                                <h3 className="mb-3">Services</h3>
-                                {services.length > 0 ?
-                                    services.map((service, i) => (
-                                        <span className="list-group-item list-group-item-action" key={i}>{service.title} <span className="badge badge-pill badge-primary pull-right">{`P ${service.price}`}</span></span>
-                                    )) : (
-                                        <div className="text-center mt-2">
-                                            <h1>No Services</h1>
+                            <div className="content col mt-5">
+                                <div className="row">
+                                    <div className="col">
+                                        <div className="mb-3">
+                                            <img className="btn-md img-size" src={require('../laundries/dummy.png')} alt="" />
                                         </div>
-                                    )}
-                            </div>
-                        </div>
-                        <div className="reviews mb-5">
-                            <div className="ui comments">
-                                <h3 className="ui dividing header">Reviews and Comments</h3>
-                                <CommentAndReplies />
-
-                                {/* check if has book complete */}
-                                {this.state.isTransact.length > 0 ? (
-                                    <div className="rating-section mb-5">
-                                        <form className="ui reply form" onSubmit={this.handleRatings}>
-                                            <div className="field">
-                                                <label htmlFor="">Ratings:</label>
-                                                <Rating icon='star' defaultRating={0} maxRating={5} />
-                                            </div>
-                                            <div className="field">
-                                                <label htmlFor="">Message:</label>
-                                                <textarea rows="3" onChange={this.handleOnChange}></textarea>
-                                            </div>
-                                            <div className="field mb-3 text-right">
-                                                <button className="ui inverted primary button">Add Comment</button>
-                                            </div>
-                                        </form>
                                     </div>
-                                ) : ''}
+                                    <div className="col">
+                                        <p className="card-title">{laundry.shopName}</p>
+                                        <div className="color-star mb-1">
+                                            <CreateRatings stars={this.state.average_ratings} />
+                                        </div>
+                                        <Link className="btn btn-primary btn-block" to={`/book/laundry/${laundry_id}`}>Book Now </Link>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <div className="mb-1">
+                                            <span className="font-weight-bold">Schedule</span>
+                                            <p>{laundry.openDay}</p>
+                                            <span className="font-weight-bold">Opening - Closing</span>
+                                            <p>{moment(laundry.opening).format('h:mm A')} - {moment(laundry.closing).format('h:mm A')}</p>
+                                        </div>
+                                    </div>
+                                    <div className="col">
+                                        <p><span>{`Number of Wash: ${laundry.slotWash}`}</span></p>
+                                        <p><span>{`Number of Dry: ${laundry.slotDry}`}</span></p>
+                                    </div>
+                                </div>
+                                <div className="shop-info mb-5">
+                                    <div className="row">
+                                        <div className="col">
+                                            <h3 className="mb-3">Shop Info</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-5">
+                                            <p><strong>Owners Name:</strong></p>
+                                            <p><strong>Email:</strong></p>
+                                            <p><strong>Contact No.</strong></p>
+                                            <p><strong>Address:</strong></p>
+                                        </div>
+                                        <div className="col-7">
+                                            <p>{`${this.state.owner.firstName} ${this.state.owner.lastName}`}</p>
+                                            <p>{`${this.state.owner.email}`}</p>
+                                            <p>{`${this.state.owner.mobileNumber}`}</p>
+                                            <p>{`${laundry.barangay}, ${laundry.city}`}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-5 mb-5">
+
+                                    {this.state.laundry.type == 'loads' ? (
+                                        <WashAndDry />
+                                    ) : (<Kilos />)}
+                                </div>
+                                <div className="services mb-5">
+                                    <div className="list-group">
+                                        <h3 className="mb-3">Services</h3>
+                                        {services.length > 0 ?
+                                            services.map((service, i) => (
+                                                <span className="list-group-item list-group-item-action" key={i}>{service.title} <span className="badge badge-pill badge-primary pull-right">{`P ${service.price}`}</span></span>
+                                            )) : (
+                                                <div className="text-center mt-2">
+                                                    <h1>No Services</h1>
+                                                </div>
+                                            )}
+                                    </div>
+                                </div>
+                                <div className="reviews mb-5">
+                                    <div className="ui comments">
+                                        <h3 className="ui dividing header">Reviews and Comments</h3>
+                                        <CommentAndReplies />
+
+                                        {/* check if has book complete */}
+                                        {this.state.isTransact.length > 0 ? (
+                                            <div className="rating-section mb-5">
+                                                <form className="ui reply form" onSubmit={this.handleRatings}>
+                                                    <div className="field">
+                                                        <label htmlFor="">Ratings:</label>
+                                                        <Rating icon='star' defaultRating={0} maxRating={5} />
+                                                    </div>
+                                                    <div className="field">
+                                                        <label htmlFor="">Message:</label>
+                                                        <textarea rows="3" onChange={this.handleOnChange}></textarea>
+                                                    </div>
+                                                    <div className="field mb-3 text-right">
+                                                        <button className="ui inverted primary button">Add Comment</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        ) : ''}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

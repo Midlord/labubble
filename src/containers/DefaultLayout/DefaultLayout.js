@@ -115,7 +115,7 @@ class DefaultLayout extends Component {
             <AppSidebarMinimizer />
           </AppSidebar>
           <main className="main">
-            {sessionStorage.getItem('role') && sessionStorage.getItem('role') !== 'customer' ? <AppBreadcrumb appRoutes={routes} router={router} /> : ''}
+            <AppBreadcrumb appRoutes={routes} router={router} />
             <div className={`${sessionStorage.getItem('role') === 'admin' ? 'container-fluid' : 'container'}`}>
               <Suspense fallback={this.loading()}>
                 <Switch>
