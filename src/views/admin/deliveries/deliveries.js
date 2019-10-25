@@ -13,6 +13,42 @@ import './css/deliveries.css';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
+const barangays = [
+    "Agapito Del Rosario",
+    "Amsic",
+    "Anunas",
+    "Balibago",
+    "Capaya",
+    "Claro M. Recto",
+    "Cuayan",
+    "Cutcut",
+    "Cutud",
+    "Lourdes North West",
+    "Lourdes Sur",
+    "Lourdes Sur East",
+    "Malabañas",
+    "Margot",
+    "Marisol",
+    "Mining",
+    "Pampang",
+    "Pandan",
+    "Pulungbulu",
+    "Pulung Cacutud",
+    "Pulung Maragul",
+    "Salapungan",
+    "San Jose",
+    "San Nicolas",
+    "Sta. Teresita",
+    "Sta. Trinidad",
+    "Sto. Cristo",
+    "Sto. Domingo",
+    "Sto. Rosario",
+    "Sapalibutad",
+    "Sapangbato",
+    "Tabun",
+    "Virgen Delos Remedios"
+];
+
 const customStyles = {
     content: {
         top: '20%',
@@ -24,7 +60,22 @@ const customStyles = {
         width: '20%',
         transform: 'translate(-50%, -50%)'
     }
+
 };
+
+const createDelivery = {
+    content: {
+        top: '57%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        padding: '0',
+        width: '50%',
+        transform: 'translate(-50%, -50%)',
+    }
+};
+
 
 class Deliveries extends Component {
     constructor(props) {
@@ -32,22 +83,56 @@ class Deliveries extends Component {
 
         this.state = {
             user_id: '',
+            firstName:'',
+            lastName:'',
+            email:'',
+            mobileNumber:'',
+            password:'',
             isloaded: false,
             users: [],
             usersBanned: [],
-            modalIsOpen: false
+            modalDeliveryIsOpen: false,
+            modalIsOpen: false,
+            selectedOptions: [],
         };
 
         this.handleBanned = this.handleBanned.bind(this);
         this.handleUnbanned = this.handleUnbanned.bind(this);
         this.openModalBanned = this.openModalBanned.bind(this);
         this.openModalUnbanned = this.openModalUnbanned.bind(this);
+        this.openModalDelivery = this.openModalDelivery.bind(this);
+        this.closeModalDelivery = this.closeModalDelivery.bind(this);
         this.closeModal = this.closeModal.bind(this);
 
     }
 
+    handleBarangayChange = (e) => {
+        let target = e.target
 
+        let name = target.name
+        //here
+        let value = Array.from(target.selectedOptions, option => option.value);
+        this.setState({
+            [name]: value
+        });
 
+        console.log(this.state.selectedOptions)
+
+    }
+
+    openModalDelivery = (e) => {
+        console.log(e)
+        this.setState({
+            modalDeliveryIsOpen: true
+        });
+    }
+
+    closeModalDelivery = (e) => {
+        console.log(e)
+        this.setState({
+            modalDeliveryIsOpen: false
+        });
+    }
 
     componentWillMount() {
         this.setState({
@@ -75,7 +160,11 @@ class Deliveries extends Component {
 
         // console.log('services', this.state.services)
     }
-
+    handleOnChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+          });
+    }
     openModalBanned = (id) => {
         console.log(id)
         this.setState({
@@ -140,6 +229,11 @@ class Deliveries extends Component {
             });
     }
 
+    handleDelivery = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
     handleUnbanned = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -174,6 +268,56 @@ class Deliveries extends Component {
                 console.log(error)
             });
     }
+
+    handleSaveDelivery = (e) => {
+        e.preventDefault();
+        this.setState({ isLoaded: true });
+        toast.configure();
+        axios.post('https://stockwatch.site/public/api/admin/delivery/store', {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            password: this.state.password,
+            mobileNumber: this.state.mobileNumber,
+            barangays: this.state.selectedOptions,
+        }, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        })
+            .then(result => {
+                if (result.status == 200) {
+                    toast.success(result.data.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+
+                    this.setState({ 
+                        isLoaded: false,
+                        users: result.data.users
+                     });
+                }
+            })
+            .catch(error => {
+                console.log(error.response.data)
+                this.setState({
+                    isLoaded: false,
+                    modalIsOpen: false,
+                    // firstName: error.response.data.request.firstName,
+                    // lastName: error.response.data.request.lastName,
+                    // email: error.response.data.request.email,
+                    // password: error.response.data.request.password,
+                    // mobileNumber: error.response.data.request.mobileNumber,
+                    // barangays: error.response.data.request.barangays,
+                });
+                error.response.data.errors.map((error) => {
+                    toast.error(error, {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+                })
+            });
+    }
+
 
 
     render() {
@@ -230,6 +374,7 @@ class Deliveries extends Component {
                         <div className="card">
                             <div className="card-header">
                                 <i className="fa fa-align-justify"></i> Deliveries</div>
+                            <button className="btn btn-primary" onClick={this.openModalDelivery}>Add Delivery</button>
                             <div className="card-body">
                                 <ReactTable
                                     data={this.state.users}
@@ -365,6 +510,76 @@ class Deliveries extends Component {
                                         <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
                                         <button type="button" onClick={this.handleUnbanned} className="btn btn-primary">Yes</button>
                                     </div>
+                                </Modal>
+                                <Modal
+                                    isOpen={this.state.modalDeliveryIsOpen}
+                                    onRequestClose={this.closeModalDelivery}
+                                    ariaHideApp={false}
+                                    style={createDelivery}
+                                    contentLabel="Create Delivery"
+                                >
+                                    <div className="modal-header">
+                                        <span>Add Delivery</span>
+                                        <button type="button" onClick={this.closeModalDelivery} className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form onSubmit={this.handleSaveDelivery}>
+                                        <div className="modal-body">
+                                            <div className="row">
+                                                <div className="col-6">
+                                                    <div className="form-group">
+                                                        <label htmlFor="firstName">First Name</label>
+                                                        <input type="text" className="form-control" id="firstName" name="firstName" onChange={this.handleOnChange} />
+                                                    </div>
+
+                                                </div>
+                                                <div className="col-6">
+                                                    <div className="form-group">
+                                                        <label htmlFor="lastName">Last Name</label>
+                                                        <input type="text" className="form-control" id="lastName" name="lastName" onChange={this.handleOnChange} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-6">
+                                                    <div className="form-group">
+                                                        <label htmlFor="email">Email Address</label>
+                                                        <input type="email" className="form-control" id="email" name="email" onChange={this.handleOnChange} />
+                                                    </div>
+                                                </div>
+                                                <div className="col-6">
+                                                    <div className="form-group">
+                                                        <label htmlFor="mobileNumber">Mobile Number</label>
+                                                        <input type="number" className="form-control" id="mobileNumber" name="mobileNumber" onChange={this.handleOnChange} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-6">
+                                                    <div className="form-group">
+                                                        <label htmlFor="password">Password</label>
+                                                        <input type="password" className="form-control" id="password" name="password" onChange={this.handleOnChange} />
+                                                    </div>
+                                                </div>
+                                                <div className="col-6">
+                                                    <div className="form-group">
+                                                        <label htmlFor="barangay">Barangays</label>
+                                                        <select name="selectedOptions" className="form-control" id="barangay" onChange={this.handleBarangayChange} multiple>
+                                                            <option value="">Select Barangays</option>
+                                                            {barangays.map((item) => (
+                                                                <option key={item}>{item}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary" onClick={this.closeModalDelivery}>Close</button>
+                                            <button type="submit" className="btn btn-primary">Save</button>
+                                        </div>
+                                    </form>
                                 </Modal>
                             </div>
                         </div>
