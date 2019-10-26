@@ -385,7 +385,13 @@ class OrderDetail extends Component {
                                 <button type="button" onClick={this.handleReAssign} className="btn btn-primary">Yes</button>
                             </div>
                         </Modal>
-                        {this.state.isOtw ? '' :
+                        {this.state.isOtw ? (
+                            <div className="actions mb-3">
+                                <div className="col-12 text-right">
+                                    <button onClick={this.handleUpdateOrder} className="btn btn-primary">Edit</button>
+                                </div>
+                            </div>
+                        ) :
                             (
                                 <div className="actions mb-3">
                                     <div className="col-12 text-right">

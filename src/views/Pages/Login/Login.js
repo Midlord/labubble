@@ -89,7 +89,7 @@ class Login extends Component {
               toast.success(result.data.message, {
                 position: toast.POSITION.BOTTOM_RIGHT
               });
-              this.props.history.push(`/deliveries/orders`);
+              this.props.history.push(`/delivery/dashboard`);
             } else {
 
               sessionStorage.removeItem('token')
