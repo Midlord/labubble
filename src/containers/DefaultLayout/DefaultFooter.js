@@ -41,25 +41,38 @@ class DefaultFooter extends Component {
                   <Link to={`/owner/dashboard`}><i className="fas fa-home bottom-nav" aria-hidden="true"></i></Link>
                 </div>
                 <div className="col-4 text-center">
-                  {sessionStorage.getItem('isHasShop') == "true" ?(
+                  {sessionStorage.getItem('isHasShop') == "true" ? (
                     <Link to={`/owner/laundry`}><i className="fas fa-store bottom-nav" aria-hidden="true"></i></Link>
                   ) : (
-                    <Link to={`/owner/laundry/add`}><i className="fas fa-plus bottom-nav" aria-hidden="true"></i></Link>
-                  ) }
-                  
+                      <Link to={`/owner/laundry/add`}><i className="fas fa-plus bottom-nav" aria-hidden="true"></i></Link>
+                    )}
+
                 </div>
                 <div className="col-4 text-center">
-                {sessionStorage.getItem('isHasShop') == "true" ?(
+                  {sessionStorage.getItem('isHasShop') == "true" ? (
                     <Link to={`/owner/pendingBooks`}><i className="fas fa-book bottom-nav" aria-hidden="true"></i></Link>
                   ) : (
-                    <Link to={`/owner/dashboard`}><i className="fas fa-book bottom-nav" aria-hidden="true"></i></Link>
-                  ) }
-                  
+                      <Link to={`/owner/dashboard`}><i className="fas fa-book bottom-nav" aria-hidden="true"></i></Link>
+                    )}
+
                 </div>
               </div>
             </div>
           </nav>
-        ) : ''}
+        ) : (
+              <nav className="navbar fixed-bottom navbar-light bg-light">
+                <div className="col-12">
+                  <div className="row">
+                    <div className="col-6 text-center">
+                        <Link to={`/delivery/dashboard`}><i className="fas fa-home bottom-nav" aria-hidden="true"></i></Link>
+                    </div>
+                    <div className="col-6 text-center">
+                        <Link to={`/delivery/orders`}><i className="fas fa-store bottom-nav" aria-hidden="true"></i></Link>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            )}
       </React.Fragment>
     );
   }

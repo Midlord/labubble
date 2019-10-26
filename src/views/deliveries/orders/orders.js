@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loading from '../deliveries/loading';
+import Loading from '../loading';
 import moment from 'moment';
 import { _ } from 'core-js';
 import ReactTable from "react-table";

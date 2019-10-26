@@ -145,6 +145,8 @@ class Login extends Component {
       this.props.history.push(`/owner/dashboard`);
     } else if (sessionStorage.getItem('token') && sessionStorage.getItem('role') === 'customer') {
       this.props.history.push(`/customer/dashboard`);
+    } else if (sessionStorage.getItem('token') && sessionStorage.getItem('role') === 'delivery') {
+      this.props.history.push(`/delivery/dashboard`);
     } else {
 
       this.props.history.push(`/login`);

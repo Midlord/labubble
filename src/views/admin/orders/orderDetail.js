@@ -51,7 +51,7 @@ class OrderDetail extends Component {
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.handleProcessOrder = this.handleProcessOrder.bind(this);
-        
+
 
     }
 
@@ -70,39 +70,39 @@ class OrderDetail extends Component {
     handleProcessOrder = (e) => {
 
         toast.configure();
-    
+
         this.setState({
-          isloaded: true
+            isloaded: true
         });
         axios.get(`https://stockwatch.site/public/api/delivery/process/order/${this.props.match.params.id}`, {
-          headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+            headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
-          .then(result => {
-            console.log(result.data.deliveryOrders)
-            if (result.status === 200) {
-              toast.success(result.data.message, {
-                position: toast.POSITION.BOTTOM_RIGHT
-              });
-    
-              this.setState({
-                deliveryOrders: result.data.deliveryOrders,
-                isloaded: false,
-              });
-    
-              this.props.history.push(`/deliveries/orders`);
+            .then(result => {
+                console.log(result.data.deliveryOrders)
+                if (result.status === 200) {
+                    toast.success(result.data.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
 
-            }
-            // console.log(this.state.deliveryOrders)
-          })
-          .catch(error => {
-            this.setState({
-              isloaded: true
+                    this.setState({
+                        deliveryOrders: result.data.deliveryOrders,
+                        isloaded: false,
+                    });
+
+                    this.props.history.push(`/deliveries/orders`);
+
+                }
+                // console.log(this.state.deliveryOrders)
+            })
+            .catch(error => {
+                this.setState({
+                    isloaded: true
+                });
+
+                console.log(error)
             });
-    
-            console.log(error)
-          });
-    
-      }
+
+    }
 
     componentWillMount() {
         this.setState({
@@ -188,7 +188,7 @@ class OrderDetail extends Component {
                         position: toast.POSITION.BOTTOM_RIGHT
                     });
 
-                    this.props.history.push(`/deliveries/orders`);
+                    this.props.history.push(`/delivery/orders`);
                 }
             })
             .catch(error => {
@@ -337,56 +337,54 @@ class OrderDetail extends Component {
                     </div>
 
                     <div className="col-6 col-6 col-12">
-                        <div className="col  mb-4">
-                            <h4 className="d-flex justify-content-between align-items-center mb-3">
-                                <span className="text-bold">Booked Services</span>
+                        <h4 className="d-flex justify-content-between align-items-center mb-3">
+                            <span className="text-bold">Booked Services</span>
 
-                            </h4>
-                            <ul className="list-group mb-3">
-                                <LaundryInfo />
-                                <BookedServices />
-                                {this.state.book.laundry_shop.type === 'loads' ? (
-                                    <DryWash />
-                                ) : (<Kilos />
-                                    )}
+                        </h4>
+                        <ul className="list-group mb-3">
+                            <LaundryInfo />
+                            <BookedServices />
+                            {this.state.book.laundry_shop.type === 'loads' ? (
+                                <DryWash />
+                            ) : (<Kilos />
+                                )}
 
-                                <li className="list-group-item d-flex justify-content-between">
-                                    <span>SubTotal</span>
-                                    <strong>{`P ${parseFloat(this.state.subTotal).toFixed(2)}`} </strong>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between bg-light">
-                                    <div className="text-danger">
-                                        <h6 className="my-0">Delivery Charges</h6>
-                                    </div>
-                                    <span className="text-success">P {this.state.deliveryCharge}</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between">
-                                    <span>Total</span>
-                                    <strong>{`P ${parseFloat(this.state.total).toFixed(2)}`} </strong>
-                                </li>
-                            </ul>
-                            <Modal
-                                isOpen={this.state.modalIsOpen}
-                                onRequestClose={this.closeModal}
-                                ariaHideApp={false}
-                                style={customStyles}
-                                contentLabel="Example Modal"
-                            >
-                                <div className="modal-header">
-                                    {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
-                                    <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                            <li className="list-group-item d-flex justify-content-between">
+                                <span>SubTotal</span>
+                                <strong>{`P ${parseFloat(this.state.subTotal).toFixed(2)}`} </strong>
+                            </li>
+                            <li className="list-group-item d-flex justify-content-between bg-light">
+                                <div className="text-danger">
+                                    <h6 className="my-0">Delivery Charges</h6>
                                 </div>
-                                <div className="modal-body">
-                                    <p>Are you sure you want to Reject this order?</p>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
-                                    <button type="button" onClick={this.handleReAssign} className="btn btn-primary">Yes</button>
-                                </div>
-                            </Modal>
-                        </div>
+                                <span className="text-success">P {this.state.deliveryCharge}</span>
+                            </li>
+                            <li className="list-group-item d-flex justify-content-between">
+                                <span>Total</span>
+                                <strong>{`P ${parseFloat(this.state.total).toFixed(2)}`} </strong>
+                            </li>
+                        </ul>
+                        <Modal
+                            isOpen={this.state.modalIsOpen}
+                            onRequestClose={this.closeModal}
+                            ariaHideApp={false}
+                            style={customStyles}
+                            contentLabel="Example Modal"
+                        >
+                            <div className="modal-header">
+                                {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
+                                <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <p>Are you sure you want to Reject this order?</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                <button type="button" onClick={this.handleReAssign} className="btn btn-primary">Yes</button>
+                            </div>
+                        </Modal>
                         {this.state.isOtw ? '' :
                             (
                                 <div className="actions mb-3">
