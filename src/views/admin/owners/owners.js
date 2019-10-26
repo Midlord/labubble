@@ -8,10 +8,10 @@ import moment from 'moment';
 import { _ } from 'core-js';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-import Modal from 'react-modal';
 import './owners.css';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import Modal from 'react-modal';
 
 const customStyles = {
     content: {

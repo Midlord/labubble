@@ -58,7 +58,6 @@ class Home extends Component {
 
     this.state = {
       laundryShops: [],
-      barangay: '',
       city: 'Angeles City',
       isloaded: false,
       searchFilter: ''
@@ -120,8 +119,10 @@ class Home extends Component {
       isloaded: true
     });
 
-    if (this.state.barangay !== '') {
-      axios.get(`https://stockwatch.site/public/api/laundryShops/${this.state.barangay}`, {
+    if (this.state.searchFilter !== '') {
+      axios.post(`https://stockwatch.site/public/api/laundryShops/search`,{
+        searchFilter: this.state.searchFilter
+      }, {
         headers: {
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
           'Accept': 'application/json'
@@ -271,7 +272,7 @@ class Home extends Component {
               <form onSubmit={this.handleLaundrySearch}>
                 <div className="row">
                   <div className="col-10">
-                    <input type="text" className="form-control" id="searchByBrangay" name="barangay" value={this.state.barangay} onChange={this.handleOnChange} placeholder="Please search Barangay or Laundry Shop." required />
+                    <input type="text" className="form-control" id="searchByBrangay" name="searchFilter" onChange={this.handleOnChange} placeholder="Please search Barangay or Laundry Shop." required />
                   </div>
                   <div className="col-2 pl-0">
                     <button type="submit" className="btn btn-primary"><i className="fa fa-search" aria-hidden="true"></i></button>
