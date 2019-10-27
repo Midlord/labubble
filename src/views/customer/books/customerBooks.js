@@ -59,10 +59,10 @@ class CustomerBooks extends Component {
 
       this.state.books.map((book, i) => (
         <tr key={i}>
-          <td><Link to={`/user/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
+          <td><Link to={book.isCheckedOut === "1" ? `/user/book/${book.id}` : `/user/laundry/${book.laundry_shop.id}/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
           <td>{book.laundry_shop.shopName}</td>
           <td>{book.amount}</td>
-          <td>{book.status}</td>
+          <td>{book.isCheckedOut === "1" ? book.status : 'Check Out'}</td>
         </tr>
       )
       )
