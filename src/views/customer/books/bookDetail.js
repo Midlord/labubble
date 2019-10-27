@@ -33,6 +33,7 @@ class Book extends Component {
             laundry: [],
             address: [],
             services: [],
+            delivery_charge_id: '',
             wash: 0,
             kilosWashAmount: 0,
             kilosDryAmount: 0,
@@ -89,6 +90,7 @@ class Book extends Component {
                         isloaded: false,
                         kilosWashAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloWash),
                         kilosDryAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloDry),
+                        delivery_charge_id: result.data.deliveryCharge.id,
                         deliveryCharge: result.data.deliveryCharge.amount,
                     })
                     if (result.data.book.laundry_shop.type === 'kilos') {
@@ -138,6 +140,7 @@ class Book extends Component {
         });
 
         axios.post(`https://stockwatch.site/public/api/book/checkout/${this.props.match.params.id}`, {
+            delivery_charge_id: this.state.delivery_charge_id,
             amount: this.state.total
         }, {
             headers: {

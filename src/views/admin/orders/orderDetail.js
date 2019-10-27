@@ -66,8 +66,8 @@ class OrderDetail extends Component {
             modalUpdateOpen: true, 
             kiloDryQty: this.state.book.kiloDry,
             kiloWashQty: this.state.book.kiloWash,
-            loadsDryQty: this.state.book.kiloDry,
-            loadsWashQty: this.state.book.kiloWash
+            loadsDryQty: this.state.book.wash,
+            loadsWashQty: this.state.book.dry
         });
     }
 
@@ -433,34 +433,35 @@ class OrderDetail extends Component {
                                 </button>
                             </div>
                             <form onSubmit={this.handleUpdateOrder}>
+                                <input type="hidden" name="type" value={this.state.laundry.type}/>
                                 <div className="modal-body">
                                     {this.state.laundry.type === 'kilos' ? (
                                         <div className="parent">
                                             <div className="form-group">
                                                 <label htmlFor="mnumber">Kilo Wash <span className="text-danger">*</span></label>
-                                                <input type="number" name="kiloWashQty" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.kiloWashQty} pattern="[0-9]*" />
+                                                <input type="number" name="kiloWashQty" className="form-control" id="mnumber"  onChange={this.handleOnChange} value={this.state.kiloWashQty} pattern="[0-9]*" required/>
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="mnumber">Kilo Dry <span className="text-danger">*</span></label>
-                                                <input type="number" name="kiloDryQty" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.kiloDryQty} pattern="[0-9]*" />
+                                                <input type="number" name="kiloDryQty" className="form-control" id="mnumber"  onChange={this.handleOnChange} value={this.state.kiloDryQty} pattern="[0-9]*" required/>
                                             </div>
                                         </div>
                                     ) : (
                                             <div className="parent">
                                                 <div className="form-group">
                                                     <label htmlFor="mnumber">Kilo Wash <span className="text-danger">*</span></label>
-                                                    <input type="number" name="loadsWashQty" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.loadsWashQty} pattern="[0-9]*" />
+                                                    <input type="number" name="loadsWashQty" className="form-control" id="mnumber"  onChange={this.handleOnChange} value={this.state.loadsWashQty} pattern="[0-9]*" required/>
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="mnumber">Kilo Dry <span className="text-danger">*</span></label>
-                                                    <input type="number" name="loadsDryQty" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.loadsDryQty} pattern="[0-9]*" />
+                                                    <input type="number" name="loadsDryQty" className="form-control" id="mnumber"  onChange={this.handleOnChange} value={this.state.loadsDryQty} pattern="[0-9]*" required/>
                                                 </div>
                                             </div>
                                         )}
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
-                                    <button type="submit" className="btn btn-primary">Yes</button>
+                                    <button type="submit" className="btn btn-primary">Update</button>
                                 </div>
                             </form>
                         </Modal>
