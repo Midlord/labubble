@@ -50,6 +50,7 @@ class OrderDetail extends Component {
             modalIsOpen: false,
             modalUpdateOpen: false,
             isOtw: false,
+            isCollect:false
         };
         console.log(props.match.params.id)
         this.goBack = this.goBack.bind(this);
@@ -150,7 +151,8 @@ class OrderDetail extends Component {
                         kilosWashAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloWash),
                         kilosDryAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloDry),
                         deliveryCharge: result.data.deliveryCharge.amount,
-                        isOtw: result.data.isOtw
+                        isOtw: result.data.isOtw,
+                        isCollect: result.data.isCollect
                     })
 
                     if (result.data.book.laundry_shop.type === 'kilos') {
@@ -227,6 +229,43 @@ class OrderDetail extends Component {
 
                 console.log(error)
             });
+
+    }
+
+    handleCollect = (e) => {
+        toast.configure();
+
+        this.setState({
+            isloaded: true
+        });
+        axios.get(`https://stockwatch.site/public/api/delivery/collect/order/${this.props.match.params.id}`, {
+            headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+        })
+            .then(result => {
+                console.log(result.data.deliveryOrders)
+                if (result.status === 200) {
+                    toast.success(result.data.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+
+                    this.setState({
+                        books: result.data.books,
+                        isloaded: false,
+                    });
+
+                    this.props.history.push(`/delivery/orders`);
+
+                }
+                // console.log(this.state.deliveryOrders)
+            })
+            .catch(error => {
+                this.setState({
+                    isloaded: true
+                });
+
+                console.log(error)
+            });
+
 
     }
     handleReAssign = (e) => {
@@ -504,11 +543,13 @@ class OrderDetail extends Component {
                             </form>
                         </Modal>
                         {this.state.isOtw ? (
+                            !this.state.isCollect ? 
                             <div className="actions mb-3">
-                                <div className="col-12 text-right">
-                                    <button onClick={this.openModalOrder} className="btn btn-primary">Edit</button>
+                                <div className="col-12 text-right pr-0">
+                                    <button onClick={this.handleCollect} className="btn btn-primary">Collect</button>
+                                    <button onClick={this.openModalOrder} className="btn btn-primary ml-3">Edit</button>
                                 </div>
-                            </div>
+                            </div> : ''
                         ) :
                             (
                                 <div className="actions mb-3">
@@ -518,7 +559,6 @@ class OrderDetail extends Component {
                                     </div>
                                 </div>
                             )}
-
                     </div>
                 </div>
             </div>
