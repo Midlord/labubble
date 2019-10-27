@@ -70,13 +70,15 @@ class OwnerBooks extends Component {
     const BookTable = () => (
 
       this.state.books.map((book, i) => (
-        <tr key={i}>
-          <td><Link to={book.isCheckedOut === "1" ? `/user/book/${book.id}` : `/user/laundry/${book.laundry_shop.id}/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
-          <td>{book.laundry_shop.shopName}</td>
-          <td>{book.amount}</td>
-          <td>{book.isCheckedOut === "1" ? book.status : 'Check Out'}</td>
-        </tr>
-      )
+        book.isCheckedOut === "1" ?
+            <tr key={i}>
+                <td><Link to={`/owner/pending/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
+                <td>{`${book.user.firstName} ${book.user.lastName}`}</td>
+                <td>{book.amount}</td>
+                <td>{this.changeCaseFirstLetter(book.status)}</td>
+            </tr>
+          : ''
+        )
       )
     )
 
