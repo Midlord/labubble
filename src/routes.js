@@ -66,7 +66,9 @@ const Owners =  React.lazy(() => import('./views/admin/owners/owners'));
 const Deliveries =  React.lazy(() => import('./views/admin/deliveries/deliveries'));
 const OwnerDetail = React.lazy(() => import('./views/admin/owners/ownerDetail'));
 
-const DeliveryOrders =  React.lazy(() => import('./views/deliveries/orders'));
+const DeliveryDashboard =  React.lazy(() => import('./views/deliveries/dashboards/dashboard'));
+
+const DeliveryOrders =  React.lazy(() => import('./views/deliveries/orders/orders'));
 
 const AddLaundry = React.lazy(() => import('./views/owner/laundries/AddLaundry'));
 
@@ -111,8 +113,12 @@ const routes = [
 
   { path: '/admin/owner/:id', exact: true, name: 'Owner Detail', component: OwnerDetail },
 
-  { path: '/deliveries/orders', exact: true, name: 'Delivery Orders', component: DeliveryOrders },
+  { path: '/delivery/dashboard', exact: true, name: 'Dashboard', component: DeliveryDashboard },
 
+  { path: '/delivery/orders', exact: true, name: 'Delivery Orders', component: DeliveryOrders },
+
+
+  
 
   { path: '/admin/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/admin/theme/colors', name: 'Colors', component: Colors },

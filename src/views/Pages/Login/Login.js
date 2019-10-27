@@ -89,7 +89,7 @@ class Login extends Component {
               toast.success(result.data.message, {
                 position: toast.POSITION.BOTTOM_RIGHT
               });
-              this.props.history.push(`/deliveries/orders`);
+              this.props.history.push(`/delivery/dashboard`);
             } else {
 
               sessionStorage.removeItem('token')
@@ -145,6 +145,8 @@ class Login extends Component {
       this.props.history.push(`/owner/dashboard`);
     } else if (sessionStorage.getItem('token') && sessionStorage.getItem('role') === 'customer') {
       this.props.history.push(`/customer/dashboard`);
+    } else if (sessionStorage.getItem('token') && sessionStorage.getItem('role') === 'delivery') {
+      this.props.history.push(`/delivery/dashboard`);
     } else {
 
       this.props.history.push(`/login`);

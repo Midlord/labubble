@@ -82,3 +82,14 @@ h6 {
 .navbar-toggler{
     background-color: #fff !important;
 }
+
+span.badge.badge-success {
+    padding: 10px;
+}
+
+span.badge.badge-warning {
+    padding: 10px;
+}
+span.badge.badge-danger {
+    padding: 10px;
+}
