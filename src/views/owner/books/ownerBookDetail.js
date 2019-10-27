@@ -180,6 +180,7 @@ class OwnerBookDetail extends Component {
                         book: result.data.book,
                         isloaded: false,
                         isCollect:false,
+                        isEndLaundry: true,
                         modalIsOpenApproved: false,
                         modalIsOpenCancelled: false
                     })
@@ -434,7 +435,7 @@ class OwnerBookDetail extends Component {
                                     </ul>
                                     <div className="text-right">
                                         {this.state.book.status === 'processing' ? (
-                                            !this.state.isEndLaundry ? '' :
+                                            this.state.isEndLaundry ? '' :
                                             <button className="btn btn-primary" onClick={this.handleEndOrder}>End</button>
                                         ) : this.state.isCollect ? (
                                             <button className="btn btn-primary" onClick={this.handleProcessOrder}>Start</button>
