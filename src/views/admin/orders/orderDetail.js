@@ -12,7 +12,7 @@ import Modal from 'react-modal';
 
 const customStyles = {
     content: {
-        top: '25%',
+        top: '33%',
         left: '50%',
         right: 'auto',
         bottom: 'auto',
@@ -37,22 +37,38 @@ class OrderDetail extends Component {
             services: [],
             transaction: [],
             reward: [],
-            wash: 0,
-            dry: 0,
+            wash: '',
+            dry: '',
+            kiloWashQty: '',
+            kiloDryQty: '',
+            loadsWashQty: '',
+            loadsDryQty: '',
             total: 0,
             deliveryCharge: 0,
             subTotal: 0,
             remarks: '',
             modalIsOpen: false,
+            modalUpdateOpen: false,
             isOtw: false,
         };
         console.log(props.match.params.id)
         this.goBack = this.goBack.bind(this);
         this.openModal = this.openModal.bind(this);
+        this.openModalOrder = this.openModalOrder.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.handleProcessOrder = this.handleProcessOrder.bind(this);
 
 
+    }
+
+    openModalOrder = () => {
+        this.setState({ 
+            modalUpdateOpen: true, 
+            kiloDryQty: this.state.book.kiloDry,
+            kiloWashQty: this.state.book.kiloWash,
+            loadsDryQty: this.state.book.kiloDry,
+            loadsWashQty: this.state.book.kiloWash
+        });
     }
 
     openModal = () => {
@@ -60,11 +76,16 @@ class OrderDetail extends Component {
     }
 
     closeModal = () => {
-        this.setState({ modalIsOpen: false });
+        this.setState({ modalIsOpen: false, modalUpdateOpen: false });
     }
 
     handleOnChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
+        e.target.validity.valid ?
+            this.setState({
+                [e.target.name]: e.target.value <= 0 ? "" : e.target.value
+            })
+            :
+            e.target.value.replace(/\D/, '')
     }
 
     handleProcessOrder = (e) => {
@@ -165,6 +186,11 @@ class OrderDetail extends Component {
         // console.log('services', this.state.services)
     }
 
+    handleUpdateOrder = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+    }
     handleReAssign = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -251,7 +277,7 @@ class OrderDetail extends Component {
                         <h6 className="my-0">Kilo Wash</h6>
                         {/* <small className="text-muted">Brief description</small> */}
                     </div>
-                    <span className="text-muted">{` ${this.state.laundry.kiloWash} x ${this.state.laundry.price}`}</span>
+                    <span className="text-muted">{` ${this.state.book.kiloWash} x ${this.state.laundry.price}`}</span>
                     <span className="text-muted"> = </span>
                     <span className="text-muted">{`P ${parseFloat(this.state.kilosWashAmount).toFixed(2)}`}</span>
                 </li>
@@ -260,7 +286,7 @@ class OrderDetail extends Component {
                         <h6 className="my-0">Kilo Dry</h6>
                         {/* <small className="text-muted">Brief description</small> */}
                     </div>
-                    <span className="text-muted">{` ${this.state.laundry.dryPrice} x ${this.state.laundry.price}`}</span>
+                    <span className="text-muted">{` ${this.state.book.kiloDry} x ${this.state.laundry.price}`}</span>
                     <span className="text-muted"> = </span>
                     <span className="text-muted">{`P ${parseFloat(this.state.kilosDryAmount).toFixed(2)}`}</span>
                 </li>
@@ -393,10 +419,55 @@ class OrderDetail extends Component {
                                 <button type="button" onClick={this.handleReAssign} className="btn btn-primary">Yes</button>
                             </div>
                         </Modal>
+                        <Modal
+                            isOpen={this.state.modalUpdateOpen}
+                            onRequestClose={this.closeModal}
+                            ariaHideApp={false}
+                            style={customStyles}
+                            contentLabel="Example Modal"
+                        >
+                            <div className="modal-header">
+                                {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
+                                <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form onSubmit={this.handleUpdateOrder}>
+                                <div className="modal-body">
+                                    {this.state.laundry.type === 'kilos' ? (
+                                        <div className="parent">
+                                            <div className="form-group">
+                                                <label htmlFor="mnumber">Kilo Wash <span className="text-danger">*</span></label>
+                                                <input type="number" name="kiloWashQty" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.kiloWashQty} pattern="[0-9]*" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="mnumber">Kilo Dry <span className="text-danger">*</span></label>
+                                                <input type="number" name="kiloDryQty" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.kiloDryQty} pattern="[0-9]*" />
+                                            </div>
+                                        </div>
+                                    ) : (
+                                            <div className="parent">
+                                                <div className="form-group">
+                                                    <label htmlFor="mnumber">Kilo Wash <span className="text-danger">*</span></label>
+                                                    <input type="number" name="loadsWashQty" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.loadsWashQty} pattern="[0-9]*" />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="mnumber">Kilo Dry <span className="text-danger">*</span></label>
+                                                    <input type="number" name="loadsDryQty" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.loadsDryQty} pattern="[0-9]*" />
+                                                </div>
+                                            </div>
+                                        )}
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                    <button type="submit" className="btn btn-primary">Yes</button>
+                                </div>
+                            </form>
+                        </Modal>
                         {this.state.isOtw ? (
                             <div className="actions mb-3">
                                 <div className="col-12 text-right">
-                                    <button onClick={this.handleUpdateOrder} className="btn btn-primary">Edit</button>
+                                    <button onClick={this.openModalOrder} className="btn btn-primary">Edit</button>
                                 </div>
                             </div>
                         ) :

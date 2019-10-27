@@ -253,7 +253,7 @@ class Register extends Component {
                         onDone={this.getFiles.bind(this)} />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="role">Role <span className="text-danger">(required)</span></label>
+                      <label htmlFor="role">Role <span className="text-danger">*</span></label>
                       <select name="role" id="role" className="form-control" onChange={this.handleOnChange} required>
                         <option value="">--Select Role--</option>
                         <option value="customer">Customer</option>
@@ -261,30 +261,30 @@ class Register extends Component {
                       </select>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="fname">First Name <span className="text-danger">(required)</span></label>
+                      <label htmlFor="fname">First Name <span className="text-danger">*</span></label>
                       <input type="text" name="firstName" onKeyPress={event => this.onKeyPress(event)} className="form-control" id="fname" placeholder="Enter First Name" onChange={this.handleOnChange} value={this.state.firstName} />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="lname">Last Name <span className="text-danger">(required)</span></label>
+                      <label htmlFor="lname">Last Name <span className="text-danger">*</span></label>
                       <input type="text" name="lastName" onKeyPress={event => this.onKeyPress(event)} className="form-control" id="lname" placeholder="Enter Last Name" onChange={this.handleOnChange} value={this.state.lastName} />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="lEmail">Email address <span className="text-danger">(required)</span></label>
+                      <label htmlFor="lEmail">Email address <span className="text-danger">*</span></label>
                       <input type="email" className="form-control" name="email" id="lEmail" onChange={this.handleOnChange} placeholder="Enter email" value={this.state.email} />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="lpassword">Password <span className="text-danger">(required)</span></label>
+                      <label htmlFor="lpassword">Password <span className="text-danger">*</span></label>
                       <input type="password" className="form-control" name="password" id="lpassword" onChange={this.handleOnChange} placeholder="Enter password" value={this.state.password} />
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="lpassword_confirmation">Confirm Password <span className="text-danger">(required)</span></label>
+                      <label htmlFor="lpassword_confirmation">Confirm Password <span className="text-danger">*</span></label>
                       <input type="password" className="form-control" name="password_confirmation" id="lpassword_confirmation" onChange={this.handleOnChange} placeholder="Enter confirmation password" value={this.state.password_confirmation} />
                     </div>
 
 
                     <div className="form-group">
-                      <label htmlFor="mnumber">Mobile Number <span className="text-danger">(required)</span></label>
+                      <label htmlFor="mnumber">Mobile Number <span className="text-danger">*</span></label>
                       <input type="number" name="mobileNumber" className="form-control" id="mnumber" placeholder="Enter Mobile Number" onChange={this.handleOnChange} value={this.state.mobileNumber} />
                     </div>
                     <h3><p className="mt-3 mb-3 w-100 float-left"><strong>Address</strong></p></h3>
@@ -295,13 +295,13 @@ class Register extends Component {
                           <input type="text" className="form-control" name="houseNumber" id="houseNumber" onChange={this.handleOnChange} placeholder="House #" value={this.state.houseNumber} />
                         </div>
                         <div className="col-6">
-                          <label htmlFor="street">Street <span className="text-danger">(required)</span></label>
+                          <label htmlFor="street">Street <span className="text-danger">*</span></label>
                           <input type="text" className="form-control" name="street" id="street" onChange={this.handleOnChange} placeholder="Street" value={this.state.street} />
                         </div>
                       </div>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="barangay">Barangay <span className="text-danger">(required)</span></label>
+                      <label htmlFor="barangay">Barangay <span className="text-danger">*</span></label>
                       <select name="barangay" className="form-control" onChange={this.handleOnChange}>
                         <option value="">--Select Barangay--</option>
                         {barangays.map((item) => (

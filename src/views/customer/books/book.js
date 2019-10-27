@@ -102,15 +102,15 @@ class Book extends Component {
 
 
     onHandleChange = (e) => {
-        // e.target.validity.valid ?
-        //     this.setState({
-        //         [e.target.name]: e.target.value <= 0 ? "" : e.target.value
-        //     })
-        //     :
-        //     e.target.value.replace(/\D/, '')
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+        e.target.validity.valid ?
+            this.setState({
+                [e.target.name]: e.target.value <= 0 ? "" : e.target.value
+            })
+            :
+            e.target.value.replace(/\D/, '')
+        // this.setState({
+        //     [e.target.name]: e.target.value
+        // })
 
     }
 

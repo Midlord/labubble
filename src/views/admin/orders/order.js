@@ -155,7 +155,7 @@ class Orders extends Component {
                         {
                           Header: 'Date',
                           Cell: row => (
-                            <Link to={`/admin/order/${row.original.id}`}>{moment(row.original.created_at).format('YYYY-MM-DD')}</Link>
+                            moment(row.original.created_at).format('YYYY-MM-DD')
                           ),
                           headerClassName: 'text-left'
                         },

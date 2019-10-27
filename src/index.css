@@ -93,3 +93,7 @@ span.badge.badge-warning {
 span.badge.badge-danger {
     padding: 10px;
 }
+
+.ml-adjust {
+    margin-left: 11px;
+}
