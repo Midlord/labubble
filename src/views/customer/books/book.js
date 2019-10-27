@@ -31,11 +31,12 @@ class Book extends Component {
             qty: '',
             wash: '',
             dry: '',
-            kiloWash:'',
-            kiloDry:'',
+            kiloWash: '',
+            kiloDry: '',
             startEstimate: '',
             endEstimate: '',
-            remarks:''
+            remarks: '',
+            address_id: '',
         };
 
         this.handleStartChange = this.handleStartChange.bind(this);
@@ -43,8 +44,8 @@ class Book extends Component {
         this.onAddressChanged = this.onAddressChanged.bind(this);
         this.onServicesChanged = this.onServicesChanged.bind(this);
         this.onHandleChange = this.onHandleChange.bind(this);
-        this.onHandleRemarksChange = this.onHandleRemarksChange.bind(this);
-        
+        // this.onHandleRemarksChange = this.onHandleRemarksChange.bind(this);
+
     }
 
     componentWillMount() {
@@ -62,7 +63,6 @@ class Book extends Component {
                         services: result.data.services,
                         addresses: result.data.addresses,
                         laundry: result.data.laundry,
-                        address_id: '',
                         isloaded: false
                     })
                 }
@@ -72,12 +72,12 @@ class Book extends Component {
             });
     }
 
-    handleStartChange = date => {
+    handleStartChange = (date) => {
         console.log(date);
         // let opening = moment(this.state.laundry.opening).format('h');
         // let start = date.setHours(date.getHours() + opening);
         let newTime = moment(date).add(2, 'hours').toDate();
-        let pickedTime =  moment(date).format('hh:mm:ss');
+        let pickedTime = moment(date).format('hh:mm:ss');
         let startEstimate = moment(date).add(1, 'hours').format('hh:mm A');
 
         let estimateInfo = `Estimated time: ${pickedTime} - ${startEstimate}`;
@@ -89,8 +89,8 @@ class Book extends Component {
         console.log(this.state.endDate)
     };
 
-    handleEndChange = date => {
-        let pickedTime =  moment(date).format('hh:mm:ss');
+    handleEndChange = (date) => {
+        let pickedTime = moment(date).format('hh:mm:ss');
         let startEstimate = moment(date).add(1, 'hours').format('hh:mm A');
 
         let estimateInfo = `Estimated time: ${pickedTime} - ${startEstimate}`;
@@ -102,17 +102,21 @@ class Book extends Component {
 
 
     onHandleChange = (e) => {
-        e.target.validity.valid ?
-            this.setState({
-                [e.target.name]: e.target.value <= 0 ? "" : e.target.value 
-            })
-            :
-            e.target.value.replace(/\D/, '')
+        // e.target.validity.valid ?
+        //     this.setState({
+        //         [e.target.name]: e.target.value <= 0 ? "" : e.target.value
+        //     })
+        //     :
+        //     e.target.value.replace(/\D/, '')
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+
     }
 
-    onHandleRemarksChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
-    }
+    // onHandleRemarksChange = (e) => {
+    //     this.setState({ [e.target.name]: e.target.value });
+    // }
 
 
     onServicesChanged = (service, e) => {
@@ -205,7 +209,7 @@ class Book extends Component {
         const addresses = this.state.addresses;
         const now = moment().toDate();
 
-        let minimumTime = moment(this.state.laundry.opening).toDate(); 
+        let minimumTime = moment(this.state.laundry.opening).toDate();
         let maximumTime = moment(this.state.laundry.closing).toDate();
         console.log(minimumTime);
         console.log(maximumTime);
@@ -369,7 +373,7 @@ class Book extends Component {
             return (
                 <div className="form-group">
                     <label htmlFor="">Special Instructions: </label>
-                    <textarea name="remarks" className="form-control" row="5" value={this.state.remarks} onChange={this.onHandleRemarksChange}></textarea>
+                    <textarea name="remarks" className="form-control" row="5" onChange={this.onHandleChange}></textarea>
                 </div>
             )
         }
@@ -383,65 +387,69 @@ class Book extends Component {
 
         return (
             <div className="animated fadeIn">
-                <div className="row">
-                    <div className="content col mt-5 mb-5">
-                        <form onSubmit={this.handleSubmit}>
-                            <div className="row">
-                                <div className="col-12 mb-5">
-                                    <h4 className="mb-3">Schedule a Pick-Up</h4>
+                <div className="card">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="content col mt-5 mb-5">
+                                <form onSubmit={this.handleSubmit}>
                                     <div className="row">
+                                        <div className="col-12 mb-5">
+                                            <h4 className="mb-3">Schedule a Pick-Up</h4>
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <StartDatePicker />
+                                                </div>
+                                                <div className="col-12 mt-3">
+                                                    <h4>{this.state.startEstimate}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div className="col-12">
-                                            <StartDatePicker />
+                                            <h4 className="mb-2">Schedule a Drop-Off</h4>
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <EndDatePicker />
+                                                </div>
+                                                <div className="col-12 mt-3">
+                                                    <h4>{this.state.endEstimate}</h4>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="col-12 mt-3">
-                                            <h4>{this.state.startEstimate}</h4>
+                                        <div className="col-12 mt-5">
+                                            <h4>Address</h4>
+                                            <UserAddresses />
                                         </div>
-                                    </div>
-                                </div>
-                                <div className="col-12">
-                                    <h4 className="mb-2">Schedule a Drop-Off</h4>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <EndDatePicker />
+                                        <div className="col-12 mt-5">
+                                            {this.state.laundry.type === 'loads' ? (
+                                                <WashAndDry />
+                                            ) : (<Kilos />)}
                                         </div>
-                                        <div className="col-12 mt-3">
-                                        <h4>{this.state.endEstimate}</h4>
+                                        <hr />
+                                        <div className="col-12 mt-5">
+                                            <h4>Other Services</h4>
+                                            <UserServices />
                                         </div>
-                                    </div>
-                                </div>
-                                <div className="col-12 mt-5">
-                                    <h4>Address</h4>
-                                    <UserAddresses />
-                                </div>
-                                <div className="col-12 mt-5">
-                                    {this.state.laundry.type === 'loads' ? (
-                                        <WashAndDry />
-                                    ): ( <Kilos />)}
-                                </div>
-                                <hr />
-                                <div className="col-12 mt-5">
-                                    <h4>Other Services</h4>
-                                    <UserServices />
-                                </div>
-                                <hr />
-                                {/* <div className="col-12 mt-3 text-right">
+                                        <hr />
+                                        {/* <div className="col-12 mt-3 text-right">
                                     <p>Total: <strong>P 10000</strong></p>
                                 </div> */}
-                                <div className="col-md-12 mt-5">
-                                        <Remarks/>
-                                </div>
-                                <div className="col-12 mt-5">
-                                    <div className="row">
-                                        <div className="col-6">
-                                            <button onClick={this.goBack} className="btn btn-default btn-block book_btn">Back</button>
+                                        <div className="col-md-12 mt-5">
+                                            <Remarks />
                                         </div>
-                                        <div className="col-6">
-                                            <button className="btn-primary btn-block book_btn">Submit</button>
+                                        <div className="col-12 mt-5">
+                                            <div className="row">
+                                                <div className="col-6">
+                                                    <button onClick={this.goBack} className="btn btn-default btn-block book_btn">Back</button>
+                                                </div>
+                                                <div className="col-6">
+                                                    <button className="btn-primary btn-block book_btn">Submit</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

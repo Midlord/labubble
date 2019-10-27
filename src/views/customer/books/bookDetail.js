@@ -190,6 +190,8 @@ class Book extends Component {
                             <h6 className="my-0">Wash</h6>
                             {/* <small className="text-muted">Brief description</small> */}
                         </div>
+                        <span className="text-muted">{`${this.state.book.wash} x ${this.state.laundry.washPrice}`}</span>
+                        <span className="text-muted"> = </span>
                         <span className="text-muted">{`P ${parseFloat(this.state.wash).toFixed(2)}`}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between lh-condensed">
@@ -197,6 +199,8 @@ class Book extends Component {
                             <h6 className="my-0">Dry</h6>
                             {/* <small className="text-muted">Brief description</small> */}
                         </div>
+                        <span className="text-muted ml-adjust">{`${this.state.book.dry} x ${this.state.laundry.dryPrice}`}</span>
+                        <span className="text-muted"> = </span>
                         <span className="text-muted">{`P ${parseFloat(this.state.dry).toFixed(2)}`}</span>
                     </li>
                 </div>
@@ -210,6 +214,8 @@ class Book extends Component {
                         <h6 className="my-0">Kilo Wash</h6>
                         {/* <small className="text-muted">Brief description</small> */}
                     </div>
+                    <span className="text-muted">{` ${this.state.laundry.kiloWash} x ${this.state.laundry.price}`}</span>
+                    <span className="text-muted"> = </span>
                     <span className="text-muted">{`P ${parseFloat(this.state.kilosWashAmount).toFixed(2)}`}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between lh-condensed">
@@ -217,6 +223,8 @@ class Book extends Component {
                         <h6 className="my-0">Kilo Dry</h6>
                         {/* <small className="text-muted">Brief description</small> */}
                     </div>
+                    <span className="text-muted">{` ${this.state.laundry.dryPrice} x ${this.state.laundry.price}`}</span>
+                    <span className="text-muted"> = </span>
                     <span className="text-muted">{`P ${parseFloat(this.state.kilosDryAmount).toFixed(2)}`}</span>
                 </li>
             </div>
@@ -232,71 +240,69 @@ class Book extends Component {
                 <div className="card">
                     <div className="card-body">
                         <div className="row">
-                            <div className="row">
-                                <div className="content col mt-5 mb-5">
-                                    <div className="col order-md-2 mb-4">
-                                        <h4 className="d-flex justify-content-between align-items-center mb-3">
-                                            <span className="text-bold">Booked Services</span>
-                                            
-                                        </h4>
-                                        <ul className="list-group mb-3">
-                                            <BookedServices />
+                            <div className="content col">
+                                <div className="col">
+                                    <h4 className="d-flex justify-content-between align-items-center mb-3">
+                                        <span className="text-bold">Booked Services</span>
 
-                                            {this.state.book.laundry_shop.type === 'loads' ? (
-                                                <DryWash />
-                                            ) : (<Kilos />
-                                                )}
+                                    </h4>
+                                    <ul className="list-group mb-3">
+                                        <BookedServices />
 
-                                            <li className="list-group-item d-flex justify-content-between">
-                                                <span>SubTotal</span>
-                                                <strong>{`P ${parseFloat(this.state.subTotal).toFixed(2)}`} </strong>
-                                            </li>
-                                            <li className="list-group-item d-flex justify-content-between bg-light">
-                                                <div className="text-danger">
-                                                    <h6 className="my-0">Delivery Charges</h6>
-                                                </div>
-                                                <span className="text-success">P {this.state.deliveryCharge}</span>
-                                            </li>
-                                            <li className="list-group-item d-flex justify-content-between">
-                                                <span>Total</span>
-                                                <strong>{`P ${parseFloat(this.state.total).toFixed(2)}`} </strong>
-                                            </li>
-                                        </ul>
-                                        <form>
-                                            <div className="input-group mb-5">
-                                                <input type="text" className="form-control" placeholder="Promo code" />
-                                                <div className="input-group-append">
-                                                    <button className="btn btn-secondary">Redeem</button>
-                                                </div>
+                                        {this.state.book.laundry_shop.type === 'loads' ? (
+                                            <DryWash />
+                                        ) : (<Kilos />
+                                            )}
+
+                                        <li className="list-group-item d-flex justify-content-between">
+                                            <span>SubTotal</span>
+                                            <strong>{`P ${parseFloat(this.state.subTotal).toFixed(2)}`} </strong>
+                                        </li>
+                                        <li className="list-group-item d-flex justify-content-between bg-light">
+                                            <div className="text-danger">
+                                                <h6 className="my-0">Delivery Charges</h6>
                                             </div>
-                                            <div className="text-right">
-                                                <button type="cancel" className="ui inverted default button">Cancel</button>
-                                                <button onClick={this.openModal} type="button" className="ui inverted primary button">Check Out</button>
+                                            <span className="text-success">P {this.state.deliveryCharge}</span>
+                                        </li>
+                                        <li className="list-group-item d-flex justify-content-between">
+                                            <span>Total</span>
+                                            <strong>{`P ${parseFloat(this.state.total).toFixed(2)}`} </strong>
+                                        </li>
+                                    </ul>
+                                    <form>
+                                        <div className="input-group mb-5">
+                                            <input type="text" className="form-control" placeholder="Promo code" />
+                                            <div className="input-group-append">
+                                                <button className="btn btn-secondary">Redeem</button>
                                             </div>
-                                            <Modal
-                                                isOpen={this.state.modalIsOpen}
-                                                onRequestClose={this.closeModal}
-                                                style={customStyles}
-                                                contentLabel="CheckOut"
-                                            >
+                                        </div>
+                                        <div className="text-right">
+                                            <button type="cancel" className="btn btn-danger">Cancel</button>
+                                            <button onClick={this.openModal} type="button" className="btn btn-primary ml-3">Check Out</button>
+                                        </div>
+                                        <Modal
+                                            isOpen={this.state.modalIsOpen}
+                                            onRequestClose={this.closeModal}
+                                            style={customStyles}
+                                            contentLabel="CheckOut"
+                                        >
 
-                                                <div className="modal-header">
-                                                    <h5 className="modal-title" id="exampleModalLabel"></h5>
-                                                    {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
-                                                    <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div className="modal-body">
-                                                    <p>Are you sure you want to CheckOut this order?</p>
-                                                </div>
-                                                <div className="modal-footer">
-                                                    <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
-                                                    <button type="button" onClick={this.handleCheckout} className="btn btn-primary">Yes</button>
-                                                </div>
-                                            </Modal>
-                                        </form>
-                                    </div>
+                                            <div className="modal-header">
+                                                <h5 className="modal-title" id="exampleModalLabel"></h5>
+                                                {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
+                                                <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="modal-body">
+                                                <p>Are you sure you want to CheckOut this order?</p>
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                                <button type="button" onClick={this.handleCheckout} className="btn btn-primary">Yes</button>
+                                            </div>
+                                        </Modal>
+                                    </form>
                                 </div>
                             </div>
                         </div>

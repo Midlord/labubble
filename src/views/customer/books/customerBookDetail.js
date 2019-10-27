@@ -107,7 +107,7 @@ class CustomerBookDetail extends Component {
                     this.setState({
                         book: result.data.book,
                         bookRemarks: result.data.bookRemarks,
-                        laundry: result.data.book.laundry,
+                        laundry: result.data.book.laundry_shop,
                         wash: parseFloat(result.data.book.laundry_shop.washPrice) * parseInt(result.data.book.wash),
                         dry: parseFloat(result.data.book.laundry_shop.dryPrice) * parseInt(result.data.book.dry),
                         user: result.data.user,
@@ -188,14 +188,18 @@ class CustomerBookDetail extends Component {
                             <h6 className="my-0">Wash</h6>
                             {/* <small className="text-muted">Brief description</small> */}
                         </div>
-                        <span className="text-muted">{`P ${this.state.wash}`}</span>
+                        <span className="text-muted">{`${this.state.book.wash} x ${this.state.laundry.washPrice}`}</span>
+                        <span className="text-muted"> = </span>
+                        <span className="text-muted">{`P ${parseFloat(this.state.wash).toFixed(2)}`}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
                             <h6 className="my-0">Dry</h6>
                             {/* <small className="text-muted">Brief description</small> */}
                         </div>
-                        <span className="text-muted">{`P ${this.state.dry}`}</span>
+                        <span className="text-muted ml-adjust">{`${this.state.book.dry} x ${this.state.laundry.dryPrice}`}</span>
+                        <span className="text-muted"> = </span>
+                        <span className="text-muted">{`P ${parseFloat(this.state.dry).toFixed(2)}`}</span>
                     </li>
                 </div>
             )
@@ -203,11 +207,13 @@ class CustomerBookDetail extends Component {
 
         const Kilos = () => (
             <div className="parent">
-                 <li className="list-group-item d-flex justify-content-between lh-condensed">
+                <li className="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 className="my-0">Kilo Wash</h6>
                         {/* <small className="text-muted">Brief description</small> */}
                     </div>
+                    <span className="text-muted">{` ${this.state.laundry.kiloWash} x ${this.state.laundry.price}`}</span>
+                    <span className="text-muted"> = </span>
                     <span className="text-muted">{`P ${parseFloat(this.state.kilosWashAmount).toFixed(2)}`}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between lh-condensed">
@@ -215,6 +221,8 @@ class CustomerBookDetail extends Component {
                         <h6 className="my-0">Kilo Dry</h6>
                         {/* <small className="text-muted">Brief description</small> */}
                     </div>
+                    <span className="text-muted">{` ${this.state.laundry.dryPrice} x ${this.state.laundry.price}`}</span>
+                    <span className="text-muted"> = </span>
                     <span className="text-muted">{`P ${parseFloat(this.state.kilosDryAmount).toFixed(2)}`}</span>
                 </li>
             </div>

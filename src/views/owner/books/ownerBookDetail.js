@@ -277,6 +277,8 @@ class OwnerBookDetail extends Component {
                         <h6 className="my-0">Kilo Wash</h6>
                         {/* <small className="text-muted">Brief description</small> */}
                     </div>
+                    <span className="text-muted">{` ${this.state.laundry.kiloWash} x ${this.state.laundry.price}`}</span>
+                    <span className="text-muted"> = </span>
                     <span className="text-muted">{`P ${parseFloat(this.state.kilosWashAmount).toFixed(2)}`}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between lh-condensed">
@@ -284,6 +286,8 @@ class OwnerBookDetail extends Component {
                         <h6 className="my-0">Kilo Dry</h6>
                         {/* <small className="text-muted">Brief description</small> */}
                     </div>
+                    <span className="text-muted">{` ${this.state.laundry.dryPrice} x ${this.state.laundry.price}`}</span>
+                    <span className="text-muted"> = </span>
                     <span className="text-muted">{`P ${parseFloat(this.state.kilosDryAmount).toFixed(2)}`}</span>
                 </li>
             </div>

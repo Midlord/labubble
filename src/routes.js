@@ -79,7 +79,7 @@ const routes = [
   { path: '/rewards', exact: true, name: 'Rewards', component: Rewards  },
   { path: '/laundry/:id', exact: true, name: 'LaundryDetails', component: LaundryDetail },
   { path: '/book/laundry/:id', exact: true, name: 'Book', component: Book },
-  { path: '/user/laundry/:id/book/:id', exact: true, name: 'BookDetail', component: BookDetail },
+  { path: '/user/laundry/:id/book/:id', exact: true, name: 'Checkout Order', component: BookDetail },
 
   { path: '/user/transactions', exact: true, name: 'Transactions', component: Transactions },
   { path: '/user/books', exact: true, name: 'My Orders', component: CustomerBooks },
