@@ -80,12 +80,15 @@ class OrderDetail extends Component {
     }
 
     handleOnChange = (e) => {
-        e.target.validity.valid ?
-            this.setState({
-                [e.target.name]: e.target.value <= 0 ? "" : e.target.value
-            })
-            :
-            e.target.value.replace(/\D/, '')
+        // e.target.validity.valid ?
+        //     this.setState({
+        //         [e.target.name]: e.target.value <= 0 ? "" : e.target.value
+        //     })
+        //     :
+        //     e.target.value.replace(/\D/, '')
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     }
 
     handleProcessOrder = (e) => {
@@ -189,6 +192,41 @@ class OrderDetail extends Component {
     handleUpdateOrder = (e) => {
         e.preventDefault();
         e.stopPropagation();
+        this.setState({
+            isloaded:true
+        });
+        axios.post(`https://stockwatch.site/public/api/delivery/book/${this.props.match.params.id}/update/`,{
+            kiloWashQty: this.state.kiloWashQty,
+            kiloDryQty: this.state.kiloDryQty,
+            loadsWashQty: this.state.loadsWashQty,
+            loadsDryQty: this.state.loadsDryQty
+        },{
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            },
+        }).then(result => {
+                if (result.status === 200) {
+                    this.setState({
+                        book: result.data.book,
+                        isloaded: false,
+                        modalIsOpen: false,
+                    })
+
+                    toast.success(result.data.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+
+                    this.props.history.push(`/delivery/orders`);
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    isloaded: false
+                });
+
+                console.log(error)
+            });
 
     }
     handleReAssign = (e) => {

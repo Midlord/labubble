@@ -18,6 +18,7 @@ const customStyles = {
         marginRight: '-50%',
         padding: '0',
         width: '80%',
+        height: '178px',
         transform: 'translate(-50%, -50%)'
     }
 };

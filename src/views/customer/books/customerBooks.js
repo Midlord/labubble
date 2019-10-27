@@ -36,7 +36,7 @@ class CustomerBooks extends Component {
       .then(result => {
         if (result.status === 200) {
           this.setState({
-            books: result.data.book,
+            books: result.data.books,
             isloaded: false,
           })
         }
@@ -61,7 +61,7 @@ class CustomerBooks extends Component {
         <tr key={i}>
           <td><Link to={book.isCheckedOut === "1" ? `/user/book/${book.id}` : `/user/laundry/${book.laundry_shop.id}/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
           <td>{book.laundry_shop.shopName}</td>
-          <td>{book.amount}</td>
+          <td>{parseFloat(book.amount).toFixed(2)}</td>
           <td>{book.isCheckedOut === "1" ? book.status : 'Check Out'}</td>
         </tr>
       )
