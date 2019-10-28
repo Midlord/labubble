@@ -9,10 +9,26 @@ import "react-datepicker/dist/react-datepicker.css";
 import Loading from '../loading';
 import moment from 'moment';
 import Modal from 'react-modal';
-
+import BeautyStars from 'beauty-stars';
+import {
+    Input,
+  } from 'reactstrap';
 const customStyles = {
     content: {
         top: '30%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        padding: '0',
+        width: '80%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
+const customStyleDelivered = {
+    content: {
+        top: '50%',
         left: '50%',
         right: 'auto',
         bottom: 'auto',
@@ -43,6 +59,11 @@ class CustomerBookDetail extends Component {
             modalIsOpen: false,
             kilosWashAmount: 0,
             kilosDryAmount: 0,
+            isDelivered: false,
+            isRated: false,
+            isModalDelivered: false,
+            value: 0,
+
         };
         console.log(props.match.params.id)
         this.openModal = this.openModal.bind(this);
@@ -62,10 +83,10 @@ class CustomerBookDetail extends Component {
 
     closeModal() {
         this.setState({
-            modalIsOpen: false
+            modalIsOpen: false,
+            isModalDelivered: false
         });
     }
-
     handleCancelOrder = (e) => {
         e.preventDefault();
         this.setState({
@@ -83,6 +104,41 @@ class CustomerBookDetail extends Component {
                         isLoaded: false
                     })
                     this.props.history.push(`/user/books`);
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    isloaded: true
+                });
+
+                console.log(error)
+            });
+    }
+
+    handleRatings = (e) => {
+        e.preventDefault();
+        this.setState({
+            isloaded: true
+        });
+        toast.configure();
+        axios.post(`https://stockwatch.site/public/api/laundry/rating/store`, {
+            laundry_shop_id: this.state.book.laundry_shop_id,
+            message: this.state.message,
+            stars: this.state.value
+        }, {
+            headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+        })
+            .then(result => {
+                if (result.status === 200) {
+                    this.setState({
+                        isModalDelivered: false,
+                        isLoaded: false
+                    })
+
+                    toast.success(result.data.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                      });
+                    this.props.history.push(`/laundry/${this.state.book.laundry_shop_id}`);
                 }
             })
             .catch(error => {
@@ -119,26 +175,26 @@ class CustomerBookDetail extends Component {
                         deliveryCharge: result.data.deliveryCharge.amount,
                     })
 
-                    if(result.data.book.laundry_shop.type === 'kilos'){
-                        if(result.data.book.kiloDry === null || result.data.book.kiloDry === ""){
+                    if (result.data.book.laundry_shop.type === 'kilos') {
+                        if (result.data.book.kiloDry === null || result.data.book.kiloDry === "") {
                             this.setState({
                                 kilosDryAmount: 0
                             });
-                        }else if(result.data.book.kiloWash === null || result.data.book.kiloWash === ""){
+                        } else if (result.data.book.kiloWash === null || result.data.book.kiloWash === "") {
                             this.setState({
                                 kilosWashAmount: 0
                             });
-                        }else{
+                        } else {
                             this.setState({
                                 subTotal: parseInt(this.state.kilosWashAmount) + parseInt(this.state.kilosDryAmount) + parseInt(result.data.total)
                             });
                         }
-                    }else{
+                    } else {
                         this.setState({
                             subTotal: (parseInt(this.state.wash) + parseInt(this.state.dry)) + parseInt(result.data.total)
                         });
                     }
-            
+
                     this.setState({
                         total: parseInt(this.state.deliveryCharge) + parseInt(this.state.subTotal),
                     })
@@ -152,8 +208,31 @@ class CustomerBookDetail extends Component {
                 console.log(error)
             });
 
+        axios.get(`https://stockwatch.site/public/api/laundry/${this.props.match.params.id}/rated`, {
+            headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+        })
+            .then(result => {
+                if (result.status === 200) {
+                    console.log(result)
+                    this.setState({
+                        isRated: result.data.isRated,
+                        isDelivered: result.data.isDelivered
+                    });
 
-        // console.log('services', this.state.services)
+                    if (!this.state.isRated && this.state.isDelivered) {
+                        this.setState({
+                            isModalDelivered: true
+                        })
+                    }
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    isloaded: true
+                });
+
+                console.log(error)
+            });
     }
 
     render() {
@@ -180,6 +259,26 @@ class CustomerBookDetail extends Component {
             )
         )
 
+        const RateLaundry = () => {
+            return (
+                <div className="rating-section mb-5">
+                    <form className="ui reply form">
+                        <div className="field">
+                            <label htmlFor="">Ratings:</label>
+                            <BeautyStars
+                                value={this.state.value}
+                                onChange={value => this.setState({ value })} />
+
+                        </div>
+                        <div className="field">
+                            <label htmlFor="">Comment:</label>
+                            <Input type="textarea" name="message" onChange={this.onChange} className="form-control" id="message" rows="4"
+                             placeholder="Content..." />
+                        </div>
+                    </form>
+                </div>
+            )
+        }
         const DryWash = () => {
             return (
                 <div className="parent">
@@ -221,7 +320,7 @@ class CustomerBookDetail extends Component {
                         <h6 className="my-0">Kilo Dry</h6>
                         {/* <small className="text-muted">Brief description</small> */}
                     </div>
-                    <span className="text-muted">{` ${this.state.book.kiloDry} x ${this.state.laundry.price}`}</span>
+                    <span className="text-muted ml-adjust">{` ${this.state.book.kiloDry} x ${this.state.laundry.price}`}</span>
                     <span className="text-muted"> = </span>
                     <span className="text-muted">{`P ${parseFloat(this.state.kilosDryAmount).toFixed(2)}`}</span>
                 </li>
@@ -384,7 +483,6 @@ class CustomerBookDetail extends Component {
                                                     onChange={this.onChange}
                                                     placeholder="Enter Reason."
                                                     className="form-control">
-
                                                 </textarea>
                                             </div>
                                         </form>
@@ -392,6 +490,28 @@ class CustomerBookDetail extends Component {
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
                                         <button type="button" onClick={this.handleCancelOrder} className="btn btn-primary">Yes</button>
+                                    </div>
+                                </Modal>
+                                <Modal
+                                    isOpen={this.state.isModalDelivered}
+                                    onRequestClose={this.closeModal}
+                                    style={customStyleDelivered}
+                                    contentLabel="CheckOut"
+                                >
+
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLabel"></h5>
+                                        {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
+                                        <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <RateLaundry />
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                        <button type="button" onClick={this.handleRatings} className="btn btn-primary">Submit</button>
                                     </div>
                                 </Modal>
                             </div>

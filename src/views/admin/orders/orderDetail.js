@@ -51,7 +51,9 @@ class OrderDetail extends Component {
             modalIsOpen: false,
             modalUpdateOpen: false,
             isOtw: false,
-            isCollect: false
+            isCollect: false,
+            isEndLaundry: false,
+            isDelivered: 0,
         };
         console.log(props.match.params.id)
         this.goBack = this.goBack.bind(this);
@@ -154,8 +156,10 @@ class OrderDetail extends Component {
                         deliveryCharge: result.data.deliveryCharge.amount,
                         isOtw: result.data.isOtw,
                         isCollect: result.data.isCollect,
-                        bookRemarks: result.data.deliveryBookRemarks
-                    });
+                        bookRemarks: result.data.deliveryBookRemarks,
+                        isDelivered: result.data.book.isDelivered,
+                        isEndLaundry: result.data.isEndLaundry
+                    }); 
 
                     if (result.data.book.laundry_shop.type === 'kilos') {
                         if (result.data.book.kiloDry === null || result.data.book.kiloDry === "") {
@@ -191,6 +195,39 @@ class OrderDetail extends Component {
             });
 
         // console.log('services', this.state.services)
+    }
+
+    handleDelivered = (e) => {
+        toast.configure();
+
+        this.setState({
+            isloaded: true
+        });
+        axios.get(`https://stockwatch.site/public/api/delivery/delivered/order/${this.props.match.params.id}`, {
+            headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+        })
+            .then(result => {
+                console.log(result.data.book)
+                if (result.status === 200) {
+                    toast.success(result.data.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+
+                    this.setState({
+                        book: result.data.book,
+                        isDelivered: result.data.book.isDelivered,
+                        isloaded: false,
+                    });
+                }
+                // console.log(this.state.deliveryOrders)
+            })
+            .catch(error => {
+                this.setState({
+                    isloaded: true
+                });
+
+                console.log(error)
+            });
     }
 
     handleUpdateOrder = (e) => {
@@ -597,6 +634,15 @@ class OrderDetail extends Component {
                                     </div>
                                 </div>
                             )}
+                        {this.state.isDelivered === "0" ?
+                            this.state.isEndLaundry ? (
+                                <div className="actions mb-3">
+                                    <div className="col-12 text-right">
+                                        <button onClick={this.handleDelivered} className="btn btn-primary">Delivered</button>
+                                    </div>
+                                </div>
+                            ) : ''
+                            : ''}
                     </div>
                 </div>
             </div>

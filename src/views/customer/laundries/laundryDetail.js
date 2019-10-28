@@ -259,23 +259,6 @@ class LaundryDetail extends Component {
                                         <CommentAndReplies />
 
                                         {/* check if has book complete */}
-                                        {this.state.isTransact.length > 0 ? (
-                                            <div className="rating-section mb-5">
-                                                <form className="ui reply form" onSubmit={this.handleRatings}>
-                                                    <div className="field">
-                                                        <label htmlFor="">Ratings:</label>
-                                                        <Rating icon='star' defaultRating={0} maxRating={5} />
-                                                    </div>
-                                                    <div className="field">
-                                                        <label htmlFor="">Message:</label>
-                                                        <textarea rows="3" onChange={this.handleOnChange}></textarea>
-                                                    </div>
-                                                    <div className="field mb-3 text-right">
-                                                        <button className="ui inverted primary button">Add Comment</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        ) : ''}
                                     </div>
                                 </div>
                             </div>
