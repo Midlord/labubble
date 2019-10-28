@@ -63,11 +63,14 @@ class DefaultFooter extends Component {
               <nav className="navbar fixed-bottom navbar-light bg-light">
                 <div className="col-12">
                   <div className="row">
-                    <div className="col-6 text-center">
+                    <div className="col-4 text-center">
                         <Link to={`/delivery/dashboard`}><i className="fas fa-home bottom-nav" aria-hidden="true"></i></Link>
                     </div>
-                    <div className="col-6 text-center">
+                    <div className="col-4 text-center">
                         <Link to={`/delivery/orders`}><i className="fas fa-store bottom-nav" aria-hidden="true"></i></Link>
+                    </div>
+                    <div className="col-4 text-center">
+                        <Link to={`/delivery/sales`}><i className="fas fa-money bottom-nav" aria-hidden="true"></i></Link>
                     </div>
                   </div>
                 </div>

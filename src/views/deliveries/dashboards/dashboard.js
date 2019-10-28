@@ -15,13 +15,10 @@ class Dashboard extends Component {
         this.state = {
             dropdownOpen: false,
             radioSelected: 2,
-            isLoggedIn: false,
-            delivered: 0,
-            pending: 0,
-            pickedUp: 0,
-            cancelled: 0,
             total: 0,
             registeredCustomers: 0,
+            pending:0,
+            cancelled:0,
             books: []
         };
     }
@@ -42,20 +39,15 @@ class Dashboard extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/owner/recent/transactions`, {
+        axios.get(`https://stockwatch.site/public/api/delivery/dashboard`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
                 console.log(result)
                 if (result.status === 200) {
                     this.setState({
-                        books: result.data.books,
                         isloaded: false,
-                        delivered: result.data.bookDelivered,
-                        pending: result.data.bookPending,
-                        pickedUp: result.data.bookPickedUp,
-                        cancelled: result.data.bookCancelled,
-                        registeredCustomers: result.data.registeredCustomers.length
+                        total: result.data.sum,
                     })
                 }
             })

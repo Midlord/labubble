@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "react-datepicker/dist/react-datepicker.css";
 import Loading from '../../customer/loading';
-import Moment from 'moment';
+import moment from 'moment';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -36,6 +36,7 @@ class OrderDetail extends Component {
             address: [],
             services: [],
             transaction: [],
+            bookRemarks: [],
             reward: [],
             wash: '',
             dry: '',
@@ -50,7 +51,7 @@ class OrderDetail extends Component {
             modalIsOpen: false,
             modalUpdateOpen: false,
             isOtw: false,
-            isCollect:false
+            isCollect: false
         };
         console.log(props.match.params.id)
         this.goBack = this.goBack.bind(this);
@@ -63,8 +64,8 @@ class OrderDetail extends Component {
     }
 
     openModalOrder = () => {
-        this.setState({ 
-            modalUpdateOpen: true, 
+        this.setState({
+            modalUpdateOpen: true,
             kiloDryQty: this.state.book.kiloDry,
             kiloWashQty: this.state.book.kiloWash,
             loadsDryQty: this.state.book.wash,
@@ -114,7 +115,7 @@ class OrderDetail extends Component {
                         isloaded: false,
                     });
 
-                    this.props.history.push(`/deliveries/orders`);
+                    this.props.history.push(`/delivery/orders`);
 
                 }
                 // console.log(this.state.deliveryOrders)
@@ -133,7 +134,7 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/book/${this.props.match.params.id}/get`, {
+        axios.get(`https://stockwatch.site/public/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -152,8 +153,9 @@ class OrderDetail extends Component {
                         kilosDryAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloDry),
                         deliveryCharge: result.data.deliveryCharge.amount,
                         isOtw: result.data.isOtw,
-                        isCollect: result.data.isCollect
-                    })
+                        isCollect: result.data.isCollect,
+                        bookRemarks: result.data.deliveryBookRemarks
+                    });
 
                     if (result.data.book.laundry_shop.type === 'kilos') {
                         if (result.data.book.kiloDry === null || result.data.book.kiloDry === "") {
@@ -195,33 +197,33 @@ class OrderDetail extends Component {
         e.preventDefault();
         e.stopPropagation();
         this.setState({
-            isloaded:true
+            isloaded: true
         });
-        axios.post(`https://stockwatch.site/public/api/delivery/book/${this.props.match.params.id}/update/`,{
+        axios.post(`https://stockwatch.site/public/api/delivery/book/${this.props.match.params.id}/update/`, {
             kiloWashQty: this.state.kiloWashQty,
             kiloDryQty: this.state.kiloDryQty,
             loadsWashQty: this.state.loadsWashQty,
             loadsDryQty: this.state.loadsDryQty
-        },{
+        }, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             },
         }).then(result => {
-                if (result.status === 200) {
-                    this.setState({
-                        book: result.data.book,
-                        isloaded: false,
-                        modalIsOpen: false,
-                    })
+            if (result.status === 200) {
+                this.setState({
+                    book: result.data.book,
+                    isloaded: false,
+                    modalIsOpen: false,
+                })
 
-                    toast.success(result.data.message, {
-                        position: toast.POSITION.BOTTOM_RIGHT
-                    });
+                toast.success(result.data.message, {
+                    position: toast.POSITION.BOTTOM_RIGHT
+                });
 
-                    this.props.history.push(`/delivery/orders`);
-                }
-            })
+                this.props.history.push(`/delivery/orders`);
+            }
+        })
             .catch(error => {
                 this.setState({
                     isloaded: false
@@ -380,6 +382,17 @@ class OrderDetail extends Component {
                 </li>
             </div>
         )
+
+        const BookRemarksTable = () => (
+
+            this.state.bookRemarks.map((bookRemark, i) => (
+                <tr key={i}>
+                    <td>{moment(bookRemark.created_at).format('YYYY-MM-DD hh:mm A')}</td>
+                    <td>{bookRemark.remarks}</td>
+                </tr>
+            )
+            )
+        )
         if (this.state.isloaded) {
             return (
                 <div><Loading /></div>
@@ -446,7 +459,32 @@ class OrderDetail extends Component {
                             </li>
                         </ul>
                     </div>
-
+                    <div className="col-6 col-12">
+                        <div className="order-md-2">
+                            <h4 className="d-flex justify-content-between align-items-cente">
+                                <span className="text-bold">Order Tracking</span>
+                            </h4>
+                            <div className="card card-signin">
+                                <div className="row">
+                                    <div className="card-body">
+                                        <div className="table-responsive">
+                                            <table className="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th className="w-50">Date and Time</th>
+                                                        <th className="w-50">Remarks</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <BookRemarksTable />
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="col-6 col-6 col-12">
                         <h4 className="d-flex justify-content-between align-items-center mb-3">
                             <span className="text-bold">Booked Services</span>
@@ -510,28 +548,28 @@ class OrderDetail extends Component {
                                 </button>
                             </div>
                             <form onSubmit={this.handleUpdateOrder}>
-                                <input type="hidden" name="type" value={this.state.laundry.type}/>
+                                <input type="hidden" name="type" value={this.state.laundry.type} />
                                 <div className="modal-body">
                                     {this.state.laundry.type === 'kilos' ? (
                                         <div className="parent">
                                             <div className="form-group">
                                                 <label htmlFor="mnumber">Kilo Wash <span className="text-danger">*</span></label>
-                                                <input type="number" name="kiloWashQty" className="form-control" id="mnumber"  onChange={this.handleOnChange} value={this.state.kiloWashQty} pattern="[0-9]*" required/>
+                                                <input type="number" name="kiloWashQty" className="form-control" id="mnumber" onChange={this.handleOnChange} value={this.state.kiloWashQty} pattern="[0-9]*" required />
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="mnumber">Kilo Dry <span className="text-danger">*</span></label>
-                                                <input type="number" name="kiloDryQty" className="form-control" id="mnumber"  onChange={this.handleOnChange} value={this.state.kiloDryQty} pattern="[0-9]*" required/>
+                                                <input type="number" name="kiloDryQty" className="form-control" id="mnumber" onChange={this.handleOnChange} value={this.state.kiloDryQty} pattern="[0-9]*" required />
                                             </div>
                                         </div>
                                     ) : (
                                             <div className="parent">
                                                 <div className="form-group">
                                                     <label htmlFor="mnumber">Kilo Wash <span className="text-danger">*</span></label>
-                                                    <input type="number" name="loadsWashQty" className="form-control" id="mnumber"  onChange={this.handleOnChange} value={this.state.loadsWashQty} pattern="[0-9]*" required/>
+                                                    <input type="number" name="loadsWashQty" className="form-control" id="mnumber" onChange={this.handleOnChange} value={this.state.loadsWashQty} pattern="[0-9]*" required />
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="mnumber">Kilo Dry <span className="text-danger">*</span></label>
-                                                    <input type="number" name="loadsDryQty" className="form-control" id="mnumber"  onChange={this.handleOnChange} value={this.state.loadsDryQty} pattern="[0-9]*" required/>
+                                                    <input type="number" name="loadsDryQty" className="form-control" id="mnumber" onChange={this.handleOnChange} value={this.state.loadsDryQty} pattern="[0-9]*" required />
                                                 </div>
                                             </div>
                                         )}
@@ -543,13 +581,13 @@ class OrderDetail extends Component {
                             </form>
                         </Modal>
                         {this.state.isOtw ? (
-                            !this.state.isCollect ? 
-                            <div className="actions mb-3">
-                                <div className="col-12 text-right pr-0">
-                                    <button onClick={this.handleCollect} className="btn btn-primary">Collect</button>
-                                    <button onClick={this.openModalOrder} className="btn btn-primary ml-3">Edit</button>
-                                </div>
-                            </div> : ''
+                            !this.state.isCollect ?
+                                <div className="actions mb-3">
+                                    <div className="col-12 text-right pr-0">
+                                        <button onClick={this.handleCollect} className="btn btn-primary">Collect</button>
+                                        <button onClick={this.openModalOrder} className="btn btn-primary ml-3">Edit</button>
+                                    </div>
+                                </div> : ''
                         ) :
                             (
                                 <div className="actions mb-3">
