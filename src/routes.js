@@ -75,6 +75,8 @@ const AddLaundry = React.lazy(() => import('./views/owner/laundries/AddLaundry')
 const EditLaundry = React.lazy(() => import('./views/owner/laundries/EditLaundry'));
 
 const DeliverySales = React.lazy(() => import('./views/deliveries/sales/sales')); 
+
+const AdminDeliverySales = React.lazy(() => import('./views/admin/deliveries/delivery')); 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/customer/dashboard', exact: true, name: 'My Dashboard', component: CustomerDashboard  },
@@ -114,6 +116,10 @@ const routes = [
   { path: '/admin/owners', exact: true, name: 'Owners', component: Owners },
 
   { path: '/admin/owner/:id', exact: true, name: 'Owner Detail', component: OwnerDetail },
+
+  { path: '/admin/delivery/:id', exact: true, name: 'Delivery Sales', component: AdminDeliverySales },
+
+  
 
   { path: '/delivery/dashboard', exact: true, name: 'Dashboard', component: DeliveryDashboard },
 

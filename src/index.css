@@ -97,3 +97,9 @@ span.badge.badge-danger {
 .ml-adjust {
     margin-left: 11px;
 }
+
+  #chart {
+    max-width: 760px;
+    margin: 35px auto;
+    opacity: 0.9;
+  }

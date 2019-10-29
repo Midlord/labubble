@@ -373,8 +373,9 @@ class Deliveries extends Component {
                     <div className="col-lg-12">
                         <div className="card">
                             <div className="card-header">
-                                <i className="fa fa-align-justify"></i> Deliveries</div>
-                            <button className="btn btn-primary" onClick={this.openModalDelivery}>Add Delivery</button>
+                                <i className="fa fa-align-justify"></i> Deliveries
+                                <button className="btn btn-primary float-right" onClick={this.openModalDelivery}>Add Delivery</button>
+                            </div>
                             <div className="card-body">
                                 <ReactTable
                                     data={this.state.users}
@@ -409,7 +410,8 @@ class Deliveries extends Component {
                                                     Cell: row => (
                                                         <div className="row">
                                                             <div className="col-12 text-center">
-                                                                <button onClick={() => this.openModalBanned(row.original.id)} className="btn btn-success">Active</button>
+                                                                <button onClick={() => this.openModalBanned(row.original.id)} className="btn btn-success mr-2">Active</button>
+                                                                <Link to={`delivery/${row.original.id}`} className="btn btn-primary">View</Link>
                                                             </div>
                                                         </div>
                                                     )

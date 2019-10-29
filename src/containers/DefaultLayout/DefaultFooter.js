@@ -59,7 +59,7 @@ class DefaultFooter extends Component {
               </div>
             </div>
           </nav>
-        ) : (
+        ) : sessionStorage.getItem('role') === 'delivery' ? (
               <nav className="navbar fixed-bottom navbar-light bg-light">
                 <div className="col-12">
                   <div className="row">
@@ -75,7 +75,7 @@ class DefaultFooter extends Component {
                   </div>
                 </div>
               </nav>
-            )}
+            ) : ''}
       </React.Fragment>
     );
   }

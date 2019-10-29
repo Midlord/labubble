@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import './dashboard.css';
-
-
+import ApexCharts from 'apexcharts'
+import Chart from 'react-apexcharts'
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +22,45 @@ class Dashboard extends Component {
             cancelled: 0,
             total: 0,
             registeredCustomers: 0,
-            books: []
+            books: [],
+            dailySales: [],
+            monthlySales: [],
+            yearlySales: [],
+            daily:[],
+            monthly: [],
+            yearly:[],
+            totalDaily: [],
+            totalMonthly: [],
+            totalYearly: [],
+            options: {
+                chart: {
+                  id: 'apexchart-example',
+                  width: "100%",
+                  height: 380
+                },
+                xaxis: {
+                  categories: []
+                }
+              },
+            series: [{
+                name: 'Sales: ',
+                data: []
+            }],
+            responsive: [
+                {
+                  breakpoint: 1000,
+                  options: {
+                    plotOptions: {
+                      bar: {
+                        horizontal: false
+                      }
+                    },
+                    legend: {
+                      position: "bottom"
+                    }
+                  }
+                }
+              ]
         };
     }
 
@@ -55,8 +93,37 @@ class Dashboard extends Component {
                         pending: result.data.bookPending,
                         pickedUp: result.data.bookPickedUp,
                         cancelled: result.data.bookCancelled,
-                        registeredCustomers: result.data.registeredCustomers.length
-                    })
+                        registeredCustomers: result.data.registeredCustomers.length,
+                        dailySales: result.data.dailySales,
+                        monthlySales: result.data.monthlySales,
+                        yearlySales: result.data.yearlySales
+                    });
+
+                    this.state.dailySales.map((sale) => {
+                        this.state.daily.push(sale.date);
+                        this.state.totalDaily.push(sale.total);
+                    });
+
+                    this.setState(prevState => ({
+                        options: {
+                          ...this.state.options,
+                          xaxis: {
+                            ...this.state.options.xaxis,
+                            categories: this.state.daily
+                          }
+                        },
+                        series: prevState.series.map(
+                            obj => Object.assign(obj.data, { data: this.state.totalDaily })
+                      )
+                      }))
+                    //   this.setState(prevState => ({
+                    //         series: prevState.series.map(
+                    //         obj => Object.assign(obj.data, { data: this.state.totalDaily })
+                    //   )
+                    // }));
+                      
+                    console.log(this.state.daily)
+                    console.log(this.state.totalDaily)
                 }
             })
             .catch(error => {
@@ -68,6 +135,88 @@ class Dashboard extends Component {
             });
 
         // console.log('services', this.state.services)
+    }
+
+    handleChartChange = (status) => {
+       
+        if(status === 'daily'){
+
+             this.setState({
+                daily: [],
+                totalDaily: []
+            });
+
+            this.state.dailySales.map((sale) => {
+                this.state.daily.push(sale.date);
+                this.state.totalDaily.push(sale.total);
+            });
+    
+            this.setState(prevState => ({
+                options: {
+                  ...this.state.options,
+                  xaxis: {
+                    ...this.state.options.xaxis,
+                    categories: this.state.daily
+                  }
+                },
+                series: prevState.series.map(
+                    obj => Object.assign(obj.data, { data: this.state.totalDaily })
+              )
+              }));
+        }else if(status === 'monthly'){
+            this.setState({
+                monthly: [],
+                totalMonthly: []
+            });
+            this.state.monthlySales.map((sale) => {
+                this.state.monthly.push(sale.date);
+                this.state.totalMonthly.push(sale.total);
+            });
+    
+            this.setState(prevState => ({
+                options: {
+                  ...this.state.options,
+                  xaxis: {
+                    ...this.state.options.xaxis,
+                    categories: this.state.monthly
+                  }
+                },
+                series: prevState.series.map(
+                    obj => Object.assign(obj.data, { data: this.state.totalMonthly })
+              )
+              }));
+
+        }else{
+
+            this.setState({
+                yearly: [],
+                totalYearly: []
+            });
+
+            this.state.yearlySales.map((sale) => {
+                this.state.yearly.push(sale.date);
+                this.state.totalYearly.push(sale.total);
+            });
+    
+            this.setState(prevState => ({
+                options: {
+                  ...this.state.options,
+                  xaxis: {
+                    ...this.state.options.xaxis,
+                    categories: this.state.yearly
+                  }
+                },
+                series: prevState.series.map(
+                    obj => Object.assign(obj.data, { data: this.state.totalYearly })
+              )
+              }));
+
+
+        }
+
+
+
+        
     }
 
 
@@ -164,13 +313,30 @@ class Dashboard extends Component {
                                                 </tr>
                                                 : ''
                                         ))}
-
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 ) : ''}
+                <div className="bg-light">
+                    <div className="card">
+                        <div className="col-12 mt-3">
+                            <div className="row">
+                                <div className="col-4 pr-0 pl-0">
+                                    <button className="btn btn-primary w-100" onClick={(e) => this.handleChartChange('daily')}>Daily</button>
+                                </div>
+                                <div className="col-4 pr-0 pl-0">
+                                    <button className="btn btn-primary w-100" onClick={(e) => this.handleChartChange('monthly')}>Monthly</button>
+                                </div>
+                                <div className="col-4 pr-0 pl-0">
+                                    <button className="btn btn-primary w-100" onClick={(e) => this.handleChartChange('yearly')}>Yearly</button>
+                                </div>
+                            </div>
+                        </div>
+                        <Chart options={this.state.options} series={this.state.series} responsive={this.state.responsive} type="bar" />
+                    </div>
+                </div>
             </div>
         );
     }
