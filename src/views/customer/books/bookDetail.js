@@ -42,10 +42,12 @@ class Book extends Component {
             total: 0,
             deliveryCharge: 0,
             subTotal: 0,
-            modalIsOpen: false
+            modalIsOpen: false,
+            modalIsCancel: false
         };
         console.log(props.match.params.id)
         this.openModal = this.openModal.bind(this);
+        this.openModalCancel = this.openModalCancel.bind(this);
         this.closeModal = this.closeModal.bind(this);
 
     }
@@ -56,19 +58,19 @@ class Book extends Component {
         });
     }
 
+    openModalCancel() {
+        this.setState({
+            modalIsCancel: true,
+        });
+    }
+
     closeModal() {
         this.setState({
-            modalIsOpen: false
+            modalIsOpen: false,
+            modalIsCancel: false
         });
     }
 
-
-    openModalCancelled() {
-        this.setState({
-            modalIsOpenApproved: false,
-            modalIsOpenCancelled: true
-        });
-    }
 
     componentWillMount() {
         this.setState({
@@ -130,6 +132,40 @@ class Book extends Component {
         // console.log('services', this.state.services)
     }
 
+
+    handleCancelOrder = (e) => {
+        e.persist();
+        e.stopPropagation();
+
+        toast.configure();
+        this.setState({
+            isloaded: true
+        });
+
+        axios.delete(`https://stockwatch.site/public/api/book/cancel/${this.props.match.params.id}`, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            },
+        })
+            .then(result => {
+                toast.success(result.data.message, {
+                    position: toast.POSITION.BOTTOM_RIGHT
+                });
+
+                this.setState({
+                    isloaded: false
+                });
+                this.props.history.push(`/user/books`);
+            })
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    isloaded: false
+                });
+            });
+
+    }
 
     handleCheckout = (e) => {
         e.persist();
@@ -281,7 +317,7 @@ class Book extends Component {
                                             </div>
                                         </div>
                                         <div className="text-right">
-                                            <button type="cancel" className="btn btn-danger">Cancel</button>
+                                            <button type="cancel" onClick={this.openModalCancel} className="btn btn-danger">Cancel</button>
                                             <button onClick={this.openModal} type="button" className="btn btn-primary ml-3">Check Out</button>
                                         </div>
                                         <Modal
@@ -304,6 +340,28 @@ class Book extends Component {
                                             <div className="modal-footer">
                                                 <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
                                                 <button type="button" onClick={this.handleCheckout} className="btn btn-primary">Yes</button>
+                                            </div>
+                                        </Modal>
+                                        <Modal
+                                            isOpen={this.state.modalIsCancel}
+                                            onRequestClose={this.closeModal}
+                                            style={customStyles}
+                                            contentLabel="CheckOut"
+                                        >
+
+                                            <div className="modal-header">
+                                                <h5 className="modal-title" id="exampleModalLabel"></h5>
+                                                {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
+                                                <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="modal-body">
+                                                <p>Are you sure you want to Cancel this order?</p>
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                                <button type="button" onClick={this.handleCancelOrder} className="btn btn-primary">Yes</button>
                                             </div>
                                         </Modal>
                                     </form>
