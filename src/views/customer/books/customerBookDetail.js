@@ -215,11 +215,11 @@ class CustomerBookDetail extends Component {
                 if (result.status === 200) {
                     console.log(result)
                     this.setState({
-                        isRated: result.data.isRated,
-                        isDelivered: result.data.isDelivered
+                        isRated: result.data.ratings.length === 0 ? true : false,
+                        isDelivered: result.data.book.length === 0 ? true : false
                     });
 
-                    if (!this.state.isRated && this.state.isDelivered) {
+                    if (this.state.isRated && !this.state.isDelivered) {
                         this.setState({
                             isModalDelivered: true
                         })
@@ -351,7 +351,7 @@ class CustomerBookDetail extends Component {
                             <div className="row">
                                 <div className="col-12">
                                     <div className="order-icons">
-                                        <h5 className="card-title">Status of your order: #{this.state.book.id}</h5>
+                                        <h5 className="card-title">Status of your order: #{this.state.book.code}</h5>
                                         <hr />
                                         <div className="row tracking-text">
                                             <div className="col-3">
