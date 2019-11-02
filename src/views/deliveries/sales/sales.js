@@ -68,27 +68,31 @@ class Sales extends Component {
                                     <h3>Daily Sales</h3>
 
                                 </div>
-                                <div className="col-6 text-right">
-                                    <h5><strong>Total:</strong> <span className="text-danger">P{this.state.total}</span></h5>
-                                </div>
                             </div>
                             <table className="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>Date</th>
-                                        <th>Amount</th>
                                         <th>Status</th>
+                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {this.state.sales.map((sale, i) => (
                                         <tr key={i}>
                                             <td>{moment(sale.created_at).format('YYYY-MM-DD')}</td>
-                                            <td>{`P${parseFloat(sale.amount).toFixed(2)}`}</td>
                                             <td>{sale.status}</td>
+                                            <td>{`P${parseFloat(sale.amount).toFixed(2)}`}</td>
                                         </tr>
                                     ))}
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>Total:</strong> </td>
+                                        <td><strong className="text-danger">P{this.state.total}</strong></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

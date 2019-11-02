@@ -161,14 +161,22 @@ class Orders extends Component {
                         },
                         {
                           Header: 'Order #',
-                          accessor: 'id',
+                          accessor: 'code',
+                          headerClassName: 'text-left'
+                        },
+                        {
+                          Header: 'Personnel Name',
+                          accessor: 'fullName',
+                          Cell: row => (
+                            <span>{row.original.fullName}</span>
+                          ),
                           headerClassName: 'text-left'
                         },
                         {
                           Header: 'Customer Name',
                           accessor: 'fullName',
                           Cell: row => (
-                            <span>{row.original.fullName}</span>
+                            <span>{row.original.book.user.fullName}</span>
                           ),
                           headerClassName: 'text-left'
                         },
@@ -185,7 +193,7 @@ class Orders extends Component {
                           accessor: 'status',
                           Cell: row => (
                             <div className="text-center">
-                                <span className={`badge order_status badge-${row.original.status === 'cancelled' ? 'danger' : row.original.status === 'pending' ? 'warning' : 'success'}`}>{row.original.status == 'approved' ? 'Approved' : row.original.status}</span>
+                                <span className={`badge order_status badge-${row.original.book.status === 'cancelled' ? 'danger' : row.original.book.status === 'pending' ? 'warning' : 'success'}`}>{row.original.book.status == 'approved' ? 'Approved' : row.original.book.status}</span>
                             </div>
                           ),
                           headerClassName: 'text-left'
@@ -193,7 +201,7 @@ class Orders extends Component {
                         // {
                         //   Header: 'Action',
                         //   Cell: row => (
-                        //     <button onClick={() => this.openModal(row.original.id)} className={`btn btn-primary ${row.original.status !== 'pending' ? '' : 'hideButton'}`}>Assign</button>
+                        //     <button onClick={() => this.openModal(row.original.id)} className={`btn btn-primary ${row.original.book.status !== 'pending' ? '' : 'hideButton'}`}>Assign</button>
                         //   ),
                         //   headerClassName: 'text-left'
                         // },

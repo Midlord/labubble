@@ -397,7 +397,7 @@ class OwnerBookDetail extends Component {
                             <div className="content col mb-2">
                                 <div className="col-12">
                                     <h4 className="d-flex justify-content-between align-items-center mb-3">
-                                        <span className="text-bold">{`Order # ${this.state.book.id}`}</span>
+                                        <span className="text-bold">{`Order # ${this.state.book.code}`}</span>
                                     </h4>
                                     <h4 className="d-flex">
                                         <span className="text-bold">{`${this.state.book.user.firstName} ${this.state.book.user.lastName}`}</span>
@@ -458,7 +458,7 @@ class OwnerBookDetail extends Component {
                                         >
 
                                             <div className="modal-header">
-                                                <h5 className="modal-title" id="exampleModalLabel">Order # {this.state.book.id}</h5>
+                                                <h5 className="modal-title" id="exampleModalLabel">Order # {this.state.book.code}</h5>
                                                 {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
                                                 <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -480,7 +480,7 @@ class OwnerBookDetail extends Component {
                                         >
 
                                             <div className="modal-header">
-                                                <h5 className="modal-title" id="exampleModalLabel">Order # {this.state.book.id}</h5>
+                                                <h5 className="modal-title" id="exampleModalLabel">Order # {this.state.book.code}</h5>
                                                 {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
                                                 <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>

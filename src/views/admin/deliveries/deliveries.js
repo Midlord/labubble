@@ -77,7 +77,7 @@ const createDelivery = {
 };
 
 
-class Deliveries extends Component {
+class Personnels extends Component {
     constructor(props) {
         super(props);
 
@@ -373,7 +373,7 @@ class Deliveries extends Component {
                     <div className="col-lg-12">
                         <div className="card">
                             <div className="card-header">
-                                <i className="fa fa-align-justify"></i> Deliveries
+                                <i className="fa fa-align-justify"></i> Personnels
                                 <button className="btn btn-primary float-right" onClick={this.openModalDelivery}>Add Delivery</button>
                             </div>
                             <div className="card-body">
@@ -448,7 +448,7 @@ class Deliveries extends Component {
                     <div className="col-lg-12">
                         <div className="card">
                             <div className="card-header">
-                                <i className="fa fa-align-justify"></i>Banned Deliveries</div>
+                                <i className="fa fa-align-justify"></i>Banned Personnels</div>
                             <div className="card-body">
                                 <ReactTable
                                     data={this.state.usersBanned}
@@ -592,4 +592,4 @@ class Deliveries extends Component {
     }
 }
 
-export default Deliveries;
+export default Personnels;

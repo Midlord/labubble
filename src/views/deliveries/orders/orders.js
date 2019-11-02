@@ -181,7 +181,7 @@ class Orders extends Component {
                         },
                         {
                           Header: 'Order #',
-                          accessor: 'id',
+                          accessor: 'code',
                           headerClassName: 'text-left'
                         },
                         {

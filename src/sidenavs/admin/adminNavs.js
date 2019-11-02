@@ -24,7 +24,7 @@ export default {
       icon: 'icon-user',
     },
     {
-      name: 'Deliveries',
+      name: 'Personnels',
       url: '/admin/deliveries',
       icon: 'icon-user',
     },
