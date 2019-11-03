@@ -55,7 +55,7 @@ class Owners extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/admin/owners`, {
+        axios.get(`https://labubbles.online/api/admin/owners`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -123,7 +123,7 @@ class Owners extends Component {
         e.stopPropagation();
 
         toast.configure();
-        axios.get(`https://stockwatch.site/public/api/admin/verified/owner/${this.state.user_id}`, {
+        axios.get(`https://labubbles.online/api/admin/verified/owner/${this.state.user_id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -154,7 +154,7 @@ class Owners extends Component {
         e.stopPropagation();
 
         toast.configure();
-        axios.delete(`https://stockwatch.site/public/api/admin/owner/${this.state.user_id}/banned`, {
+        axios.delete(`https://labubbles.online/api/admin/owner/${this.state.user_id}/banned`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -190,7 +190,7 @@ class Owners extends Component {
         e.stopPropagation();
 
         toast.configure();
-        axios.get(`https://stockwatch.site/public/api/admin/unbanned/owner/${this.state.user_id}`, {
+        axios.get(`https://labubbles.online/api/admin/unbanned/owner/${this.state.user_id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`

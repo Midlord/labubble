@@ -61,7 +61,7 @@ class Sales extends Component {
         e.stopPropagation();
     
         toast.configure();
-        axios.get(`https://stockwatch.site/public/api/admin/delivery/${this.props.match.params.id}/remit`, {
+        axios.get(`https://labubbles.online/api/admin/delivery/${this.props.match.params.id}/remit`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -94,7 +94,7 @@ class Sales extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/admin/delivery/${this.props.match.params.id}/sales`, {
+        axios.get(`https://labubbles.online/api/admin/delivery/${this.props.match.params.id}/sales`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {

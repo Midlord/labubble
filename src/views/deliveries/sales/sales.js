@@ -28,7 +28,7 @@ class Sales extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/delivery/sales`, {
+        axios.get(`https://labubbles.online/api/delivery/sales`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {

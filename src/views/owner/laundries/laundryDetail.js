@@ -140,7 +140,7 @@ class LaundryDetail extends Component {
             isLaundryLoaded: true,
             isServicesLoaded: true
         })
-        axios.get(`https://stockwatch.site/public/api/owner/laundry`, {
+        axios.get(`https://labubbles.online/api/owner/laundry`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -211,7 +211,7 @@ class LaundryDetail extends Component {
                     <div className="comment-content" key={i}>
                         <div className="comment">
                             <div className="avatar">
-                                <img src={!rating.user.image ? "https://react.semantic-ui.com/images/avatar/small/elliot.jpg" : `https://stockwatch.site/public/storage/laundries/${rating.user.image}`} />
+                                <img src={!rating.user.image ? "https://react.semantic-ui.com/images/avatar/small/elliot.jpg" : `https://labubbles.online/storage/laundries/${rating.user.image}`} />
                             </div>
                             <div className="content">
                                 <a className="author">{`${rating.user.firstName} ${rating.user.lastName}`}</a>

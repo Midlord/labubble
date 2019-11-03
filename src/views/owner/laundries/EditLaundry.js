@@ -103,7 +103,7 @@ class EditLaundry extends Component {
             isLaundryLoaded: true,
             isServicesLoaded: true
         })
-        axios.get(`https://stockwatch.site/public/api/owner/laundry`, {
+        axios.get(`https://labubbles.online/api/owner/laundry`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -131,7 +131,7 @@ class EditLaundry extends Component {
                         washPrice: result.data.laundry.washPrice,
                         type: result.data.laundry.type,
                         price: result.data.laundry.price,
-                        image: `https://stockwatch.site/public/storage/laundries/${result.data.laundry.image}`,
+                        image: `https://labubbles.online/storage/laundries/${result.data.laundry.image}`,
                     });
                     this.state.type === "kilos" ? this.setState({ isKilos: true, isLoads: false }) : this.setState({ isKilos: false, isLoads: true })
 
@@ -175,7 +175,7 @@ class EditLaundry extends Component {
             isLaundryLoaded: true
         });
 
-        axios.post(`https://stockwatch.site/public/api/owner/laundry/update`, {
+        axios.post(`https://labubbles.online/api/owner/laundry/update`, {
             shopName: this.state.shopName,
             opening: moment(this.state.opening).format('YYYY-MM-DD hh:mm:ss'),
             closing: moment(this.state.closing).format('YYYY-MM-DD hh:mm:ss'),

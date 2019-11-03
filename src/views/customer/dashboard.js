@@ -42,7 +42,7 @@ class Dashboard extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/books/user`, {
+        axios.get(`https://labubbles.online/api/books/user`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -89,10 +89,10 @@ class Dashboard extends Component {
                                 <tbody>
                                     {this.state.books.map((book, i) => (
                                         <tr key={i}>
-                                            <td><Link to={book.isCheckedOut === "1" ? `/user/book/${book.id}` : `/user/laundry/${book.laundry_shop.id}/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
+                                            <td><Link to={book.isCheckedOut === 1 ? `/user/book/${book.id}` : `/user/laundry/${book.laundry_shop.id}/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
                                             <td>{book.laundry_shop.shopName}</td>
                                             <td>{`P${parseFloat(book.amount).toFixed(2)}`}</td>
-                                            <td>{book.isCheckedOut === "1" ? book.status : 'Check Out'}</td>
+                                            <td>{book.isCheckedOut === 1 ? book.status : 'Check Out'}</td>
                                         </tr>
                                     ))}
 

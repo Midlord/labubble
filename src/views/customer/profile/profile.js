@@ -71,7 +71,7 @@ class Profile extends Component {
 
         this.setState({ isLoaded: true });
         toast.configure();
-        axios.post('https://stockwatch.site/public/api/update/customer', {
+        axios.post('https://labubbles.online/api/update/customer', {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             email: this.state.email,
@@ -130,7 +130,7 @@ class Profile extends Component {
 
     componentDidMount() {
         this.setState({ isLoaded: true });
-        axios.get(`https://stockwatch.site/public/api/customer/info/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`https://labubbles.online/api/customer/info/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -164,10 +164,10 @@ class Profile extends Component {
 
             this.state.books.map((book, i) => (
                 <tr key={i}>
-                    <td><Link to={book.isCheckedOut === "1" ? `/user/book/${book.id}` : `/user/laundry/${book.laundry_shop.id}/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
+                    <td><Link to={book.isCheckedOut === 1 ? `/user/book/${book.id}` : `/user/laundry/${book.laundry_shop.id}/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
                     <td>{book.laundry_shop.shopName}</td>
                     <td>{book.amount}</td>
-                    <td>{book.isCheckedOut === "1" ? book.status : 'Check Out'}</td>
+                    <td>{book.isCheckedOut === 1 ? book.status : 'Check Out'}</td>
                 </tr>
             )
             )
@@ -181,7 +181,7 @@ class Profile extends Component {
                             <img src={window.location.origin + '/assets/img/bubbles.png'} alt="profile-sample1" className="background" />
                         </div>
                         <div className="profile-thumb-block">
-                            <img src={`https://stockwatch.site/public/storage/avatar/${sessionStorage.getItem('image')}`} alt="profile-image" className="profile" />
+                            <img src={`https://labubbles.online/storage/avatar/${sessionStorage.getItem('image')}`} alt="profile-image" className="profile" />
                         </div>
                         <div className="card-content">
                             <h2>{`${this.state.user.firstName} ${this.state.user.lastName}`}<small>{this.state.user.role}</small></h2>

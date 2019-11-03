@@ -76,7 +76,7 @@ class Book extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`https://labubbles.online/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -142,7 +142,7 @@ class Book extends Component {
             isloaded: true
         });
 
-        axios.delete(`https://stockwatch.site/public/api/book/cancel/${this.props.match.params.id}`, {
+        axios.delete(`https://labubbles.online/api/book/cancel/${this.props.match.params.id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -176,7 +176,7 @@ class Book extends Component {
             isloaded: true
         });
 
-        axios.post(`https://stockwatch.site/public/api/book/checkout/${this.props.match.params.id}`, {
+        axios.post(`https://labubbles.online/api/book/checkout/${this.props.match.params.id}`, {
             delivery_charge_id: this.state.delivery_charge_id,
             amount: this.state.total
         }, {

@@ -92,7 +92,7 @@ class CustomerBookDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.post(`https://stockwatch.site/public/api/customer/cancel/order/${this.props.match.params.id}`, {
+        axios.post(`https://labubbles.online/api/customer/cancel/order/${this.props.match.params.id}`, {
             remarks: this.state.remarks
         }, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
@@ -121,7 +121,7 @@ class CustomerBookDetail extends Component {
             isloaded: true
         });
         toast.configure();
-        axios.post(`https://stockwatch.site/public/api/laundry/rating/store`, {
+        axios.post(`https://labubbles.online/api/laundry/rating/store`, {
             laundry_shop_id: this.state.book.laundry_shop_id,
             message: this.state.message,
             stars: this.state.value
@@ -154,7 +154,7 @@ class CustomerBookDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`https://labubbles.online/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -208,7 +208,7 @@ class CustomerBookDetail extends Component {
                 console.log(error)
             });
 
-        axios.get(`https://stockwatch.site/public/api/laundry/${this.props.match.params.id}/rated`, {
+        axios.get(`https://labubbles.online/api/laundry/${this.props.match.params.id}/rated`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {

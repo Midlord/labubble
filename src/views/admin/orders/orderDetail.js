@@ -102,7 +102,7 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/delivery/process/order/${this.props.match.params.id}`, {
+        axios.get(`https://labubbles.online/api/delivery/process/order/${this.props.match.params.id}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -136,7 +136,7 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`https://labubbles.online/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -203,7 +203,7 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/delivery/delivered/order/${this.props.match.params.id}`, {
+        axios.get(`https://labubbles.online/api/delivery/delivered/order/${this.props.match.params.id}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -236,7 +236,7 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.post(`https://stockwatch.site/public/api/delivery/book/${this.props.match.params.id}/update/`, {
+        axios.post(`https://labubbles.online/api/delivery/book/${this.props.match.params.id}/update/`, {
             kiloWashQty: this.state.kiloWashQty,
             kiloDryQty: this.state.kiloDryQty,
             loadsWashQty: this.state.loadsWashQty,
@@ -277,7 +277,7 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/delivery/collect/order/${this.props.match.params.id}`, {
+        axios.get(`https://labubbles.online/api/delivery/collect/order/${this.props.match.params.id}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -312,7 +312,7 @@ class OrderDetail extends Component {
         e.stopPropagation();
 
         toast.configure();
-        axios.get(`https://stockwatch.site/public/api/delivery/reassign/${this.props.match.params.id}`, {
+        axios.get(`https://labubbles.online/api/delivery/reassign/${this.props.match.params.id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -634,7 +634,7 @@ class OrderDetail extends Component {
                                     </div>
                                 </div>
                             )}
-                        {this.state.isDelivered === "0" ?
+                        {this.state.isDelivered === 0 ?
                             this.state.isEndLaundry ? (
                                 <div className="actions mb-3">
                                     <div className="col-12 text-right">

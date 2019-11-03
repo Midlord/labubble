@@ -33,7 +33,7 @@ class AdminLogin extends Component {
     this.setState({
       isLoaded: true
     });
-    axios.post('https://stockwatch.site/public/api/login', {
+    axios.post('https://labubbles.online/api/login', {
       email: this.state.email,
       password: this.state.password
     }, {

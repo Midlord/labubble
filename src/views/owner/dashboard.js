@@ -80,7 +80,7 @@ class Dashboard extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/owner/recent/transactions`, {
+        axios.get(`http://localhost:8000/api/owner/recent/transactions`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -304,7 +304,7 @@ class Dashboard extends Component {
                                     </thead>
                                     <tbody>
                                         {this.state.books.map((book, i) => (
-                                            book.isCheckedOut === "1" ?
+                                            book.isCheckedOut === 1 ?
                                                 <tr key={i}>
                                                     <td><Link to={`/owner/pending/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
                                                     <td>{book.laundry_shop.shopName}</td>

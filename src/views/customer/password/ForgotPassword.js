@@ -45,7 +45,7 @@ class ForgotPassword extends Component {
         e.preventDefault();
         this.setState({ isLoaded: true });
         toast.configure();
-        axios.post('https://stockwatch.site/public/api/send/email', {
+        axios.post('https://labubbles.online/api/send/email', {
             email: this.state.email,
         }, {
             headers: {
@@ -75,7 +75,7 @@ class ForgotPassword extends Component {
         e.preventDefault();
         this.setState({ isLoaded: true });
         toast.configure();
-        axios.post('https://stockwatch.site/public/api/validate/token', {
+        axios.post('https://labubbles.online/api/validate/token', {
             token: this.state.token,
         }, {
             headers: {
@@ -107,7 +107,7 @@ class ForgotPassword extends Component {
         e.preventDefault();
         this.setState({ isLoaded: true });
         toast.configure();
-        axios.post(`https://stockwatch.site/public/api/password/reset/${this.state.token}`, {
+        axios.post(`https://labubbles.online/api/password/reset/${this.state.token}`, {
             password: this.state.password,
             confirm_password: this.state.confirm_password,
         }, {

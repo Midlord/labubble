@@ -126,7 +126,7 @@ class AddLaundry extends Component {
             isLaundryLoaded: true
         });
 
-        axios.post(`https://stockwatch.site/public/api/owner/laundry/store`, {
+        axios.post(`https://labubbles.online/api/owner/laundry/store`, {
             shopName: this.state.shopName,
             opening: moment(this.state.opening).format('YYYY-MM-DD hh:mm:ss'),
             closing: moment(this.state.closing).format('YYYY-MM-DD hh:mm:ss'),

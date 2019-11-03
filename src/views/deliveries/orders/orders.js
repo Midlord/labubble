@@ -61,7 +61,7 @@ class Orders extends Component {
     this.setState({
       isloaded: true
     });
-    axios.get(`https://stockwatch.site/public/api/delivery/process/order/${book_id}`, {
+    axios.get(`https://labubbles.online/api/delivery/process/order/${book_id}`, {
       headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
     })
       .then(result => {
@@ -92,7 +92,7 @@ class Orders extends Component {
     this.setState({
       isloaded: true
     });
-    axios.get(`https://stockwatch.site/public/api/delivery/orders`, {
+    axios.get(`https://labubbles.online/api/delivery/orders`, {
       headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
     })
       .then(result => {
@@ -120,7 +120,7 @@ class Orders extends Component {
     e.stopPropagation();
 
     toast.configure();
-    axios.get(`https://stockwatch.site/public/api/delivery/reassign/${this.state.book_id}`, {
+    axios.get(`https://labubbles.online/api/delivery/reassign/${this.state.book_id}`, {
         headers: {
             'Accept': 'application/json',
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`

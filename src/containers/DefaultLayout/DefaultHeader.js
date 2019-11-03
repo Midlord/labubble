@@ -38,7 +38,7 @@ class DefaultHeader extends Component {
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
 
-              <img src={sessionStorage.getItem('image') == null ? '../../assets/img/avatars/6.jpg' : `https://stockwatch.site/public/storage/avatar/${sessionStorage.getItem('image')}`} className="img-avatar" />
+              <img src={sessionStorage.getItem('image') == null ? '../../assets/img/avatars/6.jpg' : `https://labubbles.online/storage/avatar/${sessionStorage.getItem('image')}`} className="img-avatar" />
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem header tag="div" className="text-center"><strong>{sessionStorage.getItem('fullName') ? sessionStorage.getItem('fullName') : 'Super Admin'}</strong></DropdownItem>

@@ -138,7 +138,7 @@ class Personnels extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/admin/deliveries`, {
+        axios.get(`https://labubbles.online/api/admin/deliveries`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -198,7 +198,7 @@ class Personnels extends Component {
         e.stopPropagation();
 
         toast.configure();
-        axios.delete(`https://stockwatch.site/public/api/admin/deliveries/${this.state.user_id}/banned`, {
+        axios.delete(`https://labubbles.online/api/admin/deliveries/${this.state.user_id}/banned`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -239,7 +239,7 @@ class Personnels extends Component {
         e.stopPropagation();
 
         toast.configure();
-        axios.get(`https://stockwatch.site/public/api/admin/unbanned/delivery/${this.state.user_id}`, {
+        axios.get(`https://labubbles.online/api/admin/unbanned/delivery/${this.state.user_id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -273,7 +273,7 @@ class Personnels extends Component {
         e.preventDefault();
         this.setState({ isLoaded: true });
         toast.configure();
-        axios.post('https://stockwatch.site/public/api/admin/delivery/store', {
+        axios.post('https://labubbles.online/api/admin/delivery/store', {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             email: this.state.email,
@@ -326,7 +326,7 @@ class Personnels extends Component {
         const UserTable = () => (
             users.map((user, i) => (
                 <tr key={i}>
-                    <td><Link to={`/admin/delivery/${user.id}`}><img src={`https://stockwatch.site/public/storage/avatar/${user.image}`} /></Link></td>
+                    <td><Link to={`/admin/delivery/${user.id}`}><img src={`https://labubbles.online/storage/avatar/${user.image}`} /></Link></td>
                     <td>{`${user.firstName} ${user.lastName}`}</td>
                     <td>{user.email}</td>
                     <td>{user.mobileNumber}</td>
@@ -345,7 +345,7 @@ class Personnels extends Component {
         const UserTableBanned = () => (
             usersBanned.map((user, i) => (
                 <tr key={i}>
-                    <td><Link to={`/admin/delivery/${user.id}`}><img src={`https://stockwatch.site/public/storage/avatar/${user.image}`} /></Link></td>
+                    <td><Link to={`/admin/delivery/${user.id}`}><img src={`https://labubbles.online/storage/avatar/${user.image}`} /></Link></td>
                     <td>{`${user.firstName} ${user.lastName}`}</td>
                     <td>{user.email}</td>
                     <td>{user.mobileNumber}</td>

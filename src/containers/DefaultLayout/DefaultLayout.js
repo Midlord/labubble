@@ -95,7 +95,7 @@ class DefaultLayout extends Component {
             <AppSidebarHeader />
             <AppSidebarForm />
             <div className="sidebar-header">
-              <img src={`https://stockwatch.site/public/storage/avatar/${sessionStorage.getItem('image')}`} className="img-avatar custom-image" alt="Avatar" />
+              <img src={`https://labubbles.online/storage/avatar/${sessionStorage.getItem('image')}`} className="img-avatar custom-image" alt="Avatar" />
               <div>
                 <strong>{sessionStorage.getItem('fullName')}</strong>
               </div>

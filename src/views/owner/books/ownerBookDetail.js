@@ -96,7 +96,7 @@ class OwnerBookDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://stockwatch.site/public/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`https://labubbles.online/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -167,7 +167,7 @@ class OwnerBookDetail extends Component {
             isloaded: true
         });
 
-        axios.get(`https://stockwatch.site/public/api/owner/end/book/${this.props.match.params.id}`, {
+        axios.get(`https://labubbles.online/api/owner/end/book/${this.props.match.params.id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -207,7 +207,7 @@ class OwnerBookDetail extends Component {
             isloaded: true
         });
 
-        axios.get(`https://stockwatch.site/public/api/owner/process/book/${this.props.match.params.id}`, {
+        axios.get(`https://labubbles.online/api/owner/process/book/${this.props.match.params.id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -247,7 +247,7 @@ class OwnerBookDetail extends Component {
             isloaded: true
         });
 
-        axios.get(`https://stockwatch.site/public/api/owner/approved/book/${this.props.match.params.id}`, {
+        axios.get(`https://labubbles.online/api/owner/approved/book/${this.props.match.params.id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -289,7 +289,7 @@ class OwnerBookDetail extends Component {
             isloaded: true
         });
 
-        axios.get(`https://stockwatch.site/public/api/owner/cancelled/book/${this.props.match.params.id}`, {
+        axios.get(`https://labubbles.online/api/owner/cancelled/book/${this.props.match.params.id}`, {
             headers: {
                 // 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`

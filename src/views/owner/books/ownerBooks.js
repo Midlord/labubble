@@ -41,7 +41,7 @@ class OwnerBooks extends Component {
     this.setState({
       isloaded: true
     });
-    axios.get(`https://stockwatch.site/public/api/owner/book`, {
+    axios.get(`https://labubbles.online/api/owner/book`, {
       headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
     })
       .then(result => {
@@ -70,7 +70,7 @@ class OwnerBooks extends Component {
     const BookTable = () => (
 
       this.state.books.map((book, i) => (
-        book.isCheckedOut === "1" ?
+        book.isCheckedOut === 1 ?
             <tr key={i}>
                 <td><Link to={`/owner/pending/book/${book.id}`}>{moment(book.created_at).format('YYYY-MM-DD')}</Link></td>
                 <td>{`${book.user.firstName} ${book.user.lastName}`}</td>

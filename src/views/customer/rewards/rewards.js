@@ -32,7 +32,7 @@ class Rewards extends Component {
 
     componentDidMount() {
         this.setState({ isLoaded: true });
-        axios.get(`https://stockwatch.site/public/api/customer/info/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`https://labubbles.online/api/customer/info/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
