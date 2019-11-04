@@ -177,8 +177,8 @@ class EditLaundry extends Component {
 
         axios.post(`https://labubbles.online/api/owner/laundry/update`, {
             shopName: this.state.shopName,
-            opening: moment(this.state.opening).format('YYYY-MM-DD hh:mm:ss'),
-            closing: moment(this.state.closing).format('YYYY-MM-DD hh:mm:ss'),
+            opening: moment(this.state.opening).format('YYYY-MM-DD HH:mm:ss'),
+            closing: moment(this.state.closing).format('YYYY-MM-DD HH:mm:ss'),
             openDay: this.state.selectedOptions.join(', '),
             slotDry: this.state.slotDry,
             slotWash: this.state.slotWash,
