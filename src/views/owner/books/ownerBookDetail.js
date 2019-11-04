@@ -437,7 +437,7 @@ class OwnerBookDetail extends Component {
                                         {this.state.book.status === 'processing' ? (
                                             this.state.isEndLaundry ? '' :
                                             <button className="btn btn-primary" onClick={this.handleEndOrder}>End</button>
-                                        ) : this.state.isCollect ? (
+                                        ) : this.state.isCollect &&  this.state.book.isDelivered === 0 ? (
                                             <button className="btn btn-primary" onClick={this.handleProcessOrder}>Start</button>
                                         ) : ''}
 
