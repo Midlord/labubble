@@ -211,7 +211,7 @@ class LaundryDetail extends Component {
                     <div className="comment-content" key={i}>
                         <div className="comment">
                             <div className="avatar">
-                                <img src={!rating.user.image ? "https://react.semantic-ui.com/images/avatar/small/elliot.jpg" : `https://labubbles.online/storage/laundries/${rating.user.image}`} />
+                                <img src={!rating.user.image ? "https://react.semantic-ui.com/images/avatar/small/elliot.jpg" : `https://labubbles.online/storage/avatar/${rating.user.image}`} />
                             </div>
                             <div className="content">
                                 <a className="author">{`${rating.user.firstName} ${rating.user.lastName}`}</a>
@@ -256,13 +256,13 @@ class LaundryDetail extends Component {
                         <div className="list-group">
                             <span className="list-group-item list-group-item-action">
                                 Wash
-                        <span className="badge badge-pill badge-primary pull-right badge-align">{`P ${this.state.laundry.washPrice}`}</span>
+                        <span className="badge badge-pill badge-primary pull-right badge-align">{`P ${this.state.laundry.washPrice} per load`}</span>
                             </span>
                         </div>
                         <div className="list-group">
                             <span className="list-group-item list-group-item-action">
                                 Dry
-                        <span className="badge badge-pill badge-primary pull-right badge-align">{this.state.laundry.slotDry > 0 ? `P ${this.state.laundry.dryPrice}` : `Out of Stock`}</span>
+                        <span className="badge badge-pill badge-primary pull-right badge-align">{this.state.laundry.slotDry > 0 ? `P ${this.state.laundry.dryPrice} per load` : `Out of Stock`}</span>
                             </span>
                         </div>
                     </div>
@@ -301,7 +301,7 @@ class LaundryDetail extends Component {
                                 <div className="row">
                                     <div className="col">
                                         <div className="mb-3">
-                                            <img className="btn-md img-size" src={require('../laundries/dummy.png')} alt="" />
+                                            <img className="btn-md img-size" src={laundry.image !== "" || laundry.image !== null ? `https://labubbles.online/storage/laundries/${laundry.image}` : require('../laundries/dummy.png')} alt="" />
                                         </div>
                                     </div>
                                     <div className="col">

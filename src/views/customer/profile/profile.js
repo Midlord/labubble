@@ -86,6 +86,7 @@ class Profile extends Component {
             },
         })
             .then(result => {
+                console.log(result)
                 if (result.status == 200) {
                     let fullName = result.data.user.firstName + " " + result.data.user.lastName;
                     this.setState({

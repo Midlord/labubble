@@ -80,7 +80,7 @@ class Dashboard extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`http://localhost:8000/api/owner/recent/transactions`, {
+        axios.get(`https://labubbles.online/api/owner/recent/transactions`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {

@@ -236,7 +236,8 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.post(`https://labubbles.online/api/delivery/book/${this.props.match.params.id}/update/`, {
+        toast.configure();
+        axios.post(`https://labubbles.online/api/delivery/book/${this.props.match.params.id}/update`, {
             kiloWashQty: this.state.kiloWashQty,
             kiloDryQty: this.state.kiloDryQty,
             loadsWashQty: this.state.loadsWashQty,

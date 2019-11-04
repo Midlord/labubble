@@ -188,7 +188,7 @@ class LaundryDetail extends Component {
                                 <div className="row">
                                     <div className="col">
                                         <div className="mb-3">
-                                            <img className="btn-md img-size" src={require('../laundries/dummy.png')} alt="" />
+                                        <img className="btn-md img-size" src={laundry.image !== "" || laundry.image !== null ? `https://labubbles.online/storage/laundries/${laundry.image}` : require('../laundries/dummy.png')} alt="" />
                                         </div>
                                     </div>
                                     <div className="col">
