@@ -43,7 +43,7 @@ class Book extends Component {
         this.handleEndChange = this.handleEndChange.bind(this);
         this.onAddressChanged = this.onAddressChanged.bind(this);
         this.onServicesChanged = this.onServicesChanged.bind(this);
-        this.onHandleChange = this.onHandleChange.bind(this);
+        this.handleOnChange = this.handleOnChange.bind(this);
         // this.onHandleRemarksChange = this.onHandleRemarksChange.bind(this);
 
     }
@@ -101,10 +101,13 @@ class Book extends Component {
     };
 
 
-    onHandleChange = (e) => {
+    handleOnChange = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
         e.target.validity.valid ?
             this.setState({
-                [e.target.name]: e.target.value <= 0 ? "" : e.target.value
+                [e.target.name]: e.target.value <= 0 || e.target.value > 10 ? "" : e.target.value
             })
             :
             e.target.value.replace(/\D/, '')
@@ -112,6 +115,7 @@ class Book extends Component {
         //     [e.target.name]: e.target.value
         // })
 
+        console.log(e.target.value)
     }
 
     // onHandleRemarksChange = (e) => {
@@ -211,8 +215,6 @@ class Book extends Component {
 
         let minimumTime = moment(this.state.laundry.opening).toDate();
         let maximumTime = moment(this.state.laundry.closing).toDate();
-        console.log(minimumTime);
-        console.log(maximumTime);
         const StartDatePicker = () => {
             return (
                 <DatePicker
@@ -240,34 +242,6 @@ class Book extends Component {
             )
         };
 
-        // const StartTimePicker = () => {
-        //     return (
-        //         <DatePicker
-        //             onChange={this.handleStartTimeChange}
-        //             selected={this.state.startTime}
-        //             showTimeSelect
-        //             showTimeSelectOnly
-        //             timeIntervals={15}
-        //             timeCaption="Time"
-        //             dateFormat="h:mm aa"
-        //         />
-        //     );
-        // }
-
-        // const EndTimePicker = () => {
-        //     return (
-        //         <DatePicker
-        //             onChange={this.handleEndTimeChange}
-        //             selected={this.state.endTime}
-        //             showTimeSelect
-        //             showTimeSelectOnly
-        //             timeIntervals={15}
-        //             timeCaption="Time"
-        //             dateFormat="h:mm aa"
-        //         />
-        //     );
-        // }
-
         const UserAddresses = () => {
             return (
                 addresses.map((address, i) => (
@@ -293,7 +267,7 @@ class Book extends Component {
                             <span className="list-group-item list-group-item-action">
                                 Wash
                             <span className="pull-right">
-                                    <input type="number" className="small-input text-center" name="wash" value={this.state.wash} pattern="[0-9]*" max={this.state.laundry.slotWash} id="wash" placeholder="/load" onChange={this.onHandleChange} autoComplete="off" />
+                                    <input type="number" className="small-input text-center" name="wash" pattern="[0-9]*" max="10" id="wash" placeholder="/load" onChange={this.handleOnChange} autoComplete="off" />
                                 </span>
                                 <span className="badge badge-pill badge-primary pull-right badge-align">{`P ${this.state.laundry.washPrice}`}</span>
                             </span>
@@ -303,7 +277,7 @@ class Book extends Component {
                                 Dry
                             {this.state.laundry.slotDry > 0 ? (
                                     <span className="pull-right">
-                                        <input type="number" className="small-input text-center" name="dry" value={this.state.dry} pattern="[0-9]*" max={this.state.laundry.slotDry} id="dry" placeholder="/load" onChange={this.onHandleChange} autoComplete="off" />
+                                        <input type="number" className="small-input text-center" name="dry" pattern="[0-9]*" max="10" id="dry" placeholder="/load" onChange={this.handleOnChange} autoComplete="off" />
                                     </span>
                                 ) : ``}
                                 <span className="badge badge-pill badge-primary pull-right badge-align">{this.state.laundry.slotDry > 0 ? `P ${this.state.laundry.dryPrice}` : `Out of Stock`}</span>
@@ -324,14 +298,14 @@ class Book extends Component {
                             <span className="list-group-item list-group-item-action">
                                 Wash
                                 <span className="pull-right">
-                                    <input type="number" className="small-input text-center" name="kiloWash" placeholder="/kg" value={this.state.kiloWash} pattern="[0-9]*" id="kiloWash" onChange={this.onHandleChange} autoComplete="off" />
+                                    <input type="number" className="small-input text-center" name="kiloWash" placeholder="/kg" id="kiloWash" onChange={this.handleOnChange} autoComplete="off" />
                                 </span>
                                 <span className="badge badge-pill badge-primary pull-right badge-align">{`P ${this.state.laundry.price}`}</span>
                             </span>
                             <span className="list-group-item list-group-item-action">
-                                Dry
+                                Dr
                                 <span className="pull-right">
-                                    <input type="number" className="small-input text-center" name="kiloDry" placeholder="/kg" value={this.state.kiloDry} pattern="[0-9]*" id="kiloDry" onChange={this.onHandleChange} autoComplete="off" />
+                                    <input type="number" className="small-input text-center" name="kiloDry" placeholder="/kg" id="kiloDry" onChange={this.handleOnChange} autoComplete="off" />
                                 </span>
                                 <span className="badge badge-pill badge-primary pull-right badge-align">{`P ${this.state.laundry.price}`}</span>
                             </span>
@@ -373,7 +347,7 @@ class Book extends Component {
             return (
                 <div className="form-group">
                     <label htmlFor="">Special Instructions: </label>
-                    <textarea name="remarks" className="form-control" row="5" onChange={this.onHandleChange}></textarea>
+                    <textarea name="remarks" className="form-control" row="5" onChange={this.handleOnChange}></textarea>
                 </div>
             )
         }
@@ -421,8 +395,51 @@ class Book extends Component {
                                         </div>
                                         <div className="col-12 mt-5">
                                             {this.state.laundry.type === 'loads' ? (
-                                                <WashAndDry />
-                                            ) : (<Kilos />)}
+                                                <div className="parent">
+                                                    <h4>Wash & Dry</h4>
+                                                    <div className="WD">
+                                                        <div className="list-group">
+                                                            <span className="list-group-item list-group-item-action">
+                                                                Wash
+                                                                <span className="pull-right">
+                                                                    <input type="text" className="small-input text-center" name="wash" pattern="[0-9]*" max="10" id="wash" placeholder="/load" onChange={this.handleOnChange} autoComplete="off" />
+                                                                </span>
+                                                                <span className="badge badge-pill badge-primary pull-right badge-align">{`P ${this.state.laundry.washPrice}`}</span>
+                                                            </span>
+                                                        </div>
+                                                        <div className="list-group">
+                                                            <span className="list-group-item list-group-item-action">
+                                                                Dry
+                                                                <span className="pull-right">
+                                                                    <input type="text" className="small-input text-center" name="dry" pattern="[0-9]*" max="10" id="dry" placeholder="/load" onChange={this.handleOnChange} autoComplete="off" />
+                                                                </span>
+                                                                <span className="badge badge-pill badge-primary pull-right badge-align">{this.state.laundry.slotDry > 0 ? `P ${this.state.laundry.dryPrice}` : `Out of Stock`}</span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ) : (<div className="parent">
+                                                <h4>Services</h4>
+                                                <div className="WD">
+                                                    <div className="list-group">
+                                                        <span className="list-group-item list-group-item-action">
+                                                            Wash
+                                                        <span className="pull-right">
+                                                                <input type="number" className="small-input text-center" name="kiloWash" placeholder="/kg" id="kiloWash" onChange={this.handleOnChange} autoComplete="off" />
+                                                            </span>
+                                                            <span className="badge badge-pill badge-primary pull-right badge-align">{`P ${this.state.laundry.price}`}</span>
+                                                        </span>
+                                                        <span className="list-group-item list-group-item-action">
+                                                            Dr
+                                                        <span className="pull-right">
+                                                                <input type="number" className="small-input text-center" name="kiloDry" placeholder="/kg" id="kiloDry" onChange={this.handleOnChange} autoComplete="off" />
+                                                            </span>
+                                                            <span className="badge badge-pill badge-primary pull-right badge-align">{`P ${this.state.laundry.price}`}</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                )}
                                         </div>
                                         <hr />
                                         <div className="col-12 mt-5">
@@ -434,7 +451,10 @@ class Book extends Component {
                                     <p>Total: <strong>P 10000</strong></p>
                                 </div> */}
                                         <div className="col-md-12 mt-5">
-                                            <Remarks />
+                                            <div className="form-group">
+                                                <label htmlFor="">Special Instructions: </label>
+                                                <textarea name="remarks" className="form-control" row="5" onChange={this.handleOnChange}></textarea>
+                                            </div>
                                         </div>
                                         <div className="col-12 mt-5">
                                             <div className="row">

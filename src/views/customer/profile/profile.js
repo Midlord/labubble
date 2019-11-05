@@ -78,6 +78,7 @@ class Profile extends Component {
             email: this.state.email,
             mobileNumber: this.state.mobileNumber,
             image: this.state.image,
+            points: this.state.user.points,
             imageName: this.state.imageName,
             imageType: this.state.imageType,
         }, {
@@ -115,7 +116,7 @@ class Profile extends Component {
                     toast.success(result.data.message, {
                         position: toast.POSITION.BOTTOM_RIGHT
                     });
-                    window.location.reload();
+                    // window.location.reload();
                 }
 
             })
@@ -283,7 +284,7 @@ class Profile extends Component {
                                     <div className="card-body text-center">
                                         <span className="fa fa-trophy trophy-size" aria-hidden="true"></span>
                                         <div className="text-info text-center mt-3"><h4>Points</h4></div>
-                                        <div className="text-info text-center mt-2"><h1>{this.state.points}</h1></div>
+                                        <div className="text-info text-center mt-2"><h1>{this.state.user.points}</h1></div>
                                     </div>
                                 </div>
                             </div>

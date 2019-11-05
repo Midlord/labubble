@@ -231,6 +231,11 @@ class Book extends Component {
     handleRedeem = (e) => {
         e.persist();
         e.stopPropagation();
+
+        if(this.state.code === ""){
+            e.preventDefault();
+        }
+
         toast.configure();
         this.setState({
             isloaded: true
@@ -257,6 +262,10 @@ class Book extends Component {
             })
             .catch(error => {
                 console.log(error)
+
+                toast.error(error.response.data.error, {
+                    position: toast.POSITION.BOTTOM_RIGHT
+                });
                 this.setState({
                     isloaded: false
                 });
@@ -370,7 +379,7 @@ class Book extends Component {
                                         <div className="input-group mb-5">
                                             <input type="text" name="code" onChange={this.handleOnChange} className="form-control" placeholder="Promo code" />
                                             <div className="input-group-append">
-                                                <button className="btn btn-secondary">Redeem</button>
+                                                <button type="submit" className="btn btn-secondary">Redeem</button>
                                             </div>
                                         </div>
                                         <div className="text-right">

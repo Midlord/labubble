@@ -95,7 +95,7 @@ class LaundryDetail extends Component {
         const CommentAndReplies = () => {
             return (
                 ratings.map((rating, i) => (
-                    <div className="comment-content" key={i}>
+                    <div className="comment-content mb-5" key={i}>
                         <div className="comment">
                             <div className="avatar">
                                 <img src={!rating.user.image ? "https://react.semantic-ui.com/images/avatar/small/elliot.jpg" : `https://labubbles.online/storage/avatar/${rating.user.image}`} />

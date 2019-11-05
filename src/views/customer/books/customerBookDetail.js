@@ -12,7 +12,7 @@ import Modal from 'react-modal';
 import BeautyStars from 'beauty-stars';
 import {
     Input,
-  } from 'reactstrap';
+} from 'reactstrap';
 const customStyles = {
     content: {
         top: '50%',
@@ -137,7 +137,7 @@ class CustomerBookDetail extends Component {
 
                     toast.success(result.data.message, {
                         position: toast.POSITION.BOTTOM_RIGHT
-                      });
+                    });
                     this.props.history.push(`/laundry/${this.state.book.laundry_shop_id}`);
                 }
             })
@@ -195,11 +195,11 @@ class CustomerBookDetail extends Component {
                         });
                     }
 
-                    if(this.state.book.isRedeemed === 1){
+                    if (this.state.book.isRedeemed === 1) {
                         this.setState({
                             total: parseInt(this.state.subTotal),
                         })
-                    }else{
+                    } else {
                         this.setState({
                             total: parseInt(this.state.deliveryCharge) + parseInt(this.state.subTotal),
                         })
@@ -279,7 +279,7 @@ class CustomerBookDetail extends Component {
                         <div className="field">
                             <label htmlFor="">Comment:</label>
                             <Input type="textarea" name="message" onChange={this.onChange} className="form-control" id="message" rows="4"
-                             placeholder="Content..." />
+                                placeholder="Content..." />
                         </div>
                     </form>
                 </div>
@@ -512,13 +512,28 @@ class CustomerBookDetail extends Component {
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div className="modal-body">
-                                        <RateLaundry />
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
-                                        <button type="button" onClick={this.handleRatings} className="btn btn-primary">Submit</button>
-                                    </div>
+                                    <form className="ui reply form" onSubmit={this.handleRatings}>
+                                        <div className="modal-body">
+                                            <div className="rating-section mb-5">
+                                                <div className="field">
+                                                    <label htmlFor="">Ratings:</label>
+                                                    <BeautyStars
+                                                        value={this.state.value}
+                                                        onChange={value => this.setState({ value })} />
+
+                                                </div>
+                                                <div className="field">
+                                                    <label htmlFor="">Comment:</label>
+                                                    <Input type="textarea" name="message" onChange={this.onChange} className="form-control" id="message" rows="4"
+                                                        placeholder="Content..." />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                            <button type="submit" className="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
                                 </Modal>
                             </div>
                         </div>
