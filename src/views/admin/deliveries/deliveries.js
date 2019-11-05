@@ -51,7 +51,7 @@ const barangays = [
 
 const customStyles = {
     content: {
-        top: '20%',
+        top: '50%',
         left: '50%',
         right: 'auto',
         bottom: 'auto',
@@ -65,7 +65,7 @@ const customStyles = {
 
 const createDelivery = {
     content: {
-        top: '57%',
+        top: '50%',
         left: '50%',
         right: 'auto',
         bottom: 'auto',

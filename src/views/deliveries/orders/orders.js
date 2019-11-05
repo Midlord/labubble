@@ -11,16 +11,16 @@ import "react-table/react-table.css";
 import Modal from 'react-modal';
 
 const customStyles = {
-    content: {
-        top: '20%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        padding: '0',
-        width: '20%',
-        transform: 'translate(-50%, -50%)'
-    }
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    padding: '0',
+    width: '20%',
+    transform: 'translate(-50%, -50%)'
+  }
 };
 
 class Orders extends Component {
@@ -41,16 +41,16 @@ class Orders extends Component {
   openModal = (id) => {
     console.log(id)
     this.setState({
-        modalIsOpen: true,
-        book_id: id
+      modalIsOpen: true,
+      book_id: id
     });
   }
 
   closeModal = (id) => {
     console.log(id)
     this.setState({
-        modalIsOpen: false,
-        book_id: id
+      modalIsOpen: false,
+      book_id: id
     });
   }
 
@@ -121,32 +121,32 @@ class Orders extends Component {
 
     toast.configure();
     axios.get(`https://labubbles.online/api/delivery/reassign/${this.state.book_id}`, {
-        headers: {
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-        },
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      },
     })
-        .then(result => {
-            if (result.status === 200) {
-                this.setState({
-                    deliveryOrders: result.data.deliveryOrders,
-                    isloaded: false,
-                    modalIsOpen: false,
-                })
+      .then(result => {
+        if (result.status === 200) {
+          this.setState({
+            deliveryOrders: result.data.deliveryOrders,
+            isloaded: false,
+            modalIsOpen: false,
+          })
 
-                toast.success(result.data.message, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
-            }
-        })
-        .catch(error => {
-            this.setState({
-                isloaded: false
-            });
-
-            console.log(error)
+          toast.success(result.data.message, {
+            position: toast.POSITION.BOTTOM_RIGHT
+          });
+        }
+      })
+      .catch(error => {
+        this.setState({
+          isloaded: false
         });
-}
+
+        console.log(error)
+      });
+  }
 
   render() {
     const deliveryOrders = this.state.deliveryOrders;

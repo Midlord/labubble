@@ -39,6 +39,9 @@ const Home = React.lazy(() => import('./views/customer/home'));
 // Laundry Details
 const LaundryDetail = React.lazy(() => import('./views/customer/laundries/laundryDetail'));
 // Book Laundry
+
+const Address = React.lazy(() => import('./views/customer/profile/address/addAddress'));
+const EditAddress = React.lazy(() => import('./views/customer/profile/address/editAddress'));
 const Book = React.lazy(() => import('./views/customer/books/book'));
 const BookDetail = React.lazy(() => import('./views/customer/books/bookDetail'));
 const Profile = React.lazy(() => import('./views/customer/profile/profile'));
@@ -90,6 +93,8 @@ const routes = [
   { path: '/user/transactions', exact: true, name: 'Transactions', component: Transactions },
   { path: '/user/books', exact: true, name: 'My Orders', component: CustomerBooks },
   { path: '/user/book/:id', exact: true, name: 'Order Detail', component: CustomerBookDetail },
+  { path: '/add/address', exact: true, name: 'Add Address', component: Address },
+  { path: '/edit/address/:id', exact: true, name: 'Edit Address', component: EditAddress },
   
   { path: '/owner/dashboard', exact: true, name: 'Dashboard', component: OwnerDashboard },
   { path: '/owner/pendingBooks', exact: true, name: 'Recent Orders', component: PendingBooks },
@@ -126,8 +131,6 @@ const routes = [
   { path: '/delivery/orders', exact: true, name: 'Delivery Orders', component: DeliveryOrders },
 
   { path: '/delivery/sales', exact: true, name: 'Daily Sales', component: DeliverySales },
-
-  
 
   { path: '/admin/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/admin/theme/colors', name: 'Colors', component: Colors },

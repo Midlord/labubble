@@ -12,7 +12,7 @@ import Modal from 'react-modal';
 
 const customStyles = {
     content: {
-        top: '33%',
+        top: '50%',
         left: '50%',
         right: 'auto',
         bottom: 'auto',
@@ -181,9 +181,15 @@ class OrderDetail extends Component {
                         });
                     }
 
-                    this.setState({
-                        total: parseInt(this.state.deliveryCharge) + parseInt(this.state.subTotal),
-                    })
+                    if(this.state.book.isRedeemed === 1){
+                        this.setState({
+                            total: parseInt(this.state.subTotal),
+                        })
+                    }else{
+                        this.setState({
+                            total: parseInt(this.state.deliveryCharge) + parseInt(this.state.subTotal),
+                        })
+                    }
                 }
             })
             .catch(error => {
@@ -282,7 +288,7 @@ class OrderDetail extends Component {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
-                console.log(result.data.deliveryOrders)
+                console.log(result)
                 if (result.status === 200) {
                     toast.success(result.data.message, {
                         position: toast.POSITION.BOTTOM_RIGHT

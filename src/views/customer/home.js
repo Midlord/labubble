@@ -272,7 +272,7 @@ class Home extends Component {
               <form onSubmit={this.handleLaundrySearch}>
                 <div className="row">
                   <div className="col-10">
-                    <input type="text" className="form-control" id="searchByBrangay" name="searchFilter" onChange={this.handleOnChange} placeholder="Please search Barangay or Laundry Shop." required />
+                    <input type="text" className="form-control" id="searchByBrangay" name="searchFilter" onChange={this.handleOnChange} placeholder="Barangay or Laundry Shop." required />
                   </div>
                   <div className="col-2 pl-0">
                     <button type="submit" className="btn btn-primary"><i className="fa fa-search" aria-hidden="true"></i></button>

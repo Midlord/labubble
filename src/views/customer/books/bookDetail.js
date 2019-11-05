@@ -71,6 +71,15 @@ class Book extends Component {
         });
     }
 
+    handleOnChange = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    
+        this.setState({
+          [e.target.name]: e.target.value
+        });
+    }
+
 
     componentWillMount() {
         this.setState({
@@ -116,9 +125,19 @@ class Book extends Component {
                         });
                     }
 
-                    this.setState({
-                        total: parseInt(this.state.deliveryCharge) + parseInt(this.state.subTotal),
-                    })
+                    if(this.state.book.isRedeemed === 1){
+                        this.setState({
+                            total: parseInt(this.state.subTotal),
+                        })
+                    }else{
+                        this.setState({
+                            total: parseInt(this.state.deliveryCharge) + parseInt(this.state.subTotal),
+                        })
+                    }
+
+                    if (this.state.book.isCheckedOut === 1) {
+                        this.props.history.push(`/user/books`);
+                    }
                 }
             })
             .catch(error => {
@@ -205,6 +224,42 @@ class Book extends Component {
                         position: toast.POSITION.BOTTOM_RIGHT
                     });
                 })
+            });
+
+    }
+
+    handleRedeem = (e) => {
+        e.persist();
+        e.stopPropagation();
+        toast.configure();
+        this.setState({
+            isloaded: true
+        });
+
+        axios.post(`https://labubbles.online/api/customer/redeem/book/${this.props.match.params.id}`, {
+            code: this.state.code
+        }, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            },
+        })
+            .then(result => {
+                toast.success(result.data.message, {
+                    position: toast.POSITION.BOTTOM_RIGHT
+                });
+
+                this.setState({
+                    isloaded: false,
+                    book: result.data.book,
+                    total: this.state.total - this.state.deliveryCharge
+                });
+            })
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    isloaded: false
+                });
             });
 
     }
@@ -298,20 +353,22 @@ class Book extends Component {
                                             <span>SubTotal</span>
                                             <strong>{`P ${parseFloat(this.state.subTotal).toFixed(2)}`} </strong>
                                         </li>
-                                        <li className="list-group-item d-flex justify-content-between bg-light">
-                                            <div className="text-danger">
-                                                <h6 className="my-0">Delivery Charges</h6>
-                                            </div>
-                                            <span className="text-success">P {this.state.deliveryCharge}</span>
-                                        </li>
+                                        {this.state.book.isRedeemed === 0 ? (
+                                            <li className="list-group-item d-flex justify-content-between bg-light">
+                                                <div className="text-danger">
+                                                    <h6 className="my-0">Delivery Charges</h6>
+                                                </div>
+                                                <span className="text-success">P {this.state.deliveryCharge}</span>
+                                            </li>
+                                        ) : ''}
                                         <li className="list-group-item d-flex justify-content-between">
                                             <span>Total</span>
                                             <strong>{`P ${parseFloat(this.state.total).toFixed(2)}`} </strong>
                                         </li>
                                     </ul>
-                                    <form>
+                                    <form onSubmit={this.handleRedeem}>
                                         <div className="input-group mb-5">
-                                            <input type="text" className="form-control" placeholder="Promo code" />
+                                            <input type="text" name="code" onChange={this.handleOnChange} className="form-control" placeholder="Promo code" />
                                             <div className="input-group-append">
                                                 <button className="btn btn-secondary">Redeem</button>
                                             </div>

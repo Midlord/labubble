@@ -322,8 +322,8 @@ class LaundryDetail extends Component {
                                         </div>
                                     </div>
                                     <div className="col">
-                                        <p><span>{`Number of Wash: ${laundry.slotWash}`}</span></p>
-                                        <p><span>{`Number of Dry: ${laundry.slotDry}`}</span></p>
+                                        <p><span>{`Slots for Wash: ${laundry.slotWash}`}</span></p>
+                                        <p><span>{`Slots for Dry: ${laundry.slotDry}`}</span></p>
                                     </div>
                                 </div>
                                 <div className="shop-info mb-5">

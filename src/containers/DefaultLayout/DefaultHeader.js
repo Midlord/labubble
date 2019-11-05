@@ -24,7 +24,7 @@ class DefaultHeader extends Component {
     return (
       <React.Fragment>
         {/* isHome === '#/customer/dashboard' ||  isHome === '#/admin/dashboard' || isHome === '#/owner/dashboard' */}
-        {sessionStorage.getItem('role') === 'admin'  ? (<AppSidebarToggler className="d-lg-none" display="md" mobile />) : isHome === '#/customer/dashboard' || isHome === '#/owner/dashboard'  ? (<span></span>) : (<span onClick={e => this.props.onBackHistory(e)} ><i className="fa fa-arrow-left back-button" aria-hidden="true"></i></span>)}
+        {sessionStorage.getItem('role') === 'admin'  ? (<AppSidebarToggler className="d-lg-none" display="md" mobile />) : isHome === '#/customer/dashboard' || isHome === '#/owner/dashboard'  ? (<span></span>) : (<span className="back-button" onClick={e => this.props.onBackHistory(e)} ><i className="fa fa-arrow-left back-button" aria-hidden="true"></i></span>)}
         {/* <AppNavbarBrand
           full={{ src: logo, width: 89, height: 25, alt: 'CoreUI Logo' }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}

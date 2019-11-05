@@ -15,7 +15,7 @@ import {
   } from 'reactstrap';
 const customStyles = {
     content: {
-        top: '30%',
+        top: '50%',
         left: '50%',
         right: 'auto',
         bottom: 'auto',
@@ -65,7 +65,7 @@ class CustomerBookDetail extends Component {
             value: 0,
 
         };
-        console.log(props.match.params.id)
+        console.log(props)
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -195,9 +195,15 @@ class CustomerBookDetail extends Component {
                         });
                     }
 
-                    this.setState({
-                        total: parseInt(this.state.deliveryCharge) + parseInt(this.state.subTotal),
-                    })
+                    if(this.state.book.isRedeemed === 1){
+                        this.setState({
+                            total: parseInt(this.state.subTotal),
+                        })
+                    }else{
+                        this.setState({
+                            total: parseInt(this.state.deliveryCharge) + parseInt(this.state.subTotal),
+                        })
+                    }
                 }
             })
             .catch(error => {

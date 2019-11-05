@@ -163,12 +163,12 @@ class ForgotPassword extends Component {
                                                 <div className="form-label-group">
                                                     <input type={this.state.type} placeholder="Password"  className="form-control" name="password" id="inputPassword" autoComplete="current-password" onChange={this.handleOnChange} required />
                                                     <i onClick={this.showHide} className={this.state.type === 'input' ? 'fa fa-eye fa-lg mt-2' : 'fa fa-eye-slash fa-lg mt-2'} style={{ position: 'absolute', right: '6px', zIndex: '99999', top: '9px' }}></i>
-                                                    <label htmlFor="inputPassword">Password</label>
+                                                    <label htmlFor="inputPassword">New Password</label>
                                                 </div>
                                                 <div className="form-label-group">
                                                     <input type={this.state.type} placeholder="Password"  className="form-control" name="confirm_password" id="inputConfirm" autoComplete="password-password" onChange={this.handleOnChange} required />
                                                     <i onClick={this.showHide} className={this.state.type === 'input' ? 'fa fa-eye fa-lg mt-2' : 'fa fa-eye-slash fa-lg mt-2'} style={{ position: 'absolute', right: '6px', zIndex: '99999', top: '9px' }}></i>
-                                                    <label htmlFor="inputConfirm">Confirm Password</label>
+                                                    <label htmlFor="inputConfirm">Confirm New Password</label>
                                                 </div>
                                                 <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
                                             </form>

@@ -17,6 +17,7 @@ class Profile extends Component {
             laundry: [],
             books: [],
             user: [],
+            addresses: [],
             firstName: '',
             lastName: '',
             mobileNumber: '',
@@ -145,6 +146,7 @@ class Profile extends Component {
                     image: result.data.user.image,
                     books: result.data.books,
                     points: result.data.points,
+                    addresses: result.data.addresses,
                     isloaded: false
                 })
             })
@@ -173,6 +175,19 @@ class Profile extends Component {
             )
             )
         )
+        const AddressTable = () => {
+            return (
+                this.state.addresses.map((address, i) => (
+                    <tr key={i}>
+                        <td>{address.houseNumber}</td>
+                        <td>{address.street}</td>
+                        <td>{address.barangay}</td>
+                        <td><Link to={`/edit/address/${address.id}`} className="btn btn-primary">Edit</Link></td>
+                    </tr>
+                )
+                )
+            )
+        }
 
         return (
             <div className="animated fadeIn">
@@ -226,20 +241,54 @@ class Profile extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="ratings">
-                        <div className="mt-5">
-                            <div className="card border-info shadow p-3 my-card">
-                                <div className="card-header text-center mb-2">
-                                    <h3>Rewards</h3>
+                    <div className="book-table">
+                        <div className="card mt-5">
+                            <div className="card-header">
+                                <div className="col-12 pr-0 pl-0">
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <h3>Address</h3>
+                                        </div>
+                                        <div className="col-6 text-right">
+                                            <Link to={`add/address`} className="btn btn-primary">Add Address</Link>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="card-body text-center">
-                                    <span className="fa fa-trophy trophy-size" aria-hidden="true"></span>
-                                    <div className="text-info text-center mt-3"><h4>Points</h4></div>
-                                    <div className="text-info text-center mt-2"><h1>{this.state.points}</h1></div>
-                                </div>
+                                
+                            </div>
+                            <div className="table-responsive">
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th>House #</th>
+                                            <th>Street</th>
+                                            <th>Barangay</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <AddressTable />
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
+                    {this.state.user.role === "owner" || this.state.user.role === "admin" || this.state.user.role === "delivery" ? '' : (
+                        <div className="ratings">
+                            <div className="mt-5">
+                                <div className="card border-info shadow p-3 my-card">
+                                    <div className="card-header text-center mb-2">
+                                        <h3>Rewards</h3>
+                                    </div>
+                                    <div className="card-body text-center">
+                                        <span className="fa fa-trophy trophy-size" aria-hidden="true"></span>
+                                        <div className="text-info text-center mt-3"><h4>Points</h4></div>
+                                        <div className="text-info text-center mt-2"><h1>{this.state.points}</h1></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     <div className="book-table">
                         <div className="card mt-5">
                             <div className="card-header">

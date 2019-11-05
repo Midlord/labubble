@@ -293,7 +293,7 @@ class Book extends Component {
                             <span className="list-group-item list-group-item-action">
                                 Wash
                             <span className="pull-right">
-                                    <input type="number" className="small-input text-center" name="wash" value={this.state.wash} pattern="[0-9]*" max={this.state.laundry.slotWash} id="wash" placeholder="Wash" onChange={this.onHandleChange} autoComplete="off" />
+                                    <input type="number" className="small-input text-center" name="wash" value={this.state.wash} pattern="[0-9]*" max={this.state.laundry.slotWash} id="wash" placeholder="/load" onChange={this.onHandleChange} autoComplete="off" />
                                 </span>
                                 <span className="badge badge-pill badge-primary pull-right badge-align">{`P ${this.state.laundry.washPrice}`}</span>
                             </span>
@@ -303,7 +303,7 @@ class Book extends Component {
                                 Dry
                             {this.state.laundry.slotDry > 0 ? (
                                     <span className="pull-right">
-                                        <input type="number" className="small-input text-center" name="dry" value={this.state.dry} pattern="[0-9]*" max={this.state.laundry.slotDry} id="dry" placeholder="dry" onChange={this.onHandleChange} autoComplete="off" />
+                                        <input type="number" className="small-input text-center" name="dry" value={this.state.dry} pattern="[0-9]*" max={this.state.laundry.slotDry} id="dry" placeholder="/load" onChange={this.onHandleChange} autoComplete="off" />
                                     </span>
                                 ) : ``}
                                 <span className="badge badge-pill badge-primary pull-right badge-align">{this.state.laundry.slotDry > 0 ? `P ${this.state.laundry.dryPrice}` : `Out of Stock`}</span>
@@ -324,14 +324,14 @@ class Book extends Component {
                             <span className="list-group-item list-group-item-action">
                                 Wash
                                 <span className="pull-right">
-                                    <input type="number" className="small-input text-center" name="kiloWash" placeholder="per" value={this.state.kiloWash} pattern="[0-9]*" id="kiloWash" onChange={this.onHandleChange} autoComplete="off" />
+                                    <input type="number" className="small-input text-center" name="kiloWash" placeholder="/kg" value={this.state.kiloWash} pattern="[0-9]*" id="kiloWash" onChange={this.onHandleChange} autoComplete="off" />
                                 </span>
                                 <span className="badge badge-pill badge-primary pull-right badge-align">{`P ${this.state.laundry.price}`}</span>
                             </span>
                             <span className="list-group-item list-group-item-action">
                                 Dry
                                 <span className="pull-right">
-                                    <input type="number" className="small-input text-center" name="kiloDry" placeholder="per" value={this.state.kiloDry} pattern="[0-9]*" id="kiloDry" onChange={this.onHandleChange} autoComplete="off" />
+                                    <input type="number" className="small-input text-center" name="kiloDry" placeholder="/kg" value={this.state.kiloDry} pattern="[0-9]*" id="kiloDry" onChange={this.onHandleChange} autoComplete="off" />
                                 </span>
                                 <span className="badge badge-pill badge-primary pull-right badge-align">{`P ${this.state.laundry.price}`}</span>
                             </span>
