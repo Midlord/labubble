@@ -215,6 +215,8 @@ class Book extends Component {
 
         let minimumTime = moment(this.state.laundry.opening).toDate();
         let maximumTime = moment(this.state.laundry.closing).toDate();
+
+        let endDateMinTime = moment(this.state.startDate).add(1, 'hours').toDate();
         const StartDatePicker = () => {
             return (
                 <DatePicker
@@ -234,6 +236,8 @@ class Book extends Component {
             return (
                 <DatePicker
                     minDate={this.state.startDate}
+                    minTime={endDateMinTime}
+                    maxTime={maximumTime}
                     showTimeSelect
                     onChange={this.handleEndChange}
                     selected={this.state.endDate}

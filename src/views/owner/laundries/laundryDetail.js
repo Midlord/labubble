@@ -183,7 +183,7 @@ class LaundryDetail extends Component {
         const laundry = this.state.laundry;
         const total = this.state.laundry.slotWash + this.state.laundry.slotDry;
         const laundry_id = this.props.match.params.id;
-        const ratings = this.state.ratings;
+        const ratings = this.state.ratings.sort((a, b) => b.date - a.date);
         const totalSlots = this.state.totalSlots;
 
         if (this.state.isLaundryLoaded) {

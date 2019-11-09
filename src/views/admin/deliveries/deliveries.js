@@ -83,16 +83,17 @@ class Personnels extends Component {
 
         this.state = {
             user_id: '',
-            firstName:'',
-            lastName:'',
-            email:'',
-            mobileNumber:'',
-            password:'',
+            firstName: '',
+            lastName: '',
+            email: '',
+            mobileNumber: '',
+            password: '',
             isloaded: false,
             users: [],
             usersBanned: [],
             modalDeliveryIsOpen: false,
             modalIsOpen: false,
+            modalRemit: false,
             selectedOptions: [],
         };
 
@@ -142,6 +143,7 @@ class Personnels extends Component {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
+                console.log(result)
                 if (result.status === 200) {
                     this.setState({
                         users: result.data.users,
@@ -163,7 +165,7 @@ class Personnels extends Component {
     handleOnChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-          });
+        });
     }
     openModalBanned = (id) => {
         console.log(id)
@@ -181,6 +183,13 @@ class Personnels extends Component {
         });
     }
 
+    openModalRemit = (id) => {
+        this.setState({
+            modalRemit: true,
+            user_id: id
+        });
+    }
+
     // afterOpenModal() {
     //     // references are now sync'd and can be accessed.
     //     this.subtitle.style.color = '#f00';
@@ -190,6 +199,7 @@ class Personnels extends Component {
         this.setState({
             UnbannedmodalIsOpen: false,
             BannedmodalIsOpen: false,
+            modalRemit: false
         });
     }
 
@@ -232,6 +242,40 @@ class Personnels extends Component {
     handleDelivery = (e) => {
         e.preventDefault();
         e.stopPropagation();
+    }
+
+    handleRemit = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    
+        toast.configure();
+        axios.get(`https://labubbles.online/api/admin/delivery/${this.state.user_id}/remit`, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            },
+        })
+            .then(result => {
+                if (result.status === 200) {
+                    this.setState({
+                        isloaded: false,
+                        modalIsOpen: false,
+                    })
+    
+                    toast.success(result.data.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+
+                    this.props.history.push(`/admin/dashboard`);
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    isloaded: false
+                });
+    
+                console.log(error)
+            });
     }
 
     handleUnbanned = (e) => {
@@ -292,10 +336,10 @@ class Personnels extends Component {
                         position: toast.POSITION.BOTTOM_RIGHT
                     });
 
-                    this.setState({ 
+                    this.setState({
                         isLoaded: false,
                         users: result.data.users
-                     });
+                    });
                 }
             })
             .catch(error => {
@@ -378,7 +422,7 @@ class Personnels extends Component {
                             </div>
                             <div className="card-body">
                                 <ReactTable
-                                    data={this.state.users}
+                                    data={this.state.users.sort((a, b) => parseFloat(b.totalSales) - parseFloat(a.totalSales))}
                                     filterable
                                     defaultSortDesc={true}
                                     defaultPageSize={10}
@@ -406,12 +450,20 @@ class Personnels extends Component {
                                                     headerClassName: 'text-left'
                                                 },
                                                 {
+                                                    Header: 'Total Sales',
+                                                    headerClassName: 'text-left',
+                                                    Cell: row => (
+                                                        <span>P{row.original.totalSales === 0 ? 0 : parseFloat(row.original.totalSales).toFixed(2)}</span>
+                                                    )
+                                                },
+                                                {
                                                     Header: 'Status',
                                                     Cell: row => (
                                                         <div className="row">
                                                             <div className="col-12 text-center">
                                                                 <button onClick={() => this.openModalBanned(row.original.id)} className="btn btn-success mr-2">Active</button>
-                                                                <Link to={`delivery/${row.original.id}`} className="btn btn-primary">View</Link>
+                                                                <Link to={`delivery/${row.original.id}`} className="btn btn-primary mr-2">View</Link>
+                                                                <button onClick={() => this.openModalRemit(row.original.id)} className="btn btn-primary mr-2">Remit</button>
                                                             </div>
                                                         </div>
                                                     )
@@ -582,6 +634,27 @@ class Personnels extends Component {
                                             <button type="submit" className="btn btn-primary">Save</button>
                                         </div>
                                     </form>
+                                </Modal>
+                                <Modal
+                                    isOpen={this.state.modalRemit}
+                                    onRequestClose={this.closeModal}
+                                    ariaHideApp={false}
+                                    style={customStyles}
+                                    contentLabel="Example Modal"
+                                >
+                                    <div className="modal-header">
+                                        {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
+                                        <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <p>Are you sure you want to Remit this order?</p>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                        <button type="button" onClick={this.handleRemit} className="btn btn-primary">Yes</button>
+                                    </div>
                                 </Modal>
                             </div>
                         </div>

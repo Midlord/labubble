@@ -51,6 +51,7 @@ class CustomerBookDetail extends Component {
             laundry: [],
             address: [],
             services: [],
+            personnel: [],
             wash: 0,
             dry: 0,
             total: 0,
@@ -169,6 +170,7 @@ class CustomerBookDetail extends Component {
                         user: result.data.user,
                         address: result.data.address,
                         services: result.data.services,
+                        personnel: result.data.personnel.user,
                         isloaded: false,
                         kilosWashAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloWash),
                         kilosDryAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloDry),
@@ -288,48 +290,60 @@ class CustomerBookDetail extends Component {
         const DryWash = () => {
             return (
                 <div className="parent">
-                    <li className="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 className="my-0">Wash</h6>
-                            {/* <small className="text-muted">Brief description</small> */}
-                        </div>
-                        <span className="text-muted">{`${this.state.book.wash} x ${this.state.laundry.washPrice}`}</span>
-                        <span className="text-muted"> = </span>
-                        <span className="text-muted">{`P ${parseFloat(this.state.wash).toFixed(2)}`}</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 className="my-0">Dry</h6>
-                            {/* <small className="text-muted">Brief description</small> */}
-                        </div>
-                        <span className="text-muted ml-adjust">{`${this.state.book.dry} x ${this.state.laundry.dryPrice}`}</span>
-                        <span className="text-muted"> = </span>
-                        <span className="text-muted">{`P ${parseFloat(this.state.dry).toFixed(2)}`}</span>
-                    </li>
+                    {this.state.book.wash > 0 ? (
+                        <li className="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 className="my-0">Wash</h6>
+                                {/* <small className="text-muted">Brief description</small> */}
+                            </div>
+                            <span className="text-muted">{`${this.state.book.wash} x ${this.state.laundry.washPrice}`}</span>
+                            <span className="text-muted"> = </span>
+                            <span className="text-muted">{`P ${parseFloat(this.state.wash).toFixed(2)}`}</span>
+                        </li>
+                    ) : ''}
+
+                    {this.state.book.dry > 0 ? (
+                        <li className="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 className="my-0">Dry</h6>
+                                {/* <small className="text-muted">Brief description</small> */}
+                            </div>
+                            <span className="text-muted ml-adjust">{`${this.state.book.dry} x ${this.state.laundry.dryPrice}`}</span>
+                            <span className="text-muted"> = </span>
+                            <span className="text-muted">{`P ${parseFloat(this.state.dry).toFixed(2)}`}</span>
+                        </li>
+                    ) : ''}
+
                 </div>
             )
         }
 
         const Kilos = () => (
             <div className="parent">
-                <li className="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 className="my-0">Kilo Wash</h6>
-                        {/* <small className="text-muted">Brief description</small> */}
-                    </div>
-                    <span className="text-muted">{` ${this.state.book.kiloWash} x ${this.state.laundry.price}`}</span>
-                    <span className="text-muted"> = </span>
-                    <span className="text-muted">{`P ${parseFloat(this.state.kilosWashAmount).toFixed(2)}`}</span>
-                </li>
-                <li className="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 className="my-0">Kilo Dry</h6>
-                        {/* <small className="text-muted">Brief description</small> */}
-                    </div>
-                    <span className="text-muted ml-adjust">{` ${this.state.book.kiloDry} x ${this.state.laundry.price}`}</span>
-                    <span className="text-muted"> = </span>
-                    <span className="text-muted">{`P ${parseFloat(this.state.kilosDryAmount).toFixed(2)}`}</span>
-                </li>
+                {this.state.book.kiloWash > 0 ? (
+                    <li className="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 className="my-0">Kilo Wash</h6>
+                            {/* <small className="text-muted">Brief description</small> */}
+                        </div>
+                        <span className="text-muted">{` ${this.state.book.kiloWash} x ${this.state.laundry.price}`}</span>
+                        <span className="text-muted"> = </span>
+                        <span className="text-muted">{`P ${parseFloat(this.state.kilosWashAmount).toFixed(2)}`}</span>
+                    </li>
+                ) : ''}
+
+                {this.state.book.kiloDry > 0 ? (
+                    <li className="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 className="my-0">Kilo Dry</h6>
+                            {/* <small className="text-muted">Brief description</small> */}
+                        </div>
+                        <span className="text-muted">{` ${this.state.book.kiloDry} x ${this.state.laundry.price}`}</span>
+                        <span className="text-muted"> = </span>
+                        <span className="text-muted">{`P ${parseFloat(this.state.kilosDryAmount).toFixed(2)}`}</span>
+                    </li>
+                ) : ''}
+
             </div>
         )
         const LaundryInfo = () => (
@@ -422,6 +436,33 @@ class CustomerBookDetail extends Component {
                                                 <BookRemarksTable />
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="content col">
+                        <h4 className="d-flex justify-content-between align-items-center mb-3">
+                            <span className="text-bold">Personnel Information</span>
+                        </h4>
+                        <div className="card">
+                            <div className="body">
+                                <div className="col-12 mt-3 mb-3">
+                                    <div className="row">
+                                        <div className="col-4">
+                                            <div className="personnel-image">
+                                                <img src="" alt="" className="img-thumbnail" src={`https://labubbles.online/storage/avatar/${this.state.personnel.image}`} />
+                                            </div>
+                                        </div>
+                                        <div className="col-8">
+                                            <div className="personnel-info">
+                                                <p><strong>Name: </strong>{this.state.personnel.firstName} {this.state.personnel.lastName}</p>
+                                                <p><strong>Email: </strong>{this.state.personnel.email}</p>
+                                                <p><strong>Contact #: </strong>{this.state.personnel.mobileNumber}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

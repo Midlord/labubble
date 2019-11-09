@@ -371,48 +371,60 @@ class OrderDetail extends Component {
         const DryWash = () => {
             return (
                 <div className="parent">
-                    <li className="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 className="my-0">Wash</h6>
-                            {/* <small className="text-muted">Brief description</small> */}
-                        </div>
-                        <span className="text-muted">{`${this.state.book.wash} x ${this.state.laundry.washPrice}`}</span>
-                        <span className="text-muted"> = </span>
-                        <span className="text-muted">{`P ${parseFloat(this.state.wash).toFixed(2)}`}</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 className="my-0">Dry</h6>
-                            {/* <small className="text-muted">Brief description</small> */}
-                        </div>
-                        <span className="text-muted ml-adjust">{`${this.state.book.dry} x ${this.state.laundry.dryPrice}`}</span>
-                        <span className="text-muted"> = </span>
-                        <span className="text-muted">{`P ${parseFloat(this.state.dry).toFixed(2)}`}</span>
-                    </li>
+                    {this.state.book.wash > 0 ? (
+                        <li className="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 className="my-0">Wash</h6>
+                                {/* <small className="text-muted">Brief description</small> */}
+                            </div>
+                            <span className="text-muted">{`${this.state.book.wash} x ${this.state.laundry.washPrice}`}</span>
+                            <span className="text-muted"> = </span>
+                            <span className="text-muted">{`P ${parseFloat(this.state.wash).toFixed(2)}`}</span>
+                        </li>
+                    ) : ''}
+
+                    {this.state.book.dry > 0 ? (
+                        <li className="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 className="my-0">Dry</h6>
+                                {/* <small className="text-muted">Brief description</small> */}
+                            </div>
+                            <span className="text-muted ml-adjust">{`${this.state.book.dry} x ${this.state.laundry.dryPrice}`}</span>
+                            <span className="text-muted"> = </span>
+                            <span className="text-muted">{`P ${parseFloat(this.state.dry).toFixed(2)}`}</span>
+                        </li>
+                    ) : ''}
+
                 </div>
             )
         }
 
         const Kilos = () => (
             <div className="parent">
-                <li className="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 className="my-0">Kilo Wash</h6>
-                        {/* <small className="text-muted">Brief description</small> */}
-                    </div>
-                    <span className="text-muted">{` ${this.state.book.kiloWash} x ${this.state.laundry.price}`}</span>
-                    <span className="text-muted"> = </span>
-                    <span className="text-muted">{`P ${parseFloat(this.state.kilosWashAmount).toFixed(2)}`}</span>
-                </li>
-                <li className="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 className="my-0">Kilo Dry</h6>
-                        {/* <small className="text-muted">Brief description</small> */}
-                    </div>
-                    <span className="text-muted">{` ${this.state.book.kiloDry} x ${this.state.laundry.price}`}</span>
-                    <span className="text-muted"> = </span>
-                    <span className="text-muted">{`P ${parseFloat(this.state.kilosDryAmount).toFixed(2)}`}</span>
-                </li>
+                {this.state.book.kiloWash > 0 ? (
+                    <li className="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 className="my-0">Kilo Wash</h6>
+                            {/* <small className="text-muted">Brief description</small> */}
+                        </div>
+                        <span className="text-muted">{` ${this.state.book.kiloWash} x ${this.state.laundry.price}`}</span>
+                        <span className="text-muted"> = </span>
+                        <span className="text-muted">{`P ${parseFloat(this.state.kilosWashAmount).toFixed(2)}`}</span>
+                    </li>
+                ) : ''}
+
+                {this.state.book.kiloDry > 0 ? (
+                    <li className="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 className="my-0">Kilo Dry</h6>
+                            {/* <small className="text-muted">Brief description</small> */}
+                        </div>
+                        <span className="text-muted">{` ${this.state.book.kiloDry} x ${this.state.laundry.price}`}</span>
+                        <span className="text-muted"> = </span>
+                        <span className="text-muted">{`P ${parseFloat(this.state.kilosDryAmount).toFixed(2)}`}</span>
+                    </li>
+                ) : ''}
+
             </div>
         )
         const LaundryInfo = () => (

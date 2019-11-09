@@ -83,6 +83,8 @@ class Register extends Component {
       imageType: '',
       isLoaded: false,
       modalIsOpen: false,
+      errorMessage: '',
+      passwordStrength: '',
     };
     this.handleOnChange = this.handleOnChange.bind(this);
     this.getFiles = this.getFiles.bind(this);
@@ -97,6 +99,77 @@ class Register extends Component {
     });
 
     console.log(e.target.value)
+  }
+
+  measureStrength = (password) => {
+    let score = 0
+    let passwordStrength
+    let regexPositive = [
+      "[A-Z]",
+      "[a-z]",
+      "[0-9]",
+      "\\W",
+    ]
+    regexPositive.forEach((regex, index) => {
+      if (new RegExp(regex).test(password)) {
+        score += 1
+      }
+    })
+    switch (score) {
+      case 0:
+      case 1:
+        passwordStrength = "Weak"
+        break;
+      case 2:
+      case 3:
+        passwordStrength = "Good"
+        break;
+      case 4:
+      case 5:
+        passwordStrength = "Strong"
+        break;
+    }
+    this.setState({
+      passwordStrength
+    })
+  }
+
+  validate = (e) => {
+    let password = e.target.value
+    let errorMessage
+    let capsCount, smallCount, numberCount, symbolCount
+    if (password.length < 8) {
+      this.setState({
+        errorMessage: "Password must be 8 Characters",
+      })
+    }
+    else {
+      capsCount = (password.match(/[A-Z]/g) || []).length
+      smallCount = (password.match(/[a-z]/g) || []).length
+      numberCount = (password.match(/[0-9]/g) || []).length
+      symbolCount = (password.match(/\W/g) || []).length
+      if (capsCount < 1) {
+        errorMessage = "Must contains Uppercase"
+      }
+      else if (smallCount < 1) {
+        errorMessage = "Must contains Lowercase"
+      }
+      else if (numberCount < 1) {
+        errorMessage = "Must contains Numbers"
+      }
+      else if (symbolCount < 1) {
+        errorMessage = "Must contains Special Characters"
+      }
+      this.setState({
+        errorMessage
+      })
+      this.measureStrength(password)
+    }
+  }
+
+  handleOnChangePassword = (e) => {
+    this.validate(e)
+    this.setState({ password: e.target.value })
   }
 
   getFiles(files) {
@@ -274,8 +347,22 @@ class Register extends Component {
                     </div>
                     <div className="form-group">
                       <label htmlFor="lpassword">Password <span className="text-danger">*</span></label>
-                      <input type="password" className="form-control" name="password" id="lpassword" onChange={this.handleOnChange} placeholder="Enter password" value={this.state.password} />
+                      <input type="password" className="form-control" name="password" id="lpassword" onChange={this.handleOnChangePassword} placeholder="Enter password" value={this.state.password} />
                     </div>
+                    {this.state.password !== '' ? (
+                      <div className="form-group">
+                        <div>
+                            <p>{this.state.errorMessage}</p>
+                        </div>
+                        <div>
+                          <p className={`text-${this.state.passwordStrength === 'Weak' 
+                                                                            ? 'danger' : 
+                                                this.state.passwordStrength === 'Good' ? 'primary' :
+                                                this.state.passwordStrength === 'Strong' ? 'primary' : ''
+                                            }`}>{this.state.passwordStrength}</p>
+                        </div>
+                      </div>
+                    ) : ''}
 
                     <div className="form-group">
                       <label htmlFor="lpassword_confirmation">Confirm Password <span className="text-danger">*</span></label>
@@ -311,7 +398,7 @@ class Register extends Component {
                     </div>
                     <div className="form-group">
                       <div className="col-12">
-                          <button type="button" onClick={this.openModal} className="ui inverted primary button w-100">Create Account</button>
+                        <button type="button" onClick={this.openModal} className="ui inverted primary button w-100">Create Account</button>
                       </div>
                     </div>
                   </form>

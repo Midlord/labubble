@@ -40,6 +40,7 @@ class OwnerBookDetail extends Component {
             address: [],
             services: [],
             transaction: [],
+            personnel:[],
             reward: [],
             wash: 0,
             dry: 0,
@@ -111,6 +112,7 @@ class OwnerBookDetail extends Component {
                         user: result.data.user,
                         address: result.data.address,
                         services: result.data.services,
+                        personnel: result.data.personnel.user,
                         isloaded: false,
                         isCollect: result.data.isCollect,
                         isEndLaundry: result.data.isEndLaundry,
@@ -179,7 +181,7 @@ class OwnerBookDetail extends Component {
                     this.setState({
                         book: result.data.book,
                         isloaded: false,
-                        isCollect:false,
+                        isCollect: false,
                         isEndLaundry: true,
                         modalIsOpenApproved: false,
                         modalIsOpenCancelled: false
@@ -334,22 +336,26 @@ class OwnerBookDetail extends Component {
 
         const WashAndDry = () => (
             <div className="parent">
-                <li className="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 className="my-0">Wash</h6>
-                    </div>
-                    <span className="text-muted">{`${this.state.book.wash} x ${this.state.laundry.washPrice}`}</span>
-                    <span className="text-muted"> = </span>
-                    <span className="text-muted">{`P ${parseFloat(this.state.wash).toFixed(2)}`}</span>
-                </li>
-                <li className="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 className="my-0">Dry</h6>
-                    </div>
-                    <span className="text-muted ml-adjust">{`${this.state.book.dry} x ${this.state.laundry.dryPrice}`}</span>
-                    <span className="text-muted"> = </span>
-                    <span className="text-muted">{`P ${parseFloat(this.state.dry).toFixed(2)}`}</span>
-                </li>
+                {this.state.book.wash > 0 ? (
+                    <li className="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 className="my-0">Wash</h6>
+                        </div>
+                        <span className="text-muted">{`${this.state.book.wash} x ${this.state.laundry.washPrice}`}</span>
+                        <span className="text-muted"> = </span>
+                        <span className="text-muted">{`P ${parseFloat(this.state.wash).toFixed(2)}`}</span>
+                    </li>
+                ) : ''}
+                {this.state.book.dry > 0 ? (
+                    <li className="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 className="my-0">Dry</h6>
+                        </div>
+                        <span className="text-muted ml-adjust">{`${this.state.book.dry} x ${this.state.laundry.dryPrice}`}</span>
+                        <span className="text-muted"> = </span>
+                        <span className="text-muted">{`P ${parseFloat(this.state.dry).toFixed(2)}`}</span>
+                    </li>
+                ) : ''}
             </div>
         )
         const BookRemarksTable = () => (
@@ -394,7 +400,7 @@ class OwnerBookDetail extends Component {
                 <div className="card">
                     <div className="card-body">
                         <div className="row">
-                            <div className="content col mb-2">
+                            <div className="content col mb-2 pl-0 pr-0">
                                 <div className="col-12">
                                     <h4 className="d-flex justify-content-between align-items-center mb-3">
                                         <span className="text-bold">{`Order # ${this.state.book.code}`}</span>
@@ -436,20 +442,20 @@ class OwnerBookDetail extends Component {
                                     <div className="text-right">
                                         {this.state.book.status === 'processing' ? (
                                             this.state.isEndLaundry ? '' :
-                                            <button className="btn btn-primary" onClick={this.handleEndOrder}>End</button>
-                                        ) : this.state.isCollect &&  this.state.book.isDelivered === 0 ? (
+                                                <button className="btn btn-primary" onClick={this.handleEndOrder}>End</button>
+                                        ) : this.state.isCollect && this.state.book.isDelivered === 0 ? (
                                             <button className="btn btn-primary" onClick={this.handleProcessOrder}>Start</button>
                                         ) : ''}
 
                                     </div>
                                     <div className="text-right">
-                                        {this.state.book.status == 'cancelled' || this.state.book.status == 'approved' 
-                                        || this.state.book.status == 'processing' ||  this.state.book.status == 'delivered' ? '' : (
-                                            <div>
-                                                <button type="button" onClick={this.openModalCancelled} className="ui inverted default button">Cancel</button>
-                                                <button onClick={this.openModal} className="ui inverted primary button">Approved</button>
-                                            </div>
-                                        )}
+                                        {this.state.book.status == 'cancelled' || this.state.book.status == 'approved'
+                                            || this.state.book.status == 'processing' || this.state.book.status == 'delivered' ? '' : (
+                                                <div>
+                                                    <button type="button" onClick={this.openModalCancelled} className="ui inverted default button">Cancel</button>
+                                                    <button onClick={this.openModal} className="ui inverted primary button">Approved</button>
+                                                </div>
+                                            )}
                                         <Modal
                                             isOpen={this.state.modalIsOpenApproved}
                                             onRequestClose={this.closeModal}
@@ -494,6 +500,33 @@ class OwnerBookDetail extends Component {
                                                 <button type="button" onClick={this.handleCancelled} className="btn btn-primary">Yes</button>
                                             </div>
                                         </Modal>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="content col">
+                                <h4 className="d-flex justify-content-between align-items-center mb-3">
+                                    <span className="text-bold">Personnel Information</span>
+                                </h4>
+                                <div className="card">
+                                    <div className="body">
+                                        <div className="col-12 mt-3 mb-3">
+                                            <div className="row">
+                                                <div className="col-4">
+                                                    <div className="personnel-image">
+                                                        <img src="" alt="" className="img-thumbnail" src={`https://labubbles.online/storage/avatar/${this.state.personnel.image}`} />
+                                                    </div>
+                                                </div>
+                                                <div className="col-8 pl-0">
+                                                    <div className="personnel-info">
+                                                        <p><strong>Name: </strong>{this.state.personnel.firstName} {this.state.personnel.lastName}</p>
+                                                        <p><strong>Email: </strong>{this.state.personnel.email}</p>
+                                                        <p><strong>Contact #: </strong>{this.state.personnel.mobileNumber}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
