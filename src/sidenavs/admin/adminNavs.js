@@ -28,5 +28,10 @@ export default {
       url: '/admin/deliveries',
       icon: 'icon-user',
     },
+    {
+      name: 'Reports',
+      url: '/admin/reports',
+      icon: 'icon-ban',
+    },
   ],
 };

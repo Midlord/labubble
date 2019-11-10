@@ -40,7 +40,7 @@ class OwnerBookDetail extends Component {
             address: [],
             services: [],
             transaction: [],
-            personnel:[],
+            personnel: [],
             reward: [],
             wash: 0,
             dry: 0,
@@ -112,7 +112,7 @@ class OwnerBookDetail extends Component {
                         user: result.data.user,
                         address: result.data.address,
                         services: result.data.services,
-                        personnel: result.data.personnel.user,
+                        personnel: result.data.personnel !== null ? result.data.personnel.user : null,
                         isloaded: false,
                         isCollect: result.data.isCollect,
                         isEndLaundry: result.data.isEndLaundry,
@@ -504,25 +504,27 @@ class OwnerBookDetail extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="content col">
-                                <h4 className="d-flex justify-content-between align-items-center mb-3">
-                                    <span className="text-bold">Personnel Information</span>
-                                </h4>
-                                <div className="card">
-                                    <div className="body">
-                                        <div className="col-12 mt-3 mb-3">
-                                            <div className="row">
-                                                <div className="col-4">
-                                                    <div className="personnel-image">
-                                                        <img src="" alt="" className="img-thumbnail" src={`https://labubbles.online/storage/avatar/${this.state.personnel.image}`} />
+                        {this.state.personnel === null ? '' : (
+                            <div className="row">
+                                <div className="content col">
+                                    <h4 className="d-flex justify-content-between align-items-center mb-3">
+                                        <span className="text-bold">Personnel Information</span>
+                                    </h4>
+                                    <div className="card">
+                                        <div className="body">
+                                            <div className="col-12 mt-3 mb-3">
+                                                <div className="row">
+                                                    <div className="col-4">
+                                                        <div className="personnel-image">
+                                                            <img src="" alt="" className="img-thumbnail" src={`https://labubbles.online/storage/avatar/${this.state.personnel.image}`} />
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className="col-8 pl-0">
-                                                    <div className="personnel-info">
-                                                        <p><strong>Name: </strong>{this.state.personnel.firstName} {this.state.personnel.lastName}</p>
-                                                        <p><strong>Email: </strong>{this.state.personnel.email}</p>
-                                                        <p><strong>Contact #: </strong>{this.state.personnel.mobileNumber}</p>
+                                                    <div className="col-8 pl-0">
+                                                        <div className="personnel-info">
+                                                            <p><strong>Name: </strong>{this.state.personnel.firstName} {this.state.personnel.lastName}</p>
+                                                            <p><strong>Email: </strong>{this.state.personnel.email}</p>
+                                                            <p><strong>Contact #: </strong>{this.state.personnel.mobileNumber}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -530,7 +532,7 @@ class OwnerBookDetail extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        )}
                         <div className="row">
                             <div className="content col">
                                 <div className="order-md-2">

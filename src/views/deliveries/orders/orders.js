@@ -201,7 +201,7 @@ class Orders extends Component {
                         {
                           Header: 'Status',
                           Cell: row => (
-                            <span className={`badge badge-${row.original.book.status === 'cancelled' ? 'danger' : row.original.book.status === 'pending' ? 'warning' : 'success'}`}>{row.original.book.status == 'approved' ? 'Approved' : row.original.book.status}</span>
+                            <span className={`badge badge-${row.original.book.status === 'cancelled' || row.original.book.status === 'failed' ? 'danger' : row.original.book.status === 'pending' ? 'warning' : 'success'}`}>{row.original.book.status == 'approved' ? 'Approved' : row.original.book.status}</span>
                           ),
                           headerClassName: 'text-left'
                         }

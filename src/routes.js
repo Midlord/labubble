@@ -80,6 +80,9 @@ const EditLaundry = React.lazy(() => import('./views/owner/laundries/EditLaundry
 const DeliverySales = React.lazy(() => import('./views/deliveries/sales/sales')); 
 
 const AdminDeliverySales = React.lazy(() => import('./views/admin/deliveries/delivery')); 
+
+const Reports = React.lazy(() => import('./views/admin/reports/reports'));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/customer/dashboard', exact: true, name: 'My Dashboard', component: CustomerDashboard  },
@@ -124,7 +127,8 @@ const routes = [
 
   { path: '/admin/delivery/:id', exact: true, name: 'Delivery Sales', component: AdminDeliverySales },
 
-  
+  { path: '/admin/reports', exact: true, name: 'Reports', component: Reports },
+
 
   { path: '/delivery/dashboard', exact: true, name: 'Dashboard', component: DeliveryDashboard },
 

@@ -37,6 +37,8 @@ class OrderDetail extends Component {
             services: [],
             transaction: [],
             bookRemarks: [],
+            selectedCustomerOptions: [],
+            selectedAddressOptions: [],
             reward: [],
             wash: '',
             dry: '',
@@ -50,6 +52,7 @@ class OrderDetail extends Component {
             remarks: '',
             modalIsOpen: false,
             modalUpdateOpen: false,
+            modalFailed: false,
             isOtw: false,
             isCollect: false,
             isEndLaundry: false,
@@ -80,7 +83,13 @@ class OrderDetail extends Component {
     }
 
     closeModal = () => {
-        this.setState({ modalIsOpen: false, modalUpdateOpen: false });
+        this.setState({ modalIsOpen: false, modalUpdateOpen: false, modalFailed: false });
+    }
+
+    openModalFailed = () => {
+        this.setState({
+            modalFailed: true
+        });
     }
 
     handleOnChange = (e) => {
@@ -132,6 +141,28 @@ class OrderDetail extends Component {
 
     }
 
+    handleSelectCustomerChange = (e) => {
+        let target = e.target
+
+        let name = target.name
+
+        let valueCustomer = Array.from(target.selectedOptions, option => option.value);
+
+        this.setState({
+            [name]: valueCustomer
+        });
+        let valueAddress = Array.from(target.selectedOptions, option => option.value);
+
+        this.setState({
+            [name]: valueAddress
+        });
+
+        console.log(this.state.selectedCustomerOptions)
+
+        console.log(this.state.selectedAddressOptions)
+
+    }
+
     componentWillMount() {
         this.setState({
             isloaded: true
@@ -159,7 +190,7 @@ class OrderDetail extends Component {
                         bookRemarks: result.data.deliveryBookRemarks,
                         isDelivered: result.data.book.isDelivered,
                         isEndLaundry: result.data.isEndLaundry
-                    }); 
+                    });
 
                     if (result.data.book.laundry_shop.type === 'kilos') {
                         if (result.data.book.kiloDry === null || result.data.book.kiloDry === "") {
@@ -181,11 +212,11 @@ class OrderDetail extends Component {
                         });
                     }
 
-                    if(this.state.book.isRedeemed === 1){
+                    if (this.state.book.isRedeemed === 1) {
                         this.setState({
                             total: parseInt(this.state.subTotal),
                         })
-                    }else{
+                    } else {
                         this.setState({
                             total: parseInt(this.state.deliveryCharge) + parseInt(this.state.subTotal),
                         })
@@ -278,6 +309,49 @@ class OrderDetail extends Component {
 
     }
 
+    handleFailedOrder = (e) => {
+        e.preventDefault();
+
+        toast.configure();
+
+        this.setState({
+            isloaded: true
+        });
+        axios.post(`https://labubbles.online/api/delivery/reject/order/${this.props.match.params.id}`,{
+            customerReport: this.state.selectedCustomerOptions.join(', '),
+            addressReport: this.state.selectedAddressOptions.join(', '),
+        }, {
+            headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+        })
+            .then(result => {
+                console.log(result)
+                if (result.status === 200) {
+                    toast.success(result.data.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+
+                    this.setState({
+                        books: result.data.books,
+                        isloaded: false,
+                    });
+
+                    this.props.history.push(`/delivery/orders`);
+
+                }
+                // console.log(this.state.deliveryOrders)
+            })
+            .catch(error => {
+                this.setState({
+                    isloaded: true
+                });
+
+                console.log(error)
+            });
+
+
+
+    }
+
     handleCollect = (e) => {
         toast.configure();
 
@@ -311,9 +385,8 @@ class OrderDetail extends Component {
 
                 console.log(error)
             });
-
-
     }
+
     handleReAssign = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -636,13 +709,56 @@ class OrderDetail extends Component {
                                 </div>
                             </form>
                         </Modal>
+                        <Modal
+                            isOpen={this.state.modalFailed}
+                            onRequestClose={this.closeModal}
+                            ariaHideApp={false}
+                            style={customStyles}
+                            contentLabel="Example Modal"
+                        >
+                            <div className="modal-header">
+                                {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
+                                <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form onSubmit={this.handleFailedOrder}>
+                                <div className="modal-body">
+                                    <div className="parent">
+                                        <div className="form-group">
+                                            <label htmlFor="role">Customer Issue </label>
+                                            <select name="selectedCustomerOptions" value={this.state.selectedCustomerOptions} id="selectedCustomerOptions" className="form-control" onChange={this.handleSelectCustomerChange} multiple>
+                                                <option value="Customer not at Home">Customer not at Home</option>
+                                                <option value="Customer Unreachable">Customer Unreachable</option>
+                                                <option value="Customer Doesn't live at the House">Customer Doesn't live at the House</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="role">Address / Mobile Number Issue </label>
+                                            <select name="selectedAddressOptions" value={this.state.selectedAddressOptions} id="selectedAddressOptions" className="form-control" onChange={this.handleSelectCustomerChange} multiple>
+                                                <option value="Invalid Address">Invalid Address</option>
+                                                <option value="Suspected Fake Order">Suspected Fake Order</option>
+                                                <option value="Invalid/wrong Mobile Number">Invalid/wrong Mobile Number</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                    <button type="submit" className="btn btn-primary">Update</button>
+                                </div>
+                            </form>
+                        </Modal>
                         {this.state.isOtw ? (
                             !this.state.isCollect ?
                                 <div className="actions mb-3">
-                                    <div className="col-12 text-right pr-0">
+                                    {this.state.book.status !== 'failed' ? (
+                                        <div className="col-12 text-right pr-0">
                                         <button onClick={this.handleCollect} className="btn btn-primary">Collect</button>
+                                        <button onClick={this.openModalFailed} className="btn btn-danger ml-3">Failed</button>
                                         <button onClick={this.openModalOrder} className="btn btn-primary ml-3">Edit</button>
                                     </div>
+                                    ): ''}
                                 </div> : ''
                         ) :
                             (

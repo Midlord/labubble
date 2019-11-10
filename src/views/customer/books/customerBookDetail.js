@@ -52,12 +52,15 @@ class CustomerBookDetail extends Component {
             address: [],
             services: [],
             personnel: [],
+            selectedLaundryOptions: [],
+            selectedDeliveryOptions: [],
             wash: 0,
             dry: 0,
             total: 0,
             deliveryCharge: 0,
             subTotal: 0,
             modalIsOpen: false,
+            modalReport: false,
             kilosWashAmount: 0,
             kilosDryAmount: 0,
             isDelivered: false,
@@ -85,8 +88,30 @@ class CustomerBookDetail extends Component {
     closeModal() {
         this.setState({
             modalIsOpen: false,
-            isModalDelivered: false
+            isModalDelivered: false,
+            modalReport: false
         });
+    }
+
+    handleSelectCustomerChange = (e) => {
+        let target = e.target
+
+        let name = target.name
+
+        let valueCustomer = Array.from(target.selectedOptions, option => option.value);
+
+        this.setState({
+            [name]: valueCustomer
+        });
+        let valueAddress = Array.from(target.selectedOptions, option => option.value);
+
+        this.setState({
+            [name]: valueAddress
+        });
+
+        console.log(this.state.selectedLaundryOptions)
+        console.log(this.state.selectedDeliveryOptions)
+
     }
     handleCancelOrder = (e) => {
         e.preventDefault();
@@ -151,6 +176,17 @@ class CustomerBookDetail extends Component {
             });
     }
 
+    openModalReport = () => {
+        this.setState({
+            modalReport: true
+        });
+    }
+
+    reportOwner = (e) => {
+        e.preventDefault();
+
+    }
+
     componentWillMount() {
         this.setState({
             isloaded: true
@@ -170,7 +206,7 @@ class CustomerBookDetail extends Component {
                         user: result.data.user,
                         address: result.data.address,
                         services: result.data.services,
-                        personnel: result.data.personnel.user,
+                        personnel: result.data.personnel !== null ? result.data.personnel.user : null,
                         isloaded: false,
                         kilosWashAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloWash),
                         kilosDryAmount: parseFloat(result.data.book.laundry_shop.price) * parseInt(result.data.book.kiloDry),
@@ -242,6 +278,47 @@ class CustomerBookDetail extends Component {
                 console.log(error)
             });
     }
+
+    handleReportOrder = (e) => {
+        e.preventDefault();
+
+        toast.configure();
+
+        this.setState({
+            isloaded: true
+        });
+        axios.post(`https://labubbles.online/api/customer/report/order/${this.props.match.params.id}`,{
+            laundryReport: this.state.selectedLaundryOptions.join(', '),
+            deliveryReport: this.state.selectedDeliveryOptions.join(', '),
+        }, {
+            headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+        })
+            .then(result => {
+                console.log(result)
+                if (result.status === 200) {
+                    toast.success(result.data.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+
+                    this.setState({
+                        books: result.data.books,
+                        isloaded: false,
+                    });
+
+                    this.props.history.push(`/customer/orders`);
+
+                }
+                // console.log(this.state.deliveryOrders)
+            })
+            .catch(error => {
+                this.setState({
+                    isloaded: true
+                });
+
+                console.log(error)
+            });
+    }
+
 
     render() {
         const BookedServices = () => (
@@ -419,7 +496,18 @@ class CustomerBookDetail extends Component {
                 <div className="row">
                     <div className="content col">
                         <div className="order-md-2">
-                            <h4 className="d-flex justify-content-between align-items-cente">
+                            {this.state.book.isReported === 0 ? (
+                                <div className="col-12 pl-0 pr-0">
+                                <div className="row">
+                                    <div className="col-6">
+                                    </div>
+                                    <div className="col-6">
+                                        <button type="button" onClick={this.openModalReport} className="btn btn-danger w-100">Report</button>
+                                    </div>
+                                </div>
+                            </div>
+                            ): ''}
+                            <h4 className="d-flex justify-content-between align-items-center">
                                 <span className="text-bold">Order Tracking</span>
                             </h4>
                             <div className="card card-signin">
@@ -442,33 +530,34 @@ class CustomerBookDetail extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="content col">
-                        <h4 className="d-flex justify-content-between align-items-center mb-3">
-                            <span className="text-bold">Personnel Information</span>
-                        </h4>
-                        <div className="card">
-                            <div className="body">
-                                <div className="col-12 mt-3 mb-3">
-                                    <div className="row">
-                                        <div className="col-4">
-                                            <div className="personnel-image">
-                                                <img src="" alt="" className="img-thumbnail" src={`https://labubbles.online/storage/avatar/${this.state.personnel.image}`} />
+                {this.state.personnel === null ? '' : (
+                    <div className="row">
+                        <div className="content col">
+                            <h4 className="d-flex justify-content-between align-items-center mb-3">
+                                <span className="text-bold">Personnel Information</span>
+                            </h4>
+                            <div className="card">
+                                <div className="body">
+                                    <div className="col-12 mt-3 mb-3">
+                                        <div className="row">
+                                            <div className="col-4">
+                                                <div className="personnel-image">
+                                                    <img src="" alt="" className="img-thumbnail" src={`https://labubbles.online/storage/avatar/${this.state.personnel.image}`} />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="col-8">
-                                            <div className="personnel-info">
-                                                <p><strong>Name: </strong>{this.state.personnel.firstName} {this.state.personnel.lastName}</p>
-                                                <p><strong>Email: </strong>{this.state.personnel.email}</p>
-                                                <p><strong>Contact #: </strong>{this.state.personnel.mobileNumber}</p>
+                                            <div className="col-8">
+                                                <div className="personnel-info">
+                                                    <p><strong>Name: </strong>{this.state.personnel.firstName} {this.state.personnel.lastName}</p>
+                                                    <p><strong>Email: </strong>{this.state.personnel.email}</p>
+                                                    <p><strong>Contact #: </strong>{this.state.personnel.mobileNumber}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div>)}
                 <div className="row">
                     <div className="content col">
                         <div className="order-md-2">
@@ -576,6 +665,45 @@ class CustomerBookDetail extends Component {
                                         </div>
                                     </form>
                                 </Modal>
+                                <Modal
+                            isOpen={this.state.modalReport}
+                            onRequestClose={this.closeModal}
+                            ariaHideApp={false}
+                            style={customStyles}
+                            contentLabel="Example Modal"
+                        >
+                            <div className="modal-header">
+                                {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
+                                <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form onSubmit={this.handleReportOrder}>
+                                <div className="modal-body">
+                                    <div className="parent">
+                                        <div className="form-group">
+                                            <label htmlFor="role">Laundry Service </label>
+                                            <select name="selectedLaundryOptions" value={this.state.selectedLaundryOptions} id="selectedCustomerOptions" className="form-control" onChange={this.handleSelectCustomerChange} multiple>
+                                                <option value="Smelly Clothes">Smelly Clothes</option>
+                                                <option value="Damaged Clothes">Damaged Clothes</option>
+                                                <option value="Missing Clothes">Missing Clothes</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="role">Delivery Service </label>
+                                            <select name="selectedDeliveryOptions" value={this.state.selectedDeliveryOptions} id="selectedAddressOptions" className="form-control" onChange={this.handleSelectCustomerChange} multiple>
+                                                <option value="Late pick up">Late pick up</option>
+                                                <option value="Late Delivery">Late Delivery</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                    <button type="submit" className="btn btn-primary">Update</button>
+                                </div>
+                            </form>
+                        </Modal>
                             </div>
                         </div>
                     </div>
