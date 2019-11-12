@@ -103,7 +103,7 @@ class AddServices extends Component {
                             <div className="col-12">
                                 <div className="card card-add mt-3">
                                     <div className="card-header">
-                                        <h3 className="text-center">Add Services</h3>
+                                        <h3 className="text-center">Add Services / Detergent</h3>
                                     </div>
                                     <div className="card-body">
                                         <form onSubmit={this.handleSubmit}>
@@ -129,7 +129,7 @@ class AddServices extends Component {
                             <div className="col-12">
                                 <div className="services mb-5">
                                     <div className="list-group">
-                                        <h3 className="mb-3">Services</h3>
+                                        <h3 className="mb-3">Services / Detergent</h3>
                                         {services.length > 0 ?
                                             services.map((service, i) => (
                                                 <span className="list-group-item list-group-item-action" key={i}>{service.title} <span className="badge badge-pill badge-primary pull-right">{`P ${service.price}`}</span></span>

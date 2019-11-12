@@ -196,7 +196,12 @@ class LaundryDetail extends Component {
                                         <div className="color-star mb-1">
                                             <CreateRatings stars={this.state.average_ratings} />
                                         </div>
-                                        <Link className="btn btn-primary btn-block" to={`/book/laundry/${laundry_id}`}>Book Now </Link>
+                                        <p>{moment().format('H') >= moment(laundry.opening).format('H') && moment().format('H') <= moment(laundry.closing).format('H') ?
+                                                 (<Link className="btn btn-primary btn-block" to={`/book/laundry/${laundry_id}`}>Book Now </Link>)
+                                             :
+                                                (<strong>Laundry Shop is Closed</strong>)
+                                             }</p>
+                                     
                                     </div>
                                 </div>
                                 <div className="row">
@@ -205,7 +210,12 @@ class LaundryDetail extends Component {
                                             <span className="font-weight-bold">Schedule</span>
                                             <p>{laundry.openDay}</p>
                                             <span className="font-weight-bold">Opening - Closing</span>
-                                            <p>{moment(laundry.opening).format('h:mm A')} - {moment(laundry.closing).format('h:mm A')}</p>
+                                            <p>{moment().format('H') >= moment(laundry.opening).format('H') && moment().format('H') <= moment(laundry.closing).format('H') ?
+                                                 (<p>{moment(laundry.opening).format('h:mm A')} - {moment(laundry.closing).format('h:mm A')}</p>)
+                                             :
+                                                (<strong>Closed</strong>)
+                                             }</p>
+                                    
                                         </div>
                                     </div>
                                     <div className="col">
@@ -242,7 +252,7 @@ class LaundryDetail extends Component {
                                 </div>
                                 <div className="services mb-5">
                                     <div className="list-group">
-                                        <h3 className="mb-3">Services</h3>
+                                        <h3 className="mb-3">Services / Detergent</h3>
                                         {services.length > 0 ?
                                             services.map((service, i) => (
                                                 <span className="list-group-item list-group-item-action" key={i}>{service.title} <span className="badge badge-pill badge-primary pull-right">{`P ${service.price}`}</span></span>

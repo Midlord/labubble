@@ -450,7 +450,7 @@ class OwnerBookDetail extends Component {
                                     </div>
                                     <div className="text-right">
                                         {this.state.book.status == 'cancelled' || this.state.book.status == 'approved'
-                                            || this.state.book.status == 'processing' || this.state.book.status == 'delivered' ? '' : (
+                                            || this.state.book.status == 'processing' || this.state.book.status == 'delivered' || this.state.book.status == 'failed' ? '' : (
                                                 <div>
                                                     <button type="button" onClick={this.openModalCancelled} className="ui inverted default button">Cancel</button>
                                                     <button onClick={this.openModal} className="ui inverted primary button">Approved</button>

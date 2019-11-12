@@ -352,14 +352,14 @@ class Register extends Component {
                     {this.state.password !== '' ? (
                       <div className="form-group">
                         <div>
-                            <p>{this.state.errorMessage}</p>
+                          <p>{this.state.errorMessage}</p>
                         </div>
                         <div>
-                          <p className={`text-${this.state.passwordStrength === 'Weak' 
-                                                                            ? 'danger' : 
-                                                this.state.passwordStrength === 'Good' ? 'primary' :
-                                                this.state.passwordStrength === 'Strong' ? 'primary' : ''
-                                            }`}>{this.state.passwordStrength}</p>
+                          <p className={`text-${this.state.passwordStrength === 'Weak'
+                            ? 'danger' :
+                            this.state.passwordStrength === 'Good' ? 'primary' :
+                              this.state.passwordStrength === 'Strong' ? 'primary' : ''
+                            }`}>{this.state.passwordStrength}</p>
                         </div>
                       </div>
                     ) : ''}
@@ -417,18 +417,87 @@ class Register extends Component {
                     </div>
                     <div className="modal-body">
                       <div className="scroll-terms">
-                        <p>Terms and conditions These terms and conditions ("Terms", "Agreement") are an agreement between Mobile Application Developer ("Mobile Application Developer", "us", "we" or "our") and you ("User", "you" or "your").</p>
-                        <p>This Agreement sets forth the general terms and conditions of your use of the LABUBBLES mobile application and any of its products or services (collectively, "Mobile Application" or "Services").</p>
-                        <p>If you create an account in the Mobile Application, you are responsible for maintaining the security of your account and you are fully responsible for all activities that occur under the account and any other actions taken in connection with it.</p>
-                        <p>We may monitor and review new accounts before you may sign in and use our Services.These are the following condition you should follow: For Customer:</p>
+                        <h1>Terms and Conditions ("Terms") </h1>
+
+
+                        <p>Last updated: November 11, 2019</p>
+
+
+                        <p>Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using the  website (the "Service") operated by  ("us", "we", or "our").</p>
+
+                        <p> Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service. </p>
+
+                        <p>By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you may not access the Service. </p>
+
+
+                        <h2>Accounts</h2>
+
+                        <p>When you create an account with us, you must provide us information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination of your account on our Service.</p>
+
+                        <p>You are responsible for safeguarding the password that you use to access the Service and for any activities or actions under your password, whether your password is with our Service or a third-party service.</p>
+
+                        <p>You agree not to disclose your password to any third party. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.</p>
+
+
+                        <h2>Termination</h2>
+
+                        <p>We may terminate or suspend access to our Service immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+
+                        <p>We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+
+                        <p>Upon termination, your right to use the Service will immediately cease. If you wish to terminate your account, you may simply discontinue using the Service.</p>
+
+                        <p>All provisions of the Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability.</p>
+
+
+                        <h2>Governing Law</h2>
+
+                        <p>These Terms shall be governed and construed in accordance with the laws of Philippines, without regard to its conflict of law provisions.</p>
+
+                        <p>Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between us regarding our Service, and supersede and replace any prior agreements we might have between us regarding the Service.</p>
+
+
+                        <h2>Changes</h2>
+
+                        <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material we will try to provide at least 15 days notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+
+                        <p>By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using the Service.</p>
+
+
+                        <h2>Contact Us</h2>
+
+                        <p>If you have any questions about these Terms, please contact us.</p>
+                        <p>EMAIL ADDRESS <br />
+                          labubbles.app@gmail.com  <br />
+                          MOBILE NO. <br />
+                          +63 9368574083 <br />
+                          +63 9239233987 <br />
+                        </p>
+
+                        <p><strong>Disclaimers:</strong></p>
                         <ul>
-                          <li>As customer, you should use the Mobile app or services approprietly.</li>
-                          <li>you should in your house once your laundry is delivered.</li>
-                          <li>Payment will be collected upon the pickup of the laundry.</li>
-                          <li>there is limited cancellation of transaction. You only have 5 times of cancellation of transactaion. In First 3 cancellations you will be warning and in the 5th cancellation we will banned your account. For Owner:</li>
-                          <li>Every transaction must be updated. if there is any changes in your services, you must be update it</li>
-                          <li>It is your liabilty when the items has been damage under your laundry process. We may banned your account if we determine that you have violated any provision of this conditions and will not access the mobile application.</li>
+                          <li>The services inside this application are only available for customers and laundry shops in Angeles City.</li>
+                          <li>Delivery services are only available from 8:00 am &ndash; 8:00 pm.</li>
+                          <li>For Customers:
+<ul>
+                              <li>You must be available and present during the pick and drop of the laundry.</li>
+                              <li>Payment will be collected upon the pickup of your laundry.</li>
+                            </ul>
+                          </li>
+                          <li>For Laundry Shop:
+<ul>
+                              <li>You must be available and present during the pick and drop of the laundry.</li>
+                              <li>Payment will be given upon the pickup of the completed order.</li>
+                              <li>You are liable for any damages or lost items during the time that an orders is under your provision.</li>
+                            </ul>
+                          </li>
                         </ul>
+                        <p><strong>&nbsp;</strong></p>
+                        <p><strong>Privacy Policy</strong></p>
+                        <p>This section is used to inform possible users regarding the policies with the collection, use, and disclosure of Personal Information if anyone decided to use this application.</p>
+                        <p>If you choose to use this Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that this application collect is used for providing and improving the Service. Your information will not be shared to anyone.</p>
+                        <p>For a better experience, while using our Service, We may require you to provide us with certain personally identifiable information, including but not limited to Name, Address, Contact No., and Email Address. The information that we request will be retained on your device and is not collected in any way.</p>
+
                       </div>
                     </div>
                     <div className="modal-footer">

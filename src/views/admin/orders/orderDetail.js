@@ -53,10 +53,12 @@ class OrderDetail extends Component {
             modalIsOpen: false,
             modalUpdateOpen: false,
             modalFailed: false,
+            modalCollect: false,
             isOtw: false,
             isCollect: false,
             isEndLaundry: false,
             isDelivered: 0,
+            customerName: ''
         };
         console.log(props.match.params.id)
         this.goBack = this.goBack.bind(this);
@@ -83,13 +85,19 @@ class OrderDetail extends Component {
     }
 
     closeModal = () => {
-        this.setState({ modalIsOpen: false, modalUpdateOpen: false, modalFailed: false });
+        this.setState({ modalIsOpen: false, modalUpdateOpen: false, modalFailed: false, modalCollect: false });
     }
 
     openModalFailed = () => {
         this.setState({
             modalFailed: true
         });
+    }
+
+    openModalCollect = () => {
+        this.setState({
+            modalCollect: true
+        })
     }
 
     handleOnChange = (e) => {
@@ -358,7 +366,9 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://labubbles.online/api/delivery/collect/order/${this.props.match.params.id}`, {
+        axios.post(`https://labubbles.online/api/delivery/collect/order/${this.props.match.params.id}`, {
+            customerName: this.state.customerName
+        },{
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -749,12 +759,44 @@ class OrderDetail extends Component {
                                 </div>
                             </form>
                         </Modal>
+
+
+                        <Modal
+                            isOpen={this.state.modalCollect}
+                            onRequestClose={this.closeModal}
+                            ariaHideApp={false}
+                            style={customStyles}
+                            contentLabel="Example Modal"
+                        >
+                            <div className="modal-header">
+                                {/* <span>{`${this.state.book.user.firstName} ${this.state.book.user.lastName} `}</span> */}
+                                <button type="button" onClick={this.closeModal} className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form onSubmit={this.handleCollect}>
+                                <div className="modal-body">
+                                    <div className="parent">
+                                        <div className="form-group">
+                                            <label htmlFor="role">Receive By: </label>
+                                            <input type="text" name="customerName" className="form-control" onChange={this.handleOnChange}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" onClick={this.closeModal}>Close</button>
+                                    <button type="submit" className="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </Modal>
+
+
                         {this.state.isOtw ? (
                             !this.state.isCollect ?
                                 <div className="actions mb-3">
                                     {this.state.book.status !== 'failed' ? (
                                         <div className="col-12 text-right pr-0">
-                                        <button onClick={this.handleCollect} className="btn btn-primary">Collect</button>
+                                        <button onClick={this.openModalCollect} className="btn btn-primary">Collect</button>
                                         <button onClick={this.openModalFailed} className="btn btn-danger ml-3">Failed</button>
                                         <button onClick={this.openModalOrder} className="btn btn-primary ml-3">Edit</button>
                                     </div>

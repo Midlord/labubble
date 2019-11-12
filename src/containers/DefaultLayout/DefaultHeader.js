@@ -43,6 +43,7 @@ class DefaultHeader extends Component {
             <DropdownMenu right>
               <DropdownItem header tag="div" className="text-center"><strong>{sessionStorage.getItem('fullName') ? sessionStorage.getItem('fullName') : 'Super Admin'}</strong></DropdownItem>
               <Link to="/profile"><DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem></Link>
+              <Link to="/matrix"><DropdownItem><i className="fa fa-user"></i> Delivery Charge Matrix</DropdownItem></Link>
               <DropdownItem onClick={e => this.props.onLogout(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>

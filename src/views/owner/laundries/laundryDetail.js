@@ -355,7 +355,7 @@ class LaundryDetail extends Component {
                                 </div>
                                 <div className="services mb-5">
                                     <div className="list-group">
-                                        <h3 className="mb-3">Services</h3>
+                                        <h3 className="mb-3">Services / Detergent</h3>
                                         {services.length > 0 ?
                                             services.map((service, i) => (
                                                 <span className="list-group-item list-group-item-action" key={i}>{service.title} <span className="badge badge-pill badge-primary pull-right">{`P ${service.price}`}</span></span>

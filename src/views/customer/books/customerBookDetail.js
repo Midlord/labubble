@@ -496,7 +496,7 @@ class CustomerBookDetail extends Component {
                 <div className="row">
                     <div className="content col">
                         <div className="order-md-2">
-                            {this.state.book.isReported === 0 ? (
+                            {this.state.book.isReported === 0 && this.state.book.status === 'delivered' ? (
                                 <div className="col-12 pl-0 pr-0">
                                 <div className="row">
                                     <div className="col-6">

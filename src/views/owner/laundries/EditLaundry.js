@@ -44,7 +44,8 @@ class EditLaundry extends Component {
             isLaundryShop: false,
             isServices: false,
             title: '',
-            price: ''
+            price: '',
+            servicePrice: ''
         };
         console.log(props.match.params.id)
     }
@@ -122,7 +123,7 @@ class EditLaundry extends Component {
 
         axios.post(`https://labubbles.online/api/owner/laundry/${this.state.laundry.id}/service/store`, {
             title: this.state.title,
-            price: this.state.price,
+            price: this.state.servicePrice,
         }, {
             headers: {
                 'Accept': 'application/json',
@@ -459,7 +460,7 @@ class EditLaundry extends Component {
                                     <div className="col-12 parent">
                                         <div className="card card-add mt-3">
                                             <div className="card-header">
-                                                <h3 className="text-center">Add Services</h3>
+                                                <h3 className="text-center">Add Services / Detergent</h3>
                                             </div>
                                             <div className="card-body">
                                                 <form onSubmit={this.handleServiceSubmit}>
@@ -469,7 +470,7 @@ class EditLaundry extends Component {
                                                     </div>
                                                     <div className="form-group">
                                                         <label htmlFor="inputPrice">Price</label>
-                                                        <input type="number" name="price" onChange={this.handleOnChange} className="form-control" id="inputPrice" />
+                                                        <input type="number" name="servicePrice" onChange={this.handleOnChange} value={this.state.servicePrice} className="form-control" id="inputPrice" />
                                                     </div>
 
                                                     <div className="form-group text-right">
@@ -481,7 +482,7 @@ class EditLaundry extends Component {
                                         </div>
                                         <div className="services mb-5">
                                             <div className="list-group">
-                                                <h3 className="mb-3">Services</h3>
+                                                <h3 className="mb-3">Services / Detergent</h3>
                                                 {this.state.services.length > 0 ?
                                                     this.state.services.map((service, i) => (
                                                         <span className="list-group-item list-group-item-action" key={i}>{service.title} <span className="badge badge-pill badge-primary pull-right">{`P ${service.price}`}</span></span>

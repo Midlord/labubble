@@ -83,10 +83,14 @@ const AdminDeliverySales = React.lazy(() => import('./views/admin/deliveries/del
 
 const Reports = React.lazy(() => import('./views/admin/reports/reports'));
 
+const Matrix = React.lazy(() => import('./views/customer/matrix/matrix'));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/customer/dashboard', exact: true, name: 'My Dashboard', component: CustomerDashboard  },
   { path: '/home', exact: true, name: 'Search', component: Home  },
+  { path: '/matrix', exact: true, name: 'Delivery Charge Matrix', component: Matrix  },
+  
   { path: '/profile', exact: true, name: 'Profile', component: Profile  },
   { path: '/rewards', exact: true, name: 'Rewards', component: Rewards  },
   { path: '/laundry/:id', exact: true, name: 'LaundryDetails', component: LaundryDetail },

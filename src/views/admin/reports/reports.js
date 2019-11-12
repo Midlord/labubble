@@ -71,6 +71,7 @@ class Owners extends Component {
                                             columns: [
                                                 {
                                                     Header: 'Date',
+                                                    accessor: 'created_at',
                                                     Cell: row => (
                                                         <span>{moment(row.original.created_at).format('YYYY-MM-DD')}</span>
                                                     ),
@@ -78,29 +79,25 @@ class Owners extends Component {
                                                 },
                                                 {
                                                     Header: 'Reported By',
+                                                    accessor: 'reported_by.firstName',
                                                     Cell: row => (
-                                                        <span>{row.original.reportedBy.firstName} {row.original.reportedBy.lastName}</span>
+                                                        <span>{row.original.reported_by.firstName} {row.original.reported_by.lastName}</span>
                                                     ),
                                                     headerClassName: 'text-left'
                                                 },
                                                 {
                                                     Header: 'Reported To',
+                                                    accessor: 'reported_to.firstName',
                                                     Cell: row => (
-                                                        <span>{row.original.reportedTo.firstName} {row.original.reportedTo.lastName}</span>
+                                                        <span>{row.original.reported_to.firstName} {row.original.reported_to.lastName}</span>
                                                     ),
                                                     headerClassName: 'text-left'
                                                 },
                                                 {
-                                                    Header: 'Email Address',
+                                                    Header: 'Remarks',
+                                                    accessor: 'remarks',
                                                     Cell: row => (
-                                                        <span>{row.original.user.email}</span>
-                                                    ),
-                                                    headerClassName: 'text-left'
-                                                },
-                                                {
-                                                    Header: 'Mobile Number',
-                                                    Cell: row => (
-                                                        <span>{row.original.user.mobileNumber}</span>
+                                                        <span>{row.original.remarks}</span>
                                                     ),
                                                     headerClassName: 'text-left'
                                                 }
