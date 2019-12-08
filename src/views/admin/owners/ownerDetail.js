@@ -26,7 +26,7 @@ class OwnerDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://labubbles.online/api/admin/owner/${this.props.match.params.id}`, {
+        axios.get(`http://localhost:8000/api/admin/owner/${this.props.match.params.id}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {

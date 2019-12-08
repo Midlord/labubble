@@ -140,7 +140,7 @@ class LaundryDetail extends Component {
             isLaundryLoaded: true,
             isServicesLoaded: true
         })
-        axios.get(`https://labubbles.online/api/owner/laundry`, {
+        axios.get(`http://localhost:8000/api/owner/laundry`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -211,7 +211,7 @@ class LaundryDetail extends Component {
                     <div className="comment-content" key={i}>
                         <div className="comment">
                             <div className="avatar">
-                                <img src={!rating.user.image ? "https://react.semantic-ui.com/images/avatar/small/elliot.jpg" : `https://labubbles.online/storage/avatar/${rating.user.image}`} />
+                                <img src={!rating.user.image ? "https://react.semantic-ui.com/images/avatar/small/elliot.jpg" : `http://localhost:8000/storage/avatar/${rating.user.image}`} />
                             </div>
                             <div className="content">
                                 <a className="author">{`${rating.user.firstName} ${rating.user.lastName}`}</a>
@@ -301,7 +301,7 @@ class LaundryDetail extends Component {
                                 <div className="row">
                                     <div className="col">
                                         <div className="mb-3">
-                                            <img className="btn-md img-size" src={laundry.image !== "" || laundry.image !== null ? `https://labubbles.online/storage/laundries/${laundry.image}` : require('../laundries/dummy.png')} alt="" />
+                                            <img className="btn-md img-size" src={laundry.image !== "" || laundry.image !== null ? `http://localhost:8000/storage/laundries/${laundry.image}` : require('../laundries/dummy.png')} alt="" />
                                         </div>
                                     </div>
                                     <div className="col">

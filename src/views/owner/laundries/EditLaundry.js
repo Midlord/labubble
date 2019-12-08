@@ -121,7 +121,7 @@ class EditLaundry extends Component {
             isLaundryLoaded: true
         });
 
-        axios.post(`https://labubbles.online/api/owner/laundry/${this.state.laundry.id}/service/store`, {
+        axios.post(`http://localhost:8000/api/owner/laundry/${this.state.laundry.id}/service/store`, {
             title: this.state.title,
             price: this.state.servicePrice,
         }, {
@@ -157,7 +157,7 @@ class EditLaundry extends Component {
             isLaundryLoaded: true,
             isServicesLoaded: true
         })
-        axios.get(`https://labubbles.online/api/owner/laundry`, {
+        axios.get(`http://localhost:8000/api/owner/laundry`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -186,7 +186,7 @@ class EditLaundry extends Component {
                         type: result.data.laundry.type,
                         price: result.data.laundry.price,
                         isLaundryShop: true,
-                        image: `https://labubbles.online/storage/laundries/${result.data.laundry.image}`,
+                        image: `http://localhost:8000/storage/laundries/${result.data.laundry.image}`,
                     });
                     this.state.type === "kilos" ? this.setState({ isKilos: true, isLoads: false }) : this.setState({ isKilos: false, isLoads: true })
 
@@ -230,7 +230,7 @@ class EditLaundry extends Component {
             isLaundryLoaded: true
         });
 
-        axios.post(`https://labubbles.online/api/owner/laundry/update`, {
+        axios.post(`http://localhost:8000/api/owner/laundry/update`, {
             shopName: this.state.shopName,
             opening: moment(this.state.opening).format('YYYY-MM-DD HH:mm:ss'),
             closing: moment(this.state.closing).format('YYYY-MM-DD HH:mm:ss'),

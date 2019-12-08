@@ -82,7 +82,7 @@ class Home extends Component {
     this.setState({
       isloaded: true
     })
-    axios.get(`https://labubbles.online/api/search/top`, {
+    axios.get(`http://localhost:8000/api/search/top`, {
       headers: {
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
         'Accept': 'application/json'
@@ -120,7 +120,7 @@ class Home extends Component {
     });
 
     if (this.state.searchFilter !== '') {
-      axios.post(`https://labubbles.online/api/laundryShops/search`,{
+      axios.post(`http://localhost:8000/api/laundryShops/search`,{
         searchFilter: this.state.searchFilter
       }, {
         headers: {
@@ -168,7 +168,7 @@ class Home extends Component {
       isloaded: true
     })
 
-    axios.get(`https://labubbles.online/api/${filter === "recommended" ? 'search/barangay' :'search/top'}`,{
+    axios.get(`http://localhost:8000/api/${filter === "recommended" ? 'search/barangay' :'search/top'}`,{
       headers: {
         'Accept': 'application/json',
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`

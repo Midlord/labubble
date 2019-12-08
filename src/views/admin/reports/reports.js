@@ -23,7 +23,7 @@ class Owners extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://labubbles.online/api/admin/reports`, {
+        axios.get(`http://localhost:8000/api/admin/reports`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {

@@ -119,7 +119,7 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://labubbles.online/api/delivery/process/order/${this.props.match.params.id}`, {
+        axios.get(`http://localhost:8000/api/delivery/process/order/${this.props.match.params.id}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -175,7 +175,7 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://labubbles.online/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`http://localhost:8000/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -248,7 +248,7 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://labubbles.online/api/delivery/delivered/order/${this.props.match.params.id}`, {
+        axios.get(`http://localhost:8000/api/delivery/delivered/order/${this.props.match.params.id}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -282,7 +282,7 @@ class OrderDetail extends Component {
             isloaded: true
         });
         toast.configure();
-        axios.post(`https://labubbles.online/api/delivery/book/${this.props.match.params.id}/update`, {
+        axios.post(`http://localhost:8000/api/delivery/book/${this.props.match.params.id}/update`, {
             kiloWashQty: this.state.kiloWashQty,
             kiloDryQty: this.state.kiloDryQty,
             loadsWashQty: this.state.loadsWashQty,
@@ -325,7 +325,7 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.post(`https://labubbles.online/api/delivery/reject/order/${this.props.match.params.id}`,{
+        axios.post(`http://localhost:8000/api/delivery/reject/order/${this.props.match.params.id}`,{
             customerReport: this.state.selectedCustomerOptions.join(', '),
             addressReport: this.state.selectedAddressOptions.join(', '),
         }, {
@@ -366,7 +366,7 @@ class OrderDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.post(`https://labubbles.online/api/delivery/collect/order/${this.props.match.params.id}`, {
+        axios.post(`http://localhost:8000/api/delivery/collect/order/${this.props.match.params.id}`, {
             customerName: this.state.customerName
         },{
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
@@ -402,7 +402,7 @@ class OrderDetail extends Component {
         e.stopPropagation();
 
         toast.configure();
-        axios.get(`https://labubbles.online/api/delivery/reassign/${this.props.match.params.id}`, {
+        axios.get(`http://localhost:8000/api/delivery/reassign/${this.props.match.params.id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`

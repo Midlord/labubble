@@ -78,7 +78,7 @@ class EditAddress extends Component {
             isLaundryLoaded: true
         });
 
-        axios.post(`https://labubbles.online/api/customer/update/address/${this.props.match.params.id}`, {
+        axios.post(`http://localhost:8000/api/customer/update/address/${this.props.match.params.id}`, {
             houseNumber: this.state.houseNumber,
             street: this.state.street,
             barangay: this.state.barangay,
@@ -111,7 +111,7 @@ class EditAddress extends Component {
 
     componentWillMount() {
 
-        axios.get(`https://labubbles.online/api/customer/edit/address/${this.props.match.params.id}`, {
+        axios.get(`http://localhost:8000/api/customer/edit/address/${this.props.match.params.id}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {

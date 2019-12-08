@@ -33,7 +33,7 @@ class AdminLogin extends Component {
     this.setState({
       isLoaded: true
     });
-    axios.post('https://labubbles.online/api/login', {
+    axios.post('http://localhost:8000/api/login', {
       email: this.state.email,
       password: this.state.password
     }, {

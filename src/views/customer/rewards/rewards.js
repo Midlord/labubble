@@ -33,7 +33,7 @@ class Rewards extends Component {
 
     componentDidMount() {
         this.setState({ isLoaded: true });
-        axios.get(`https://labubbles.online/api/customer/info/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`http://localhost:8000/api/customer/info/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -59,7 +59,7 @@ class Rewards extends Component {
     handleGenerate = () => {
         this.setState({ isLoaded: true });
         toast.configure();
-        axios.get(`https://labubbles.online/api/customer/generate/code`, {
+        axios.get(`http://localhost:8000/api/customer/generate/code`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {

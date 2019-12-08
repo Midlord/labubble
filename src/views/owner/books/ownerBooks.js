@@ -41,7 +41,7 @@ class OwnerBooks extends Component {
     this.setState({
       isloaded: true
     });
-    axios.get(`https://labubbles.online/api/owner/book`, {
+    axios.get(`http://localhost:8000/api/owner/book`, {
       headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
     })
       .then(result => {

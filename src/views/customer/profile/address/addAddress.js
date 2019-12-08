@@ -78,7 +78,7 @@ class AddAddress extends Component {
             isLaundryLoaded: true
         });
 
-        axios.post(`https://labubbles.online/api/customer/add/address`, {
+        axios.post(`http://localhost:8000/api/customer/add/address`, {
             houseNumber: this.state.houseNumber,
             street: this.state.street,
             barangay: this.state.barangay,
@@ -111,7 +111,7 @@ class AddAddress extends Component {
 
     componentWillMount() {
 
-        axios.get(`https://labubbles.online/api/owner/laundry/${this.props.match.params.id}/services`, {
+        axios.get(`http://localhost:8000/api/owner/laundry/${this.props.match.params.id}/services`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {

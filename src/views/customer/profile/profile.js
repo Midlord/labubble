@@ -72,7 +72,7 @@ class Profile extends Component {
 
         this.setState({ isLoaded: true });
         toast.configure();
-        axios.post('https://labubbles.online/api/update/customer', {
+        axios.post('http://localhost:8000/api/update/customer', {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             email: this.state.email,
@@ -133,7 +133,7 @@ class Profile extends Component {
 
     componentDidMount() {
         this.setState({ isLoaded: true });
-        axios.get(`https://labubbles.online/api/customer/info/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`http://localhost:8000/api/customer/info/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -198,7 +198,7 @@ class Profile extends Component {
                             <img src={window.location.origin + '/assets/img/bubbles.png'} alt="profile-sample1" className="background" />
                         </div>
                         <div className="profile-thumb-block">
-                            <img src={`https://labubbles.online/storage/avatar/${sessionStorage.getItem('image')}`} alt="profile-image" className="profile" />
+                            <img src={`http://localhost:8000/storage/avatar/${sessionStorage.getItem('image')}`} alt="profile-image" className="profile" />
                         </div>
                         <div className="card-content">
                             <h2>{`${this.state.user.firstName} ${this.state.user.lastName}`}<small>{this.state.user.role}</small></h2>

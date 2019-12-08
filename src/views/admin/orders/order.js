@@ -69,7 +69,7 @@ class Orders extends Component {
     this.setState({
       isloaded: true
     });
-    axios.get(`https://labubbles.online/api/admin/getOrders`, {
+    axios.get(`http://localhost:8000/api/admin/getOrders`, {
       headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
     })
       .then(result => {
@@ -98,7 +98,7 @@ class Orders extends Component {
       isloaded: true
     });
     toast.configure();
-    axios.post(`https://labubbles.online/api/admin/assign/order/${this.state.book_id}`,{
+    axios.post(`http://localhost:8000/api/admin/assign/order/${this.state.book_id}`,{
       user_id: user_id.value
     },{
       headers: {

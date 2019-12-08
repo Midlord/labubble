@@ -28,7 +28,7 @@ class Sales extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://labubbles.online/api/delivery/sales`, {
+        axios.get(`http://localhost:8000/api/delivery/sales`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {

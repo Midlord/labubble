@@ -38,7 +38,7 @@ class AddServices extends Component {
             isLaundryLoaded: true
         });
 
-        axios.post(`https://labubbles.online/api/owner/laundry/${this.props.match.params.id}/service/store`, {
+        axios.post(`http://localhost:8000/api/owner/laundry/${this.props.match.params.id}/service/store`, {
             title: this.state.title,
             price: this.state.price,
         }, {
@@ -72,7 +72,7 @@ class AddServices extends Component {
 
     componentWillMount() {
 
-        axios.get(`https://labubbles.online/api/owner/laundry/${this.props.match.params.id}/services`, {
+        axios.get(`http://localhost:8000/api/owner/laundry/${this.props.match.params.id}/services`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {

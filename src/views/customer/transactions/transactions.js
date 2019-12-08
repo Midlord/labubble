@@ -30,7 +30,7 @@ class Transactions extends Component {
     this.setState({
         isloaded: true
     });
-    axios.get(`https://labubbles.online/api/transactions/user/${sessionStorage.getItem('user_id')}`, {
+    axios.get(`http://localhost:8000/api/transactions/user/${sessionStorage.getItem('user_id')}`, {
         headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
     })
         .then(result => {

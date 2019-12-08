@@ -41,7 +41,7 @@ class LaundryDetail extends Component {
             isLaundryLoaded: true,
             isServicesLoaded: true
         })
-        axios.get(`https://labubbles.online/api/services/laundry/${this.props.match.params.id}/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`http://localhost:8000/api/services/laundry/${this.props.match.params.id}/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -98,7 +98,7 @@ class LaundryDetail extends Component {
                     <div className="comment-content mb-5" key={i}>
                         <div className="comment">
                             <div className="avatar">
-                                <img src={!rating.user.image ? "https://react.semantic-ui.com/images/avatar/small/elliot.jpg" : `https://labubbles.online/storage/avatar/${rating.user.image}`} />
+                                <img src={!rating.user.image ? "https://react.semantic-ui.com/images/avatar/small/elliot.jpg" : `http://localhost:8000/storage/avatar/${rating.user.image}`} />
                             </div>
                             <div className="content">
                                 <a className="author">{`${rating.user.firstName} ${rating.user.lastName}`}</a>
@@ -188,7 +188,7 @@ class LaundryDetail extends Component {
                                 <div className="row">
                                     <div className="col">
                                         <div className="mb-3">
-                                        <img className="btn-md img-size" src={laundry.image !== "" || laundry.image !== null ? `https://labubbles.online/storage/laundries/${laundry.image}` : require('../laundries/dummy.png')} alt="" />
+                                            <img className="btn-md img-size" src={laundry.image !== "" || laundry.image !== null ? `http://localhost:8000/storage/laundries/${laundry.image}` : require('../laundries/dummy.png')} alt="" />
                                         </div>
                                     </div>
                                     <div className="col">
@@ -196,12 +196,13 @@ class LaundryDetail extends Component {
                                         <div className="color-star mb-1">
                                             <CreateRatings stars={this.state.average_ratings} />
                                         </div>
-                                        <p>{moment().format('H') >= moment(laundry.opening).format('H') && moment().format('H') <= moment(laundry.closing).format('H') ?
+                                        {/* <p>{moment().format('hh:mm:ss').isBetween(moment(laundry.opening).format('hh:mm:ss'),moment(laundry.closing).format('hh:mm:ss')) ?
                                                  (<Link className="btn btn-primary btn-block" to={`/book/laundry/${laundry_id}`}>Book Now </Link>)
                                              :
                                                 (<strong>Laundry Shop is Closed</strong>)
-                                             }</p>
-                                     
+                                             }</p> */}
+                                        <Link className="btn btn-primary btn-block" to={`/book/laundry/${laundry_id}`}>Book Now </Link>
+
                                     </div>
                                 </div>
                                 <div className="row">
@@ -211,11 +212,11 @@ class LaundryDetail extends Component {
                                             <p>{laundry.openDay}</p>
                                             <span className="font-weight-bold">Opening - Closing</span>
                                             <p>{moment().format('H') >= moment(laundry.opening).format('H') && moment().format('H') <= moment(laundry.closing).format('H') ?
-                                                 (<p>{moment(laundry.opening).format('h:mm A')} - {moment(laundry.closing).format('h:mm A')}</p>)
-                                             :
+                                                (<p>{moment(laundry.opening).format('h:mm A')} - {moment(laundry.closing).format('h:mm A')}</p>)
+                                                :
                                                 (<strong>Closed</strong>)
-                                             }</p>
-                                    
+                                            }</p>
+
                                         </div>
                                     </div>
                                     <div className="col">

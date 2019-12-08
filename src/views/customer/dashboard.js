@@ -42,7 +42,7 @@ class Dashboard extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://labubbles.online/api/books/user`, {
+        axios.get(`http://localhost:8000/api/books/user`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {

@@ -97,7 +97,7 @@ class OwnerBookDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://labubbles.online/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`http://localhost:8000/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -169,7 +169,7 @@ class OwnerBookDetail extends Component {
             isloaded: true
         });
 
-        axios.get(`https://labubbles.online/api/owner/end/book/${this.props.match.params.id}`, {
+        axios.get(`http://localhost:8000/api/owner/end/book/${this.props.match.params.id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -209,7 +209,7 @@ class OwnerBookDetail extends Component {
             isloaded: true
         });
 
-        axios.get(`https://labubbles.online/api/owner/process/book/${this.props.match.params.id}`, {
+        axios.get(`http://localhost:8000/api/owner/process/book/${this.props.match.params.id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -249,7 +249,7 @@ class OwnerBookDetail extends Component {
             isloaded: true
         });
 
-        axios.get(`https://labubbles.online/api/owner/approved/book/${this.props.match.params.id}`, {
+        axios.get(`http://localhost:8000/api/owner/approved/book/${this.props.match.params.id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -291,7 +291,7 @@ class OwnerBookDetail extends Component {
             isloaded: true
         });
 
-        axios.get(`https://labubbles.online/api/owner/cancelled/book/${this.props.match.params.id}`, {
+        axios.get(`http://localhost:8000/api/owner/cancelled/book/${this.props.match.params.id}`, {
             headers: {
                 // 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -516,7 +516,7 @@ class OwnerBookDetail extends Component {
                                                 <div className="row">
                                                     <div className="col-4">
                                                         <div className="personnel-image">
-                                                            <img src="" alt="" className="img-thumbnail" src={`https://labubbles.online/storage/avatar/${this.state.personnel.image}`} />
+                                                            <img src="" alt="" className="img-thumbnail" src={`http://localhost:8000/storage/avatar/${this.state.personnel.image}`} />
                                                         </div>
                                                     </div>
                                                     <div className="col-8 pl-0">

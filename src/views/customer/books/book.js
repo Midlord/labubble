@@ -53,7 +53,7 @@ class Book extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://labubbles.online/api/services/laundry/${this.props.match.params.id}/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`http://localhost:8000/api/services/laundry/${this.props.match.params.id}/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -164,7 +164,7 @@ class Book extends Component {
         this.setState({
             isloaded: true
         });
-        axios.post('https://labubbles.online/api/book/store', {
+        axios.post('http://localhost:8000/api/book/store', {
             user_id: sessionStorage.getItem('user_id'),
             address_id: this.state.address_id,
             laundry_shop_id: this.props.match.params.id,

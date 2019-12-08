@@ -118,7 +118,7 @@ class CustomerBookDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.post(`https://labubbles.online/api/customer/cancel/order/${this.props.match.params.id}`, {
+        axios.post(`http://localhost:8000/api/customer/cancel/order/${this.props.match.params.id}`, {
             remarks: this.state.remarks
         }, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
@@ -147,7 +147,7 @@ class CustomerBookDetail extends Component {
             isloaded: true
         });
         toast.configure();
-        axios.post(`https://labubbles.online/api/laundry/rating/store`, {
+        axios.post(`http://localhost:8000/api/laundry/rating/store`, {
             laundry_shop_id: this.state.book.laundry_shop_id,
             message: this.state.message,
             stars: this.state.value
@@ -191,7 +191,7 @@ class CustomerBookDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://labubbles.online/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`http://localhost:8000/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -252,7 +252,7 @@ class CustomerBookDetail extends Component {
                 console.log(error)
             });
 
-        axios.get(`https://labubbles.online/api/laundry/${this.props.match.params.id}/rated`, {
+        axios.get(`http://localhost:8000/api/laundry/${this.props.match.params.id}/rated`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -287,7 +287,7 @@ class CustomerBookDetail extends Component {
         this.setState({
             isloaded: true
         });
-        axios.post(`https://labubbles.online/api/customer/report/order/${this.props.match.params.id}`,{
+        axios.post(`http://localhost:8000/api/customer/report/order/${this.props.match.params.id}`,{
             laundryReport: this.state.selectedLaundryOptions.join(', '),
             deliveryReport: this.state.selectedDeliveryOptions.join(', '),
         }, {
@@ -542,7 +542,7 @@ class CustomerBookDetail extends Component {
                                         <div className="row">
                                             <div className="col-4">
                                                 <div className="personnel-image">
-                                                    <img src="" alt="" className="img-thumbnail" src={`https://labubbles.online/storage/avatar/${this.state.personnel.image}`} />
+                                                    <img src="" alt="" className="img-thumbnail" src={`http://localhost:8000/storage/avatar/${this.state.personnel.image}`} />
                                                 </div>
                                             </div>
                                             <div className="col-8">

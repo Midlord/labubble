@@ -221,7 +221,7 @@ class Register extends Component {
     e.preventDefault();
     this.setState({ isLoaded: true });
     toast.configure();
-    axios.post('https://labubbles.online/api/register', {
+    axios.post('http://localhost:8000/api/register', {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,

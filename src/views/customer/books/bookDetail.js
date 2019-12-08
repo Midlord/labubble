@@ -85,7 +85,7 @@ class Book extends Component {
         this.setState({
             isloaded: true
         });
-        axios.get(`https://labubbles.online/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
+        axios.get(`http://localhost:8000/api/book/${this.props.match.params.id}/get/${sessionStorage.getItem('user_id')}`, {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(result => {
@@ -161,7 +161,7 @@ class Book extends Component {
             isloaded: true
         });
 
-        axios.delete(`https://labubbles.online/api/book/cancel/${this.props.match.params.id}`, {
+        axios.delete(`http://localhost:8000/api/book/cancel/${this.props.match.params.id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -195,7 +195,7 @@ class Book extends Component {
             isloaded: true
         });
 
-        axios.post(`https://labubbles.online/api/book/checkout/${this.props.match.params.id}`, {
+        axios.post(`http://localhost:8000/api/book/checkout/${this.props.match.params.id}`, {
             delivery_charge_id: this.state.delivery_charge_id,
             amount: this.state.total
         }, {
@@ -241,7 +241,7 @@ class Book extends Component {
             isloaded: true
         });
 
-        axios.post(`https://labubbles.online/api/customer/redeem/book/${this.props.match.params.id}`, {
+        axios.post(`http://localhost:8000/api/customer/redeem/book/${this.props.match.params.id}`, {
             code: this.state.code
         }, {
             headers: {
