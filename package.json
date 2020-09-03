@@ -62,7 +62,7 @@
     "redux": "^4.0.4",
     "redux-promise": "^0.6.0",
     "semantic-ui-react": "^0.88.1",
-    "serve": "^9.4.0",
+    "serve": "^10.1.2",
     "simple-line-icons": "^2.4.1",
     "tools": "0.0.0"
   },
